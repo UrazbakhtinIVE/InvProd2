@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+     {% block title %}Список принтеров {% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <div class="row">
+            <a href="{% url 'printer_create' %}">Добавить</a>
+           <table class="table">
+                  <thead>
+                    <tr>
+                        <th scope="col">Серийный номер</th>
+                      <th scope="col">Модель</th>
+                        <th scope="col">Имя</th>
+                      <th scope="col">Статус</th>
+
+                    </tr>
+                  </thead>
+                      <tbody>
+                      {% for p in  pl %}
+                       <tr>
+                          <td> <a href="{% url 'printer_detail' pk=p.pk  %}" >{{ p.serialNumber }}</a></td>
+                          <td>{{ p.printerModel.name }}</td>
+                          <td>{{ p.name }}</td>
+                          <td>{{ p.status.name }}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+</table>
+            </div>
+        </div>
+    {% endblock %}

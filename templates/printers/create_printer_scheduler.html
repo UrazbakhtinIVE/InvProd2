@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+     {% block title %}{% endblock %}
+    {% block content %}
+
+        <div class="container">
+            <div class="row">
+                <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <br>
+                        <button class="btn btn-outline-secondary">Сохранить</button>
+                 </form>
+            </div>
+        </div>
+
+    <script>
+    $(document).ready(function() {
+    $('#id_printer').select2();
+});
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+     {% block title %} {% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <div class="row">
+           <table class="table">
+                  <thead>
+                    <tr>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Серийный номер</th>
+                        <th scope="col">Модель</th>
+                        <th scope="col">Статус</th>
+                         <th scope="col">Дата</th>
+                    </tr>
+                  </thead>
+                      <tbody>
+                      {% for p in  printer %}
+                       <tr>
+                           <td>{{ p.uuid }} </td>
+                           <td>{{ p.printer.serialNumber }} </td>
+                          <td>{{ p.printer.printerModel.name }}</td>
+                           <td>{{p.printerStatus.name }}</td>
+                           <td>{{p.date }}</td>
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+</table>
+            </div>
+        </div>
+    {% endblock %}
