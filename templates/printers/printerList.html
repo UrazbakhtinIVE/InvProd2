@@ -17,7 +17,7 @@
                       <th scope="col">Модель</th>
                         <th scope="col">Имя</th>
                       <th scope="col">Статус</th>
-
+                      <th scope="col">Действие</th>
                     </tr>
                   </thead>
                       <tbody>
@@ -27,6 +27,7 @@
                           <td>{{ p.printerModel.name }}</td>
                           <td>{{ p.name }}</td>
                           <td>{{ p.status.name }}</td>
+                          <td><a href="{% url 'printer_update' pk=p.pk %}">Изменить</a></td>
                         </tr>
                       {% endfor %}
                       </tbody>

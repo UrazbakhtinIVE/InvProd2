@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'mainapp',
     'printers',
     'locations',
-    'cart',
 ]
 
 MIDDLEWARE = [
@@ -36,7 +35,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CART_SESSION_ID = 'cart'
+
 ROOT_URLCONF = 'InvProd2.urls'
 
 TEMPLATES = [
