@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'django_select2',
     'mainapp',
-    'printers',
+    'printers.apps.PrintersConfig',
     'locations',
 ]
 

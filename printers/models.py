@@ -71,10 +71,9 @@ def random_number():
 class PrinterScheduler(Scheduler):
     uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     printer = models.ForeignKey(Printer, models.CASCADE, verbose_name='Принтер')
-    printerStatus = models.ForeignKey(PrinterStatus, models.CASCADE, verbose_name='Статус принетра')
+    printerStatus = models.ForeignKey(PrinterStatus, models.CASCADE, verbose_name='Статус принетра', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Место расположение', blank=True, null=True)
     description = models.TextField(verbose_name='Описание', blank=True)
-
 
     class Meta:
         verbose_name = 'Журнал принтера'
