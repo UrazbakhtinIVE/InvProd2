@@ -6,7 +6,7 @@ class PrinterCreateForm(forms.ModelForm):
 
     class Meta:
         model = Printer
-        fields = ('serialNumber','printerModel','name', 'ip')
+        fields = ('serialNumber','printerModel', 'status', 'name', 'ip')
 
         widgets = {
             'serialNumber':forms.TextInput(attrs={'class':'form-control'}),
