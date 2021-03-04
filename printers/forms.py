@@ -13,6 +13,7 @@ class PrinterCreateForm(forms.ModelForm):
             'printerModel': forms.Select(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ip': forms.TextInput(attrs={'class':'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
         }
 
 

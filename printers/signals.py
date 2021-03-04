@@ -21,7 +21,6 @@ def update_printer_status_from_scheduler(sender, instance, **kwargs):
     """Обновляет status в модели Printer
         при создании экземпляра PrinterScheduler"""
 
-    Printer.objects.get(pk=instance.printer.pk) \
-        .update(status=instance.printerStatus)
+    Printer.objects.filter(pk=instance.printer.pk).update(status=instance.printerStatus)
 
 
