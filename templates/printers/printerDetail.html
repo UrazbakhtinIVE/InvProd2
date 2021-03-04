@@ -11,6 +11,7 @@
          <br>
         <div class="container">
 
+
             <h5>Информация о принтере с серийным номером: <strong class='serialNumber'>{{ pd.serialNumber }}</strong> </h5>
             <div class="row">
 
@@ -21,13 +22,12 @@
                         <p><strong>Производитель:</strong> {{ pd.printerModel.firm.name}}</p>
                         <p><strong>Модель принтера:</strong> {{ pd.printerModel.name }}</p>
                         <p><strong>Титул:</strong> {{ pd.location.titul.name }} </p>
-                        <p><strong>Помещение:</strong> {{ pd.location.number }} </p>
+                        <p><strong>Кабинет:</strong> {{ pd.location.number }} </p>
                         <p><strong>Статус:</strong> {{ pd.status.name }} </p>
-
                 </div>
-                <div class="col">
-                     {%  if pd.printerModel.img %}
-                        <img  class="img-printer_detail" src="{{ pd.printerModel.img.url }}"  alt="...">
+               <div class="col">
+                     {%  if pd.PrinterModel.img %}
+                        <img  class="img-printer_detile" src="{{ pd.PrinterModel.image.url }}"  alt="...">
                      {% else %}
                         <img  src="{% static 'img/print.png' %}" class="card-img" alt="...">
                      {% endif %}

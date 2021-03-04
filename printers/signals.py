@@ -24,3 +24,6 @@ def update_printer_status_from_scheduler(sender, instance, **kwargs):
     Printer.objects.filter(pk=instance.printer.pk).update(status=instance.printerStatus)
 
 
+
+
+

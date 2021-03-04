@@ -39,12 +39,13 @@ class PrinterUpdate(UpdateView):
 
 
 
-
-
 class PrinterSchedulerList(ListView):
     model = PrinterScheduler
+    queryset = PrinterScheduler.objects.all()
     template_name = 'printers/printerSchedulerList.html'
     context_object_name = 'psl'
+
+
 
 
 class PrinterShedulerCreate(CreateView):

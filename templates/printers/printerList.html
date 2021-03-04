@@ -9,7 +9,24 @@
     {% block content %}
         <div class="container">
             <div class="row">
-            <a href="{% url 'printer_create' %}">Добавить</a>
+
+                <div class="col"> <a class="add_" href="{% url 'printer_create' %}">Добавить</a></div>
+
+
+                 <nav class="navbar navbar-light">
+                         <form action="#" method="get" class="form-inline">
+                             <input  name="search" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Search">
+                             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Найти</button>
+                        </form>
+                 </nav>
+
+
+
+
+
+
+
+
            <table class="table">
                   <thead>
                     <tr>
