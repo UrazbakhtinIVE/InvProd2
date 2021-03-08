@@ -9,7 +9,7 @@
 
         <div class="container">
             <div class="row">
-                 <h3 class="List-title">Список принтеров</h3>
+                 <h3 class="List-title">Список картриджей</h3>
             </div>
         </div>
             <div class="container">
@@ -18,49 +18,48 @@
 
         <div class="container">
             <div class="row">
-             <div class="col"><div class="col"><p class="count">Общее колличество: {{ pl.count }}</p> </div></div>
+             <div class="col"><div class="col"><p class="count">Общее колличество: {{ cl.count }}</p> </div></div>
             <div class="col"></div>
         <div class="col">
+
             <nav class="navbar navbar-light">
-                 <form action="{% url 'printer_list' %}" method="get" class="form-inline">
+                 <form action="{% url 'catrige_list' %}" method="get" class="form-inline">
                      <input  name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
                 </form>
             </nav>
-        </div>
-        </div>
 
+        </div>
+        </div>
 
         </div>
             <div class="container">
-                <a href="{% url 'printer_create' %}">Добавить</a>
+                <a href="{% url 'create_catrige' %}">Добавить</a>
                 <table class="table">
                       <thead>
                       <tr>
-                          <th> Серийный номер</th>
-                          <th> Имя принтера</th>
-                              <th>Модель принтера</th>
-                              <th>Производитель</th>
-                              <th scope="col">Действие</th>
-
-                           </tr>
-                    {% for prtinter in pl %}
+                            <th> Серийный номер</th>
+                            <th>Цвет</th>
+                            <th>Модель картриджа</th>
+                            <th>Производитель</th>
+                            <th scope="col">Действие</th>
+                      </tr>
+                    {% for catrige in cl %}
                               <tbody>
                                 <tr>
-                                    <td><a href="{% url 'printer_detail' pk=prtinter.pk %}">{{ prtinter.serialNumber}}</a> </td>
-                                    <td>{{ prtinter.name }}</td>
-                                    <td>{{ prtinter.printerModel.name }}</td>
-                                    <td>{{ prtinter.printerModel.firm.name }}</td>
+                                    <td><a href="{% url 'catrige_detail' pk=catrige.pk %}">{{ catrige.serialNumber}}</a></td>
+                                     <td>{{ catrige.catrigeModel.color.name }}</td>
+                                    <td>{{ catrige.catrigeModel.name }}</td>
+                                    <td>{{ catrige.catrigeModel.firm.name }}</td>
 
-
-                                    <td><a href="{% url 'printer_update' pk=prtinter.pk %}">Изменить</a></td>
+                                    <td><a href="#">Изменить</a>
+                                        <a href="#">Удалить</a>
+                                    </td>
                                 </tr>
                               </tbody>
                     {% endfor %}
                 </table>
             </div>
-
-
 
     {% endblock %}
     {% block footer %}

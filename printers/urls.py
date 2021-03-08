@@ -2,7 +2,6 @@ from django.urls import path
 from printers.views import *
 
 urlpatterns = [
-    path('', PrinterTemplate.as_view(), name='printer_template'),
     path('list/',PrinterListView.as_view(),name='printer_list'),
     path('create/',PrinterCreateView.as_view(), name='printer_create'),
     path('update/<int:pk>',PrinterUpdateView.as_view(), name='printer_update'),

@@ -4,10 +4,6 @@ from printers.forms import *
 from printers.models import *
 
 
-class PrinterTemplate(TemplateView):
-    template_name = 'printers/printerTemplate.html'
-
-
 
 class PrinterListView(ListView):
     model = Printer
@@ -18,12 +14,6 @@ class PrinterListView(ListView):
         query = self.request.GET.get('q', "")
         object_list = Printer.objects.filter(Q(serialNumber__contains=query))
         return object_list
-
-
-class PrinterSearchView(ListView):
-    model = Printer
-    template_name = 'printers/printerList.html'
-
 
 
 
@@ -52,14 +42,16 @@ class PrinterUpdateView(UpdateView):
 
 
 
-
 class PrinterSchedulerListView(ListView):
     model = PrinterScheduler
     queryset = PrinterScheduler.objects.all()
     template_name = 'printers/printerSchedulerList.html'
     context_object_name = 'psl'
 
-
+    def get_queryset(self):
+        query = self.request.GET.get('q', "")
+        object_list = PrinterScheduler.objects.filter(Q(printer__serialNumber__contains= query))
+        return object_list
 
 
 class PrinterShedulerCreateView(CreateView):
