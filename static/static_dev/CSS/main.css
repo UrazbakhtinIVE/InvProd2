@@ -3,7 +3,23 @@
  color: red;
 
 }
-.add_{
 
 
+
+.searchLInList{
+ display: flex;
+ justify-content: flex-end;
+ padding-top: 26px;
+
+}
+.wrap_list{
+
+}
+
+.search{
+ margin-top: 40px;
+ padding-left: 20px;
+}
+.list_tutle{
+ padding-top: 16px;
 }

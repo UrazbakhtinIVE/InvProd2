@@ -42,3 +42,7 @@ class PrinterSchedulerCreateForm(forms.ModelForm):
             'location': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+
+class PrinterSearchForm(forms.ModelForm):
+    qwery = forms.CharField()

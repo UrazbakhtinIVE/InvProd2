@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views.generic import *
 from printers.forms import *
 from printers.models import *
@@ -7,21 +8,34 @@ class PrinterTemplate(TemplateView):
     template_name = 'printers/printerTemplate.html'
 
 
-class PrinterList(ListView):
+
+class PrinterListView(ListView):
     model = Printer
-    queryset = Printer.objects.all()
     template_name = 'printers/printerList.html'
     context_object_name = 'pl'
 
+    def get_queryset(self):
+        query = self.request.GET.get('q', "")
+        object_list = Printer.objects.filter(Q(serialNumber__contains=query))
+        return object_list
 
-class PrinterDetail(DetailView):
+
+class PrinterSearchView(ListView):
+    model = Printer
+    template_name = 'printers/printerList.html'
+
+
+
+
+
+class PrinterDetailView(DetailView):
     model = Printer
     queryset = Printer.objects.all()
     template_name = 'printers/printerDetail.html'
     context_object_name = 'pd'
 
 
-class PrinterCreate(CreateView):
+class PrinterCreateView(CreateView):
     model = Printer
     queryset = Printer.objects.filter(status__name=PrinterScheduler.printerStatus)
     form_class = PrinterCreateForm
@@ -30,7 +44,7 @@ class PrinterCreate(CreateView):
 
 
 
-class PrinterUpdate(UpdateView):
+class PrinterUpdateView(UpdateView):
     model = Printer
     template_name = 'printers/printerUpdate.html'
     form_class = PrinterUpdateForm
@@ -39,7 +53,7 @@ class PrinterUpdate(UpdateView):
 
 
 
-class PrinterSchedulerList(ListView):
+class PrinterSchedulerListView(ListView):
     model = PrinterScheduler
     queryset = PrinterScheduler.objects.all()
     template_name = 'printers/printerSchedulerList.html'
@@ -48,12 +62,11 @@ class PrinterSchedulerList(ListView):
 
 
 
-class PrinterShedulerCreate(CreateView):
+class PrinterShedulerCreateView(CreateView):
     model = PrinterScheduler
     form_class = PrinterSchedulerCreateForm
     template_name = 'printers/create_printer_scheduler.html'
     context_object_name = 'cp'
-
 
 
 
