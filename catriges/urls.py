@@ -1,6 +1,7 @@
 from django.urls import path
-from printers.views import *
+from catriges.views import *
 
 urlpatterns = [
+    path('list/', CatrigeListView.as_view(), name='catrige_list'),
 ]
 

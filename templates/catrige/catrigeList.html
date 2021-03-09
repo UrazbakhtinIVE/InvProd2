@@ -34,7 +34,7 @@
 
         </div>
             <div class="container">
-                <a href="{% url 'create_catrige' %}">Добавить</a>
+                <a href="#">Добавить</a>
                 <table class="table">
                       <thead>
                       <tr>
@@ -47,7 +47,7 @@
                     {% for catrige in cl %}
                               <tbody>
                                 <tr>
-                                    <td><a href="{% url 'catrige_detail' pk=catrige.pk %}">{{ catrige.serialNumber}}</a></td>
+                                    <td><a href="#">{{ catrige.serialNumber}}</a></td>
                                      <td>{{ catrige.catrigeModel.color.name }}</td>
                                     <td>{{ catrige.catrigeModel.name }}</td>
                                     <td>{{ catrige.catrigeModel.firm.name }}</td>
