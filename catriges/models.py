@@ -24,7 +24,7 @@ class CatrigeStatus(Status):
 
     class Meta:
         verbose_name = 'Статус картриджа'
-        verbose_name_plural = 'Картриджи'
+        verbose_name_plural = 'Статусы картриджей'
 
     def __str__(self):
         return self.name
@@ -67,10 +67,12 @@ def random_number():
     return rand
 
 
+
+
 class CatrigeScheduler(Scheduler):
     uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     catrige = models.ForeignKey(Catrige, models.CASCADE, verbose_name='Картридж')
-    printerStatus = models.ForeignKey(CatrigeStatus, models.CASCADE, verbose_name='Статус принетра', blank=True, null=True)
+    catrigeStatus = models.ForeignKey(CatrigeStatus, models.CASCADE, verbose_name='Статус принетра', blank=True, null=True)
     description = models.TextField(verbose_name='Описание', blank=True)
 
     class Meta:

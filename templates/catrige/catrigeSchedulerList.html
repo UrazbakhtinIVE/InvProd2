@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+     {% block title %}Список принтеров {% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                     <nav class="navbar navbar-light">
+                 <form action="{% url 'printer_scheduler_list' %}" method="get" class="form-inline">
+                     <input  name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+                </div>
+
+           <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Номер</th>
+                      <th scope="col">Серийный номер</th>
+                      <th scope="col">Модель</th>
+                      <th scope="col">Статус</th>
+
+                    </tr>
+                  </thead>
+                      <tbody>
+                      {% for c in  csl %}
+                       <tr>
+                         <td>{{ c.uuid }}</td>
+                         <td>{{ c.catrige.serialNumber }}</td>
+                         <td>{{ c.catrige.catrigeModel.name }}</td>
+                         <td>{{ c.catrige.status.name }}</td>
+
+
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+</table>
+            </div>
+        </div>
+    {% endblock %}
