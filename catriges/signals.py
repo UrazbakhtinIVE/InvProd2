@@ -4,14 +4,13 @@ from .models import Catrige, CatrigeScheduler
 
 
 @receiver(post_save, sender=Catrige)
-def update_scheduler_status_from_printer(sender, instance, **kwargs):
+def update_scheduler_status_from_catrige(sender, instance, **kwargs):
     """Обновляет catrigeStatus в модели catrigeScheduler
         при обновлении/создании экземпляра в модели Catrige"""
 
     CatrigeScheduler.objects.create(
-        printer=instance,
-        printerStatus=instance.status,
-        location=instance.location
+        catrige=instance,
+        catrigeStatus=instance.status
     )
 
 
@@ -19,7 +18,7 @@ def update_scheduler_status_from_printer(sender, instance, **kwargs):
 def update_printer_status_from_scheduler(sender, instance, **kwargs):
     """Обновляет status в модели Catrige
         при создании экземпляра CatrigeScheduler"""
-    Catrige.objects.filter(pk=instance.printer.pk).update(status=instance.printerStatus)
+    Catrige.objects.filter(pk=instance.catrige.pk).update(status=instance.catrige.status)
 
 
 

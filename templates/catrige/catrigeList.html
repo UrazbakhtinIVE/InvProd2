@@ -41,6 +41,7 @@
                             <th>Цвет</th>
                             <th>Модель картриджа</th>
                             <th>Производитель</th>
+                            <th>Статус</th>
                             <th scope="col">Действие</th>
                       </tr>
                     {% for catrige in cl %}
@@ -50,7 +51,7 @@
                                      <td>{{ catrige.catrigeModel.color.name }}</td>
                                     <td>{{ catrige.catrigeModel.name }}</td>
                                     <td>{{ catrige.catrigeModel.firm.name }}</td>
-
+                                    <td>{{ catrige.status }}</td>
                                     <td><a href="#">Изменить</a>
                                         <a href="#">Удалить</a>
                                     </td>
