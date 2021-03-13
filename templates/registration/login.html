@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+   {% block  header%}
+        {% include 'login.html' %}
+    {% endblock %}
+
+    {% block content %}
+
+
+
+        <div class="container">
+
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+
+       <form id="login-form" action="{% url 'login' %}"  method="post">
+                {% csrf_token %}
+                <h4 class="h4_hard">Авторизация</h4>
+                    <p class="form_info">Введите Ваши регистрационные данные</p>
+                {{ form.username.label_tag }}<br>
+                {{ form.username }}<br>
+
+                {{ form.password.label_tag }}<br>
+                {{ form.password }}<br>
+                <br>
+                <button type="submit" class="btn btn-outline-dark">Войти</button>
+       </form>
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}

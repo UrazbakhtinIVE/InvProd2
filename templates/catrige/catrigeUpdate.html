@@ -9,14 +9,12 @@
     {% block content %}
         <div class="container">
             <br>
-            <h5>Обновить данные принтера </h5>
+            <h5>Обновить данные</h5>
             <div class="row">
                  <form method="post">
                         {% csrf_token %}
                      <label>Статус</label>
                             {{form.status}}
-                     <label>Место расположение</label>
-                        {{ form.location }}
                         <br>
                         <button class="btn btn-outline-secondary">Сохранить</button>
                  </form>

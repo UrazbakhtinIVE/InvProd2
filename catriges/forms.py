@@ -14,3 +14,4 @@ class CatrigeCreateForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'}),
 
         }
+

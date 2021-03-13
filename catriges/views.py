@@ -19,6 +19,15 @@ class CatrigeCreateView(CreateView):
     template_name = 'catrige/catrigeCreate.html'
 
 
+
+# class CatrigeUpdateView(UpdateView):
+#     model = Catrige
+#     form_class = CatrigeUpdateForm
+#     template_name = 'catrige/catrigeUpdate.html'
+
+
+
+
 class CatrigeSchedulerListView(ListView):
     model = CatrigeScheduler
     queryset = CatrigeScheduler.objects.all()

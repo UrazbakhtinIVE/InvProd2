@@ -15,15 +15,14 @@
         <a class="nav-link" href="{% url 'printer_template' %}">Печать</a>
       </li>
         <li class="nav-item">
-{#        <a class="nav-link" href="#">Рабочее место</a>#}
       </li>
 
     </ul>
-{#          {% if user.username %}#}
-{#              <a class="logo_link" href="{% url 'logout' %}">Выйти</a>#}
-{#          {% else %}#}
-{#              <a class="logo_link" href="{% url 'login' %}">Войти</a>#}
-{#          {% endif %}#}
+          {% if user.username %}
+              <a  href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+              <a  href="{% url 'login' %}">Войти</a>
+          {% endif %}
   </div>
 </nav>
 {% endblock header %}
