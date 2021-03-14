@@ -17,6 +17,14 @@ class CatrigeListView(ListView):
 
 
 
+class CatrigeDetailView(DetailView):
+    model = Catrige
+    queryset = Catrige.objects.all()
+    template_name = 'catrige/catrigeDetail.html'
+    context_object_name = 'cd'
+
+
+
 class CatrigeCreateView(CreateView):
     model = Catrige
     queryset = Catrige.objects.filter(status__name=CatrigeScheduler.catrigeStatus)
