@@ -10,6 +10,11 @@ class CatrigeListView(ListView):
     context_object_name = 'cl'
     template_name = 'catrige/catrigeList.html'
 
+    def get_queryset(self):
+        query = self.request.GET.get('q', "")
+        object_list = Catrige.objects.filter(Q(serialNumber__contains=query))
+        return object_list
+
 
 
 class CatrigeCreateView(CreateView):
