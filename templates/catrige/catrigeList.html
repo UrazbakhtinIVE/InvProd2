@@ -48,8 +48,8 @@
                                     <td><a href="{% url 'catrige_detile' pk=catrige.pk %}">{{ catrige.serialNumber}}</a></td>
                                     <td>{{ catrige.catrigeModel.name }}</td>
                                     <td>{{ catrige.status }}</td>
-                                    <td><a href="#">Изменить</a>
-                                        <a href="#">Удалить</a>
+                                    <td><a href="{% url 'update_catrige' pk=catrige.pk %}">Изменить</a>
+                                        <a href="{% url 'delete_catrige' pk=catrige.pk %}">Удалить</a>
                                     </td>
                                 </tr>
                               </tbody>

@@ -7,9 +7,9 @@
      {% block title %}{% endblock %}
 
     {% block content %}
+
         <div class="container">
-            <br>
-            <h5>Обновить данные</h5>
+            <h5>Обновить данные картриджа {{ cu.serialNumber }}</h5>
             <div class="row">
                  <form method="post">
                         {% csrf_token %}
