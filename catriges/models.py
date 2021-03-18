@@ -2,22 +2,7 @@ import random
 from django.db import models
 from django.urls import reverse
 
-
-
 from mainapp.models import Category, Firm, Product, Scheduler, Status
-
-
-class Color(models.Model):
-    name = models.CharField(max_length=20, verbose_name='Цвет', unique=True)
-    word = models.CharField(max_length=1, verbose_name='Обозначение')
-
-    class Meta:
-        verbose_name = 'Цвет'
-        verbose_name_plural = 'Цвета'
-
-
-    def __str__(self):
-        return self.name
 
 
 class CatrigeStatus(Status):
@@ -33,7 +18,16 @@ class CatrigeStatus(Status):
 class CartridgeModel(models.Model):
     category = models.ForeignKey(Category, models.CASCADE, verbose_name='Категория')
     name = models.CharField(max_length=20, verbose_name='Название')
-    color = models.ForeignKey(Color, models.CASCADE, verbose_name='Цвет')
+
+    COLORS = (
+        (None, "-----"),
+        ("black", "Черный"),
+        ("red", "Красный"),
+        ("blue", "Синий"),
+        ("yellow", "Желтый"),
+    )
+
+    color = models.CharField(choices=COLORS, max_length=12, default=None, verbose_name='Цвет', null=True)
     firm = models.ForeignKey(Firm, models.CASCADE, verbose_name='Производитель' )
     img = models.ImageField(blank=True)
 

@@ -2,11 +2,6 @@ from django.contrib import admin
 from catriges.models import *
 
 
-@admin.register(Color)
-class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['name','word']
-
-
 @admin.register(CartridgeModel)
 class PrinterModelAdmin(admin.ModelAdmin):
     list_display = ['category','name','color', 'firm']
