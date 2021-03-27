@@ -2,3 +2,6 @@
 /Pipfile.lock
 __pycache__/
 .idea
+.pylintrc
+.vscode
+db.sqlite3

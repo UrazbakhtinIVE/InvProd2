@@ -1,11 +1,10 @@
 from django.test import TestCase
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save
 
 from printers.models import PrinterType, PrinterModel, \
     PrinterStatus, Printer, PrinterScheduler
 from mainapp.models import Category, Firm
-from printers.signals import update_scheduler_status_from_printer, \
-    update_printer_status_from_scheduler
+from printers.signals import update_scheduler_status_from_printer
 
 
 def create_test_data():
@@ -33,15 +32,19 @@ class PrinterSignalsTestCase(TestCase):
 
     def test_connection(self) -> None:
         """Тестирование успешного подключения сигнала."""
-        is_disconnected = post_save.disconnect(
+        is_disconnected = pre_save.disconnect(
             receiver=update_scheduler_status_from_printer, sender=Printer)
         self.assertTrue(is_disconnected)
-        post_save.connect(receiver=update_scheduler_status_from_printer, sender=Printer)
+        pre_save.connect(receiver=update_scheduler_status_from_printer, sender=Printer)
 
     def test_new_scheduler_instance(self) -> None:
         """Тестирование создания нового экземпляра PrinterScheduler и
         установку ему соответствующих атрибутов на основе экземпляра Printer."""
         printer_instance = Printer.objects.get(pk=1)
+
+        printer_instance.status_id = 2
+        printer_instance.save()
+
         scheduler_instance = PrinterScheduler.objects.get(pk=1)
 
         self.assertIsInstance(scheduler_instance, PrinterScheduler)
@@ -58,36 +61,6 @@ class PrinterSignalsTestCase(TestCase):
         printer_instance.status = PrinterStatus.objects.get(pk=2)
         printer_instance.save()
 
-        scheduler_instance = PrinterScheduler.objects.get(pk=2)
+        scheduler_instance = PrinterScheduler.objects.get(pk=1)
         self.assertNotEqual(scheduler_instance.printerStatus, previuos_printer_status)
         self.assertNotEqual(printer_instance.status, previuos_printer_status)
-
-
-class PrinterSchedulerSignalsTestCase(TestCase):
-    """Тестирование обработчика update_printer_status_from_scheduler
-    сигнала post_save для модели PrinterScheduler."""
-
-    @classmethod
-    def setUpTestData(cls) -> None:
-        """Установка неизменяемых на протяжении теста данных."""
-        create_test_data()
-
-    def test_connection(self) -> None:
-        """Тестирование успешного подключения сигнала."""
-        is_disconnected = post_save.disconnect(
-            receiver=update_printer_status_from_scheduler, sender=PrinterScheduler)
-        self.assertTrue(is_disconnected)
-        post_save.connect(receiver=update_scheduler_status_from_printer, sender=Printer)
-
-    def test_scheduler_should_update_printer_status(self) -> None:
-        """Тестирование присвоения соответствующего статуса экземпляру Printer
-        при изменении экземпляра PrinterScheduler."""
-        scheduler_instance = PrinterScheduler.objects.get(pk=1)
-        printer_instance = Printer.objects.get(pk=1)
-        previuos_printer_status = printer_instance.status
-
-        scheduler_instance.printerStatus = PrinterStatus.objects.get(pk=2)
-        scheduler_instance.save()
-
-        self.assertNotEqual(printer_instance.status, scheduler_instance.printerStatus)
-        self.assertNotEqual(previuos_printer_status, scheduler_instance.printerStatus)

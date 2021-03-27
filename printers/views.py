@@ -1,8 +1,65 @@
 from django.db.models import Q
 from django.views.generic import *
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+
+from dal import autocomplete
+
 from printers.forms import *
 from printers.models import *
+from catriges.models import Catrige
 
+
+class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
+    """API-представление, возращающее черные картриджи по запросу."""
+    queryset = Catrige.objects.get_black_cartridges()
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(
+            Q(black_cartridge=None)
+            & ~Q(status="onrefill")
+            & Q(serialNumber__icontains=self.q)
+        )
+        return queryset
+
+
+class BlueCartridgesAutocomplete(autocomplete.Select2QuerySetView):
+    """API-представление, возращающее голубые картриджи по запросу."""
+    queryset = Catrige.objects.get_blue_cartridges()
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(
+            Q(blue_cartridge=None)
+            & ~Q(status="onrefill")
+            & Q(serialNumber__icontains=self.q)
+        )
+        return queryset
+
+
+class YellowCartridgesAutocomplete(autocomplete.Select2QuerySetView):
+    """API-представление, возращающее желтые картриджи по запросу."""
+    queryset = Catrige.objects.get_yellow_cartridges()
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(
+            Q(yellow_cartridge=None)
+            & ~Q(status="onrefill")
+            & Q(serialNumber__icontains=self.q)
+        )
+        return queryset
+
+
+class PurpleCartridgesAutocomplete(autocomplete.Select2QuerySetView):
+    """API-представление, возращающее пурпурные картриджи по запросу."""
+    queryset = Catrige.objects.get_purple_cartridges()
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(
+            Q(purple_cartridge=None)
+            & ~Q(status="onrefill")
+            & Q(serialNumber__icontains=self.q)
+        )
+        return queryset
 
 
 class PrinterListView(ListView):
@@ -17,7 +74,6 @@ class PrinterListView(ListView):
 
 
 
-
 class PrinterDetailView(DetailView):
     model = Printer
     queryset = Printer.objects.all()
@@ -25,20 +81,23 @@ class PrinterDetailView(DetailView):
     context_object_name = 'pd'
 
 
-class PrinterCreateView(CreateView):
+class PrinterCreateView(SuccessMessageMixin, CreateView):
     model = Printer
     queryset = Printer.objects.filter(status__name=PrinterScheduler.printerStatus)
     form_class = PrinterCreateForm
     template_name = 'printers/printerCreate.html'
     context_object_name = 'pc'
 
+    def get_success_message(self, cleaned_data):
+        return f"Новый принтер был успешно создан."
 
 
-class PrinterUpdateView(UpdateView):
+class PrinterUpdateView(SuccessMessageMixin, UpdateView):
     model = Printer
     template_name = 'printers/printerUpdate.html'
     form_class = PrinterUpdateForm
     context_object_name = 'pu'
+    success_message = "Информация о принтере была успешно обновлена."
 
 
 

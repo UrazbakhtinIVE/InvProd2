@@ -3,16 +3,7 @@ from django.db import models
 from django.urls import reverse
 
 from mainapp.models import Category, Firm, Product, Scheduler, Status
-
-
-class CatrigeStatus(Status):
-
-    class Meta:
-        verbose_name = 'Статус картриджа'
-        verbose_name_plural = 'Статусы картриджей'
-
-    def __str__(self):
-        return self.name
+from .managers import CustomCartridgesManager
 
 
 class CartridgeModel(models.Model):
@@ -22,9 +13,9 @@ class CartridgeModel(models.Model):
     COLORS = (
         (None, "-----"),
         ("black", "Черный"),
-        ("red", "Красный"),
-        ("blue", "Синий"),
+        ("blue", "Голубой"),
         ("yellow", "Желтый"),
+        ("purple", "Пурпурный"),
     )
 
     color = models.CharField(choices=COLORS, max_length=12, default=None, verbose_name='Цвет', null=True)
@@ -38,12 +29,18 @@ class CartridgeModel(models.Model):
     def __str__(self):
         return self.name
 
-
+CARTRIDGE_STATUSES = (
+    ("reserved", "В резерве"),
+    ("working", "В работе"),
+    ("onrefill", "На заправку"),
+)
 
 class Catrige(Product):
     catrigeModel = models.ForeignKey(CartridgeModel, models.CASCADE, verbose_name='Модель картриджа')
-    status = models.ForeignKey(CatrigeStatus, models.CASCADE, verbose_name='Статус')
 
+    status = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True, verbose_name='Статус')
+
+    objects = CustomCartridgesManager()
 
     class Meta:
         verbose_name = 'Катридж'
@@ -66,7 +63,7 @@ def random_number():
 class CatrigeScheduler(Scheduler):
     uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     catrige = models.ForeignKey(Catrige, models.CASCADE, verbose_name='Картридж')
-    catrigeStatus = models.ForeignKey(CatrigeStatus, models.CASCADE, verbose_name='Статус принетра', blank=True, null=True)
+    catrigeStatus = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True, verbose_name='Статус')
     description = models.TextField(verbose_name='Описание', blank=True)
 
     class Meta:

@@ -6,15 +6,9 @@ from catriges.models import *
 class PrinterModelAdmin(admin.ModelAdmin):
     list_display = ['category','name','color', 'firm']
 
-@admin.register(CatrigeStatus)
-class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['name']
-
 @admin.register(Catrige)
 class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['catrigeModel','status']
-
-
+    list_display = ['serialNumber', 'catrigeModel','status']
 
 @admin.register(CatrigeScheduler)
 class PrinterModelAdmin(admin.ModelAdmin):
