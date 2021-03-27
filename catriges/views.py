@@ -26,7 +26,7 @@ class CatrigeDetailView(DetailView):
 
 class CatrigeCreateView(CreateView):
     model = Catrige
-    queryset = Catrige.objects.filter(status__name=CatrigeScheduler.catrigeStatus)
+    queryset = Catrige.objects.filter(status=CatrigeScheduler.catrigeStatus)
     form_class = CatrigeCreateForm
     template_name = 'catrige/catrigeCreate.html'
 

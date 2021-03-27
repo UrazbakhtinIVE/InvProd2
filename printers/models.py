@@ -49,7 +49,27 @@ class Printer(Product):
     ip = models.CharField(max_length=15, verbose_name='Ip адрес')
     status = models.ForeignKey(PrinterStatus,models.CASCADE, verbose_name='Статус принтера', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Месторасположение', blank=True, null=True)
-    catridges = models.ManyToManyField(Catrige, verbose_name='Установленый картридж',  blank=True)
+
+    # Установленные картриджи
+    black_cartridge = models.OneToOneField(
+        Catrige, on_delete=models.SET_NULL,
+        blank=True, null=True, related_name="black_cartridge",
+        verbose_name="Черный картридж")
+
+    blue_cartridge = models.OneToOneField(
+        Catrige, on_delete=models.SET_NULL,
+        blank=True, null=True, related_name="blue_cartridge",
+        verbose_name="Голубой картридж")
+
+    yellow_cartridge = models.OneToOneField(
+        Catrige, on_delete=models.SET_NULL,
+        blank=True, null=True, related_name="yellow_cartridge",
+        verbose_name="Желтый картридж")
+
+    purple_cartridge = models.OneToOneField(
+        Catrige, on_delete=models.SET_NULL,
+        blank=True, null=True, related_name="purple_cartridge",
+        verbose_name="Пурпурный картридж")
 
     class Meta:
         verbose_name = 'Принетер'

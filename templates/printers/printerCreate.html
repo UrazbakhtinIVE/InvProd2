@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block  header%}
-        {% include 'header.html' %}
-    {% endblock %}
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
 
-     {% block title %}Добавить принтер{% endblock %}
+{% block title %}Добавить принтер{% endblock %}
 
-    {% block content %}
-        <div class="container">
-            <br>
-            <h5>Добавить принтер в список</h5>
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Добавить принтер в список</h5>
+        <form method="post">
             <div class="row">
-                 <form method="post">
-                        {% csrf_token %}
-                          <label>Модель принтера</label>
-                            {{ form.printerModel }}
-                          <label>Серийный номер</label>
-                            {{ form.serialNumber }}
-                          <label>Имя</label>
-                            {{ form.name }}
-                          <label>ip адрес</label>
-                            {{ form.ip }}
-                          <label>Статус</label>
-                            {{ form.status }}
-                        <br>
-                        <button class="btn btn-outline-secondary">Сохранить</button>
-                 </form>
+                {% csrf_token %}
+                <div class="col">
+                    <label>Модель принтера</label>
+                    {{ form.printerModel }}
+                    <label>Серийный номер</label>
+                    {{ form.serialNumber }}
+                    <label>Имя</label>
+                    {{ form.name }}
+                    <label>ip адрес</label>
+                    {{ form.ip }}
+                    <label>Статус</label>
+                    {{ form.status }}
+                    <br />
+                    {{ form.errors }}
+                    <button class="btn btn-outline-secondary">Сохранить</button>
+                </div>
+                <div class="col">
+                    <label>Картриджи</label>
+                    <div class="alert alert-success">
+                        При добавлении картриджа в принтер его статус поменяется с <strong>В резерве</strong> на
+                        <strong>В работе</strong>.
+                    </div>
+                    {{ form.black_cartridge }}
+                    {{ form.blue_cartridge }}
+                    {{ form.yellow_cartridge }}
+                    {{ form.purple_cartridge }}
+                </div>
             </div>
-        </div>
-    {% endblock %}
+
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ form.media }}
+{% endblock js %}

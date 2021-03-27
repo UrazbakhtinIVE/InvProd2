@@ -1,25 +1,57 @@
 {% extends 'base.html' %}
 {% load static %}
-    {% block  header%}
-        {% include 'header.html' %}
-    {% endblock %}
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
 
-     {% block title %}{% endblock %}
+{% block title %}{% endblock %}
 
-    {% block content %}
-        <div class="container">
-            <br>
-            <h5>Обновить данные принтера </h5>
+{% block content %}
+    <div class="container">
+        <br>
+        <h5>Обновить данные принтера </h5>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
+                    {{ message|safe }}
+                    <button class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
             <div class="row">
-                 <form method="post">
-                        {% csrf_token %}
-                     <label>Статус</label>
-                            {{form.status}}
-                     <label>Место расположение</label>
-                        {{ form.location }}
-                        <br>
-                        <button class="btn btn-outline-secondary">Сохранить</button>
-                 </form>
+                {% csrf_token %}
+                <div class="col">
+                    <label>Статус</label>
+                    {{ form.status }}
+                    <label>Место расположение</label>
+                    {{ form.location }}
+                </div>
+                <div class="col">
+                    <label>Картриджи</label>
+                    <div class="alert alert-success">
+                        При добавлении картриджа в принтер его статус поменяется с <strong>В резерве</strong> на
+                        <strong>В работе</strong>.
+                    </div>
+                    <div class="alert alert-danger">
+                        При удалении из принтера картриджа его статус поменяется с <strong>В работе</strong> на <strong>На
+                        заправку</strong>.
+                    </div>
+                    {{ form.black_cartridge }}
+                    {{ form.blue_cartridge }}
+                    {{ form.yellow_cartridge }}
+                    {{ form.purple_cartridge }}
+                </div>
+
             </div>
-        </div>
-    {% endblock %}
+            {{ form.errors }}
+            <button class="btn btn-outline-secondary">Сохранить</button>
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    {{ form.media }}
+{% endblock js %}
