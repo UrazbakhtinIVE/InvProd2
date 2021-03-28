@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'InvProd2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'InvDB3',
+        'NAME': 'InvDB',
         'USER': 'postgres',
         'PASSWORD': 'masterkey',
         'HOST': '127.0.0.1',

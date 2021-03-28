@@ -27,8 +27,8 @@
 
                 </div>
                <div class="col">
-                     {%  if pd.PrinterModel.img %}
-                        <img  class="img-printer_detile" src="{{ pd.PrinterModel.image.url }}"  alt="...">
+                     {%  if pd.printerModel.img %}
+                         <img class="printer_img" src="{{ pd.printerModel.img.url }}"  alt="...">
                      {% else %}
                         <img  src="{% static 'img/print.png' %}" class="card-img" alt="...">
                      {% endif %}
