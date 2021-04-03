@@ -1,8 +1,8 @@
 import random
 from django.db import models
 from django.urls import reverse
-
-from mainapp.models import Category, Firm, Product, Scheduler, Status
+from mainapp.models import Category, Firm, Product, Scheduler
+from person.models import *
 from .managers import CustomCartridgesManager
 
 
@@ -19,7 +19,7 @@ class CartridgeModel(models.Model):
     )
 
     color = models.CharField(choices=COLORS, max_length=12, default=None, verbose_name='Цвет', null=True)
-    firm = models.ForeignKey(Firm, models.CASCADE, verbose_name='Производитель' )
+    firm = models.ForeignKey(Firm, models.CASCADE, verbose_name='Производитель')
     img = models.ImageField(blank=True)
 
     class Meta:
@@ -29,18 +29,23 @@ class CartridgeModel(models.Model):
     def __str__(self):
         return self.name
 
+
 CARTRIDGE_STATUSES = (
     ("reserved", "В резерве"),
     ("working", "В работе"),
     ("onrefill", "На заправку"),
 )
 
+
 class Catrige(Product):
     catrigeModel = models.ForeignKey(CartridgeModel, models.CASCADE, verbose_name='Модель картриджа')
 
-    status = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True, verbose_name='Статус')
+    status = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True,
+                              verbose_name='Статус')
 
     objects = CustomCartridgesManager()
+
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Катридж'
@@ -54,22 +59,22 @@ class Catrige(Product):
 
 
 def random_number():
-    rand = random.randrange(1000,10001,1)
+    rand = random.randrange(1000, 10001, 1)
     return rand
-
-
 
 
 class CatrigeScheduler(Scheduler):
     uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     catrige = models.ForeignKey(Catrige, models.CASCADE, verbose_name='Картридж')
-    catrigeStatus = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True, verbose_name='Статус')
+    catrigeStatus = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True,
+                                     verbose_name='Статус')
+    date = models.DateField(auto_now_add=True)
     description = models.TextField(verbose_name='Описание', blank=True)
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True, default=Person)
 
     class Meta:
         verbose_name = 'Журнал картриджей'
         verbose_name_plural = 'Журналы картриджей'
 
-
     def __str__(self):
-        return  self.catrige.serialNumber
+        return self.catrige.serialNumber

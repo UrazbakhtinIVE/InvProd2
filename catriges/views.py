@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import *
-from catriges.models import *
 from catriges.forms import *
+from dal import autocomplete
 
 
 class CatrigeListView(ListView):
@@ -44,9 +44,6 @@ class CatrigeDelete(DeleteView):
     success_url = reverse_lazy('catrige_list')
 
 
-
-
-
 class CatrigeSchedulerListView(ListView):
     model = CatrigeScheduler
     queryset = CatrigeScheduler.objects.all()
@@ -57,3 +54,13 @@ class CatrigeSchedulerListView(ListView):
         query = self.request.GET.get('q', "")
         object_list = CatrigeScheduler.objects.filter(Q(catrige__serialNumber__contains=query))
         return object_list
+
+
+class SearchFirstNameAutocomplete(autocomplete.Select2QuerySetView):
+    """API-представление, возращающее фамилию пользователя."""
+
+    def get_queryset(self):
+        queryset = self.queryset.filter(
+            Q(firstName__icontains=self.q)
+        )
+        return queryset

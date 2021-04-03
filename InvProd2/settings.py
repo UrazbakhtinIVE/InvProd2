@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'printers.apps.PrintersConfig',
     'catriges.apps.CatrigesConfig',
     'locations',
+    'person',
 
 ]
 

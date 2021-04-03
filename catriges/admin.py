@@ -3,16 +3,15 @@ from catriges.models import *
 
 
 @admin.register(CartridgeModel)
-class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['category','name','color', 'firm']
+class CatrigeModelAdmin(admin.ModelAdmin):
+    list_display = ['category', 'name', 'color', 'firm']
+
 
 @admin.register(Catrige)
-class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['serialNumber', 'catrigeModel','status']
+class CatrigeModelAdmin(admin.ModelAdmin):
+    list_display = ['serialNumber', 'catrigeModel', 'status']
+
 
 @admin.register(CatrigeScheduler)
-class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['uuid','catrige','catrigeStatus']
-
-
-
+class CatrigeShedulerAdmin(admin.ModelAdmin):
+    list_display = ['uuid', 'catrige', 'catrigeStatus', 'date']
