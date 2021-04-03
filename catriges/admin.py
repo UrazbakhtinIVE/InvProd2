@@ -14,4 +14,4 @@ class CatrigeModelAdmin(admin.ModelAdmin):
 
 @admin.register(CatrigeScheduler)
 class CatrigeShedulerAdmin(admin.ModelAdmin):
-    list_display = ['uuid', 'catrige', 'catrigeStatus', 'date']
+    list_display = ['uuid', 'catrige', 'catrigeStatus', 'date', 'person']

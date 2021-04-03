@@ -8,6 +8,4 @@ urlpatterns = [
     path('update/<int:pk>/', login_required(CatrigeUpdateView.as_view()), name='update_catrige'),
     path('delete/<int:pk>/', login_required(CatrigeDelete.as_view()), name='delete_catrige'),
     path('schedulerList/', login_required(CatrigeSchedulerListView.as_view()), name='catrige_scheduler_list'),
-    path('search-first-name-autocomplete/', SearchFirstNameAutocomplete.as_view(),name='search-first-name-autocomplete')
 ]
-

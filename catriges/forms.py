@@ -31,6 +31,5 @@ class CatrigeUpdateForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'}),
             'person': autocomplete.ModelSelect2(
                 url="search-first-name-autocomplete",
-                attrs=PERSON_ATTRS
             )
         }

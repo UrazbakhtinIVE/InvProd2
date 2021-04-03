@@ -17,8 +17,12 @@
                 <div class="col">
                         <p><strong>Категория:</strong> {{ cd.catrigeModel.category.name }}</p>
                         <p><strong>Модель картриджа:</strong> {{ cd.catrigeModel.name }}</p>
-                        <p><strong>Цвет:</strong> {{ cd.catrigeModel.color.name }}</p>
+                        <p><strong>Цвет:</strong> {{ cd.catrigeModel.get_color_display}}</p>
                         <p><strong>Производитель:</strong> {{ cd.catrigeModel.firm.name }}</p>
+                        <p><strong>Пользователь:</strong> {{ cd.person.firstName }}
+                                                          {{ cd.person.lastName }}
+                                                          {{ cd.person.fatherName }}
+                        </p>
 
 
 

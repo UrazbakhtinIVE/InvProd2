@@ -68,9 +68,9 @@ class CatrigeScheduler(Scheduler):
     catrige = models.ForeignKey(Catrige, models.CASCADE, verbose_name='Картридж')
     catrigeStatus = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True,
                                      verbose_name='Статус')
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True, auto_created=True)
     description = models.TextField(verbose_name='Описание', blank=True)
-    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True, default=Person)
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Журнал картриджей'

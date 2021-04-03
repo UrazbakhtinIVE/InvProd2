@@ -58,9 +58,8 @@ class CatrigeSchedulerListView(ListView):
 
 class SearchFirstNameAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее фамилию пользователя."""
+    queryset = Person.objects.all()
 
     def get_queryset(self):
-        queryset = self.queryset.filter(
-            Q(firstName__icontains=self.q)
-        )
+        queryset = self.queryset.filter(firstName__icontains=self.q)
         return queryset
