@@ -15,9 +15,15 @@
                         {% csrf_token %}
                      <label>Статус</label>
                             {{form.status}}
+                     <label>Пользователь</label>
+                            {{ form.person }}
                         <br>
                         <button class="btn btn-outline-secondary">Сохранить</button>
                  </form>
             </div>
         </div>
     {% endblock %}
+
+{% block js %}
+    {{ form.media }}
+{% endblock js %}

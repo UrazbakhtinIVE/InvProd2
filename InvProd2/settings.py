@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +22,7 @@ INSTALLED_APPS = [
     'printers.apps.PrintersConfig',
     'catriges.apps.CatrigesConfig',
     'locations',
+    'person',
 
 ]
 
@@ -35,7 +35,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'InvProd2.urls'
 
@@ -87,10 +86,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+
+TIME_ZONE = 'europe/moscow'
 
 USE_I18N = True
 
@@ -98,11 +98,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, "static", "static_dev"),
+    os.path.join(BASE_DIR, "static", "static_dev"),
 )
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)

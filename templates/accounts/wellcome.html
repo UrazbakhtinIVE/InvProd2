@@ -12,16 +12,20 @@
     {% block content %}
         <div class="container">
             <div class="row">
-               <h4>Добро пожаловать на сайт InvWeb </h4>
-            </div>
-             <div class="wrap-card">
-            <div class="container">
-                <div class="row">
-
+                <div class="col"><div class="col"><h5 class="zag">Добро пожаловать на сайт InvWeb  </h5></div>
+                    <p>Сайт предназначен для учета перефирийного оборудования на предприятии
+                        Если у Вас есть логин и пароль для сайта кликнете по иконке <a href="{% url 'login' %}">Войти</a></p>
                 </div>
             </div>
+        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <img class="img_main" src="{% static "img/pc_periferiya.jpg" %}">
+                    </div>
+                </div>
             </div>
-
         </div>
     {% endblock %}
     {% block footer %}

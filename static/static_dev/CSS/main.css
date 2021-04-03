@@ -156,3 +156,15 @@
 .select2-search__field:placeholder-shown {
     width: 100% !important;
 }
+.zag{
+    padding-top: 30px;
+}
+.naz{
+    color:  red;
+}
+
+
+.img_main{
+   width: 960px;
+    height: 443px;
+}

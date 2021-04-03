@@ -16,9 +16,7 @@ def update_scheduler_status_from_catrige(sender, instance, **kwargs):
         if obj.status != instance.status:
             CatrigeScheduler.objects.create(
                 catrige=instance,
-                catrigeStatus=instance.status)
-
-
-
-
+                catrigeStatus=instance.status,
+                person=instance.person
+            )
 
