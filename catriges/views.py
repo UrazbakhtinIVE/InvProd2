@@ -5,6 +5,11 @@ from catriges.forms import *
 from dal import autocomplete
 
 
+class CatrigeInfo(TemplateView):
+    template_name = 'catrige/catrige_info.html'
+
+
+
 class CatrigeListView(ListView):
     model = Catrige
     queryset = Catrige.objects.all()

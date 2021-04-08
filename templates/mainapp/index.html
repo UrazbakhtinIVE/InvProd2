@@ -9,7 +9,22 @@
     {% block content %}
         <div class="container">
             <div class="row">
-                <a href="{% url 'printer_template' %}">Печать</a>
+                <div class="col">
+                     <a class="link_wrap" href="{% url 'printer_template' %}"><img src="{% static 'img/printer.png' %}"></a>
+                     <a class="link_wrap_for_img" href="{% url 'printer_template' %}">Печатные усройства</a>
+                </div>
+
+                 <div class="col">
+                     <a class="link_wrap" href="#"><img src="{% static 'img/audio.png' %}"></a>
+                     <a class="link_wrap_for_img" href="#">Аудио устройства</a>
+                </div>
+
+                 <div class="col">
+                     <a class="link_wrap" href="#"><img src="{% static 'img/video.png' %}"></a>
+                     <a class="link_wrap_for_img" href="#">Видео устройства</a>
+                </div>
+
+
             </div>
         </div>
     {% endblock %}

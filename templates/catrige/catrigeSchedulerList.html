@@ -19,28 +19,26 @@
                 </form>
             </nav>
                 </div>
-
            <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">Номер</th>
+                      <th scope="col">Номер заявки</th>
                       <th scope="col">Серийный номер</th>
                       <th scope="col">Модель</th>
                       <th scope="col">Статус</th>
-                      <th scope="col">Пользователь</th>
                       <th scope="col">Дата</th>
-
+                      <th scope="col">Пользователь</th>
                     </tr>
                   </thead>
                       <tbody>
                       {% for c in  csl %}
                        <tr>
-                         <td>{{ c.uuid }}</td>
+                         <td>{{ c.number }}</td>
                          <td>{{ c.catrige.serialNumber }}</td>
                          <td>{{ c.catrige.catrigeModel.name }}</td>
                          <td>{{ c.get_catrigeStatus_display }}</td>
-                         <td>{{ c.person.firstName }}</td>
                          <td>{{ c.date }}</td>
+                         <td>{{ c.person.firstName }}</td>
                        </tr>
                       {% endfor %}
                       </tbody>

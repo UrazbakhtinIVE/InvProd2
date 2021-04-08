@@ -42,10 +42,9 @@ class Catrige(Product):
 
     status = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True,
                               verbose_name='Статус')
-
     objects = CustomCartridgesManager()
-
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
+    number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
 
     class Meta:
         verbose_name = 'Катридж'
@@ -58,19 +57,20 @@ class Catrige(Product):
         return reverse('catrige_list')
 
 
-def random_number():
-    rand = random.randrange(1000, 10001, 1)
-    return rand
+# def random_number():
+#     rand = random.randrange(1000, 10001, 1)
+#     return rand
 
 
 class CatrigeScheduler(Scheduler):
-    uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
+    # uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     catrige = models.ForeignKey(Catrige, models.CASCADE, verbose_name='Картридж')
     catrigeStatus = models.CharField(choices=CARTRIDGE_STATUSES, max_length=12, default="reserved", null=True,
                                      verbose_name='Статус')
     date = models.DateTimeField(auto_now_add=True, auto_created=True)
     description = models.TextField(verbose_name='Описание', blank=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
+    number = models.CharField(max_length=150,verbose_name='Заявка в тех.поддержку', blank=True, unique=True)
 
     class Meta:
         verbose_name = 'Журнал картриджей'

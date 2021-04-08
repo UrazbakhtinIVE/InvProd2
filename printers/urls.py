@@ -3,6 +3,7 @@ from printers.views import *
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
+    path('printer_info/', login_required(PrinterInfo.as_view()), name='printer_info'),
     path('list/', login_required(PrinterListView.as_view()), name='printer_list'),
     path('create/', login_required(PrinterCreateView.as_view()), name='printer_create'),
     path('update/<int:pk>',login_required(PrinterUpdateView.as_view()), name='printer_update'),

@@ -9,6 +9,11 @@ from printers.forms import *
 from printers.models import *
 from catriges.models import Catrige
 
+class PrinterInfo(TemplateView):
+    template_name = 'printers/printer_info.html'
+
+
+
 
 class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее черные картриджи по запросу."""
@@ -118,6 +123,7 @@ class PrinterShedulerCreateView(CreateView):
     form_class = PrinterSchedulerCreateForm
     template_name = 'printers/create_printer_scheduler.html'
     context_object_name = 'cp'
+
 
 
 

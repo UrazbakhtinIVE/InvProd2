@@ -168,3 +168,23 @@
    width: 960px;
     height: 443px;
 }
+.link_wrap{
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+
+}
+.link_wrap_for_img{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: #1a1e21;
+    font-size: 24px;
+
+}
+
+.link_wrap_for_img:hover{
+    color: red;
+    text-decoration: none;
+}
+

@@ -2,6 +2,7 @@ from django.urls import path
 from catriges.views import *
 from django.contrib.auth.decorators import login_required
 urlpatterns = [
+    path('catrige_info/', login_required(CatrigeInfo.as_view()), name='catrige_info'),
     path('list/', login_required(CatrigeListView.as_view()), name='catrige_list'),
     path('detile/<int:pk>/', login_required(CatrigeDetailView.as_view()), name='catrige_detile'),
     path('create/', login_required(CatrigeCreateView.as_view()), name='create_catrige'),

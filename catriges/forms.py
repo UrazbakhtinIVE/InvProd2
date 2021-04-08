@@ -25,10 +25,11 @@ class CatrigeCreateForm(forms.ModelForm):
 class CatrigeUpdateForm(forms.ModelForm):
     class Meta:
         model = Catrige
-        fields = ('status', 'person')
+        fields = ('status', 'person', 'number')
 
         widgets = {
             'status': forms.Select(attrs={'class': 'form-control'}),
+            'number': forms.TextInput(attrs={'class': 'form-control'}),
             'person': autocomplete.ModelSelect2(
                 url="search-first-name-autocomplete",
             )
