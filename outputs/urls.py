@@ -1,10 +1,9 @@
 from django.urls import path
-from outputs.views import *
-from django.contrib.auth.decorators import login_required
+from outputs.views import OutputsView, OutputsList
+
 
 urlpatterns = [
-    path('', login_required(OutputsView.as_view()),         name='outputs_info'),
-    path('list/', login_required(MonitorList.as_view()), name='output_list'),
-    path('list/', login_required(HeadsetList.as_view()), name='output_list'),
+    path('', OutputsView.as_view(), name='outputs_info'),
+    path('list/', OutputsList.as_view(), name='output_list'),
 
 ]

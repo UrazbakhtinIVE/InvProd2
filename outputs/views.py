@@ -1,27 +1,22 @@
-from django.shortcuts import render
-from django.views.generic import *
+from itertools import chain
 
-from outputs.models import *
+from django.shortcuts import render
+from django.views.generic import ListView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from outputs.models import Monitor, Headset, Speakers
 
 
 class OutputsView(TemplateView):
     template_name = 'outputs/outputs_info.html'
 
 
+class OutputsList(LoginRequiredMixin, ListView):
+    """Представление, выводящие все устройства."""
 
-class HeadsetList(ListView):
-    model = Headset
-    queryset = Headset.objects.all()
+    monitors = Monitor.objects.all()
+    headsets = Headset.objects.all()
+    speakers = Speakers.objects.all()
+    queryset = chain(monitors, headsets, speakers)
+    
     template_name = 'outputs/outputsList.html'
-    context_object_name = 'headSet'
-
-
-class MonitorList(ListView):
-    model = Monitor
-    queryset = Monitor.objects.all()
-    template_name = 'outputs/outputsList.html'
-    context_object_name = 'monitor'
-
-
-    def get_context_data(self, **kwargs):
-        complex = super(MonitorList, self).get_context_data()
