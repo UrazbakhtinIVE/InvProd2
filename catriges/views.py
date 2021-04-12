@@ -40,7 +40,7 @@ class CatrigeUpdateView(UpdateView):
     model = Catrige
     form_class = CatrigeUpdateForm
     template_name = 'catrige/catrigeUpdate.html'
-
+    context_object_name = 'cu'
 
 class CatrigeDelete(DeleteView):
     model = Catrige

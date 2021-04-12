@@ -1,5 +1,5 @@
-from django.db import models
 from locations.models import *
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название', db_index=True)
@@ -12,6 +12,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Firm(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название', db_index=True)
@@ -49,7 +50,7 @@ class Product(models.Model):
 
 
 class Status(models.Model):
-    name = models.CharField(max_length=50,verbose_name='Статус', db_index=True)
+    name = models.CharField(max_length=50, verbose_name='Статус', db_index=True)
     slug = models.SlugField(max_length=20)
 
     class Meta:
@@ -59,13 +60,8 @@ class Status(models.Model):
         return self.name
 
 
-
-
 class Scheduler(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name='Дата')
 
-
     class Meta:
         abstract = True
-
-

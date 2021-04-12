@@ -105,5 +105,3 @@ class PrinterScheduler(Scheduler):
     def get_absolute_url(self):
         return reverse('printer_scheduler_list')
 
-
-

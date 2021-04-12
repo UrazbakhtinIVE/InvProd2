@@ -8,10 +8,21 @@
 
     {% block content %}
 
+        <div class="wrap_zag">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                         <div class="col"> <h5>Обновить данные картриджа  <span class="serialNumber">{{ cu.serialNumber }}</span></h5></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="container">
-            <h5>Обновить данные картриджа {{ cu.serialNumber }}</h5>
             <div class="row">
-                 <form method="post">
+                 <div class="col">
+                     <form method="post">
                         {% csrf_token %}
                      <label>Статус</label>
                             {{form.status}}
@@ -22,6 +33,7 @@
                         <br>
                         <button class="btn btn-outline-secondary">Сохранить</button>
                  </form>
+                 </div>
             </div>
         </div>
     {% endblock %}

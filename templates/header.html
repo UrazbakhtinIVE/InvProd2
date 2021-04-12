@@ -3,7 +3,7 @@
 {% block header %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'index' %}">Портэнерго</a>
+  <a class="navbar-brand" href="{% url 'index' %}"><h1 class="logo">Портэнерго</h1></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -12,17 +12,25 @@
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'printer_template' %}">Печать</a>
+        <a class="nav-link" href="#">Устройство ввода</a>
       </li>
-        <li class="nav-item">
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'output' %}">Устройство вывода</a>
       </li>
 
     </ul>
+
           {% if user.username %}
               <a  href="{% url 'logout' %}">Выйти</a>
           {% else %}
               <a  href="{% url 'login' %}">Войти</a>
+
           {% endif %}
+
+
   </div>
+
+
 </nav>
 {% endblock header %}

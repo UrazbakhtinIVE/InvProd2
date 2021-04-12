@@ -3,7 +3,14 @@
     color: red;
 
 }
+.logo{
+    color: #6610f2;
+    font-family: Archangelsk;
+}
 
+.logo:hover{
+    color: #1a1e21;
+}
 
 .searchLInList {
     display: flex;
@@ -180,11 +187,21 @@
     text-decoration: none;
     color: #1a1e21;
     font-size: 24px;
+    text-align: center;
 
 }
 
 .link_wrap_for_img:hover{
     color: red;
     text-decoration: none;
+}
+
+.wrap_header{
+    display: flex;
+    justify-content: end;
+
+}
+.wrap_zag{
+  padding-top: 40px;
 }
 

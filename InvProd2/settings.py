@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'catriges.apps.CatrigesConfig',
     'locations',
     'person',
-
+    'outputs',
 ]
 
 MIDDLEWARE = [

@@ -5,6 +5,12 @@ class IndexView(TemplateView):
 
 
 
-class PrinterTemplate(TemplateView):
-    template_name = 'mainapp/menuTemplate.html'
+class InfoView(TemplateView):
+    template_name = 'mainapp/output_info.html'
+
+
+class PrintView(TemplateView):
+    template_name = 'printers/menuTemplate.html'
+
+
 
