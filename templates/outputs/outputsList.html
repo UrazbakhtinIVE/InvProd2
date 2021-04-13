@@ -50,24 +50,16 @@
                 <th scope="col">Действие</th>
             </tr>
 
-            {% for m in headSet %}
-                <tbody>
+            {% for output in object_list %}
+            <tbody>
                 <tr>
-                    <td>{{ m.serialNumber }}</td>
+                    <td>{{ output.serialNumber }}</td>
+                    <td>{{ output.model }}</td>
+                    <td>{{ output.model.category }}</td>
+                    <td>{{ output.model.firm }}</td>
                 </tr>
-                </tbody>
+            </tbody>
             {% endfor %}
-
-            {% for m in monitor %}
-                <tbody>
-                <tr>
-                    <td>{{ m.serialNumber }}</td>
-                </tr>
-                </tbody>
-            {% endfor %}
-
-
-
 
         </table>
     </div>
