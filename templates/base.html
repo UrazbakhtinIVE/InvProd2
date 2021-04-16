@@ -10,6 +10,9 @@
     <script src="{% static "libs/jquery/jquery-3.6.0.min.js" %}"></script>
     <script src="{% static "libs/bootstrap/bootstrap.min.js" %}" defer></script>
 
+    {% block js %}
+    {% endblock js %}
+
 </head>
 <body>
 
@@ -26,9 +29,6 @@
 
 {% block footer %}
 {% endblock %}
-
-{% block js %}
-{% endblock js %}
 </body>
 
 </html>
