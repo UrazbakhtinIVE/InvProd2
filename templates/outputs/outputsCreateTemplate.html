@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Добавление устройств{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                {% for c in category %}
+                  <p><a href="#">{{ c.name }}</a></p>
+                        {% if c.name == 'Мониторы' %}
+
+                        {% endif %}
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}
