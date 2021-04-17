@@ -49,7 +49,29 @@
                 <th scope="col">Действие</th>
             </tr>
 
-            {% for output in object_list %}
+            {% for output in monitors %}
+            <tbody>
+                <tr>
+                    <td>{{ output.serialNumber }}</td>
+                    <td>{{ output.model.category }}</td>
+                    <td>{{ output.model }}</td>
+                    <td>{{ output.model.firm }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+
+            {% for output in headsets %}
+            <tbody>
+                <tr>
+                    <td>{{ output.serialNumber }}</td>
+                    <td>{{ output.model.category }}</td>
+                    <td>{{ output.model }}</td>
+                    <td>{{ output.model.firm }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+
+            {% for output in speakers %}
             <tbody>
                 <tr>
                     <td>{{ output.serialNumber }}</td>
