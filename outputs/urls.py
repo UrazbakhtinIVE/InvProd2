@@ -1,7 +1,7 @@
 from django.urls import path
 from outputs.views import (
     OutputsView, OutputsListView, AddOutputFromCategory,
-    AddMonitorView, AddHeadsetView, AddSpeakerView
+    AddMonitorView, AddHeadsetView, AddSpeakerView,
 )
 
 

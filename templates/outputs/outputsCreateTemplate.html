@@ -12,7 +12,10 @@
         <div class="row">
             <div class="col">
 
-                {{ form }}
+{#                {{ form }}#}
+                {% csrf_token %}
+                <label>Категория</label>
+                {{ form}}
 
             </div>
         </div>

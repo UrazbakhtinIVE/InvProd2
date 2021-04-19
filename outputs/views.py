@@ -1,7 +1,10 @@
 from itertools import chain
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, FormView, CreateView
 from django.urls import reverse_lazy
+from django.views.generic.base import View
+
 from outputs.models import Monitor, Headset, Speakers
 from mainapp.models import Category
 from .forms import OutputsCategoriesForm
@@ -10,19 +13,42 @@ from .forms import OutputsCategoriesForm
 class OutputsView(TemplateView):
     template_name = 'outputs/outputs_info.html'
 
+#
+# class OutputsListView(LoginRequiredMixin, TemplateView):
+#
+#
+#     monitors = Monitor.objects.all()
+#     headsets = Headset.objects.all()
+#     speakers = Speakers.objects.all()
+#     template_name = 'outputs/outputsList.html'
+#     extra_context = {
+#         "monitors": monitors,
+#         "headsets": headsets,
+#         "speakers": speakers
+#     }
 
-class OutputsListView(LoginRequiredMixin, TemplateView):
+
+class OutputsListView(LoginRequiredMixin,View):
     """Представление, выводящие все устройства."""
 
-    monitors = Monitor.objects.all()
-    headsets = Headset.objects.all()
-    speakers = Speakers.objects.all()
-    template_name = 'outputs/outputsList.html'
-    extra_context = {
-        "monitors": monitors,
-        "headsets": headsets,
-        "speakers": speakers
-    }
+    def get(self,request,*args, **kwargs):
+        monitors = Monitor.objects.all()
+        headsets = Headset.objects.all()
+        speakers = Speakers.objects.all()
+
+        comntext = {
+            "monitors": monitors,
+            "headsets": headsets,
+            "speakers": speakers
+        }
+        return render(request, 'outputs/outputsList.html',comntext )
+
+
+
+
+
+
+
 
 
 class AddOutputFromCategory(FormView):
