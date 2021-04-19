@@ -1,3 +1,4 @@
+from dal import autocomplete
 from django import forms
 
 from mainapp.models import Category
@@ -25,3 +26,19 @@ class MonitorCreateForm(forms.ModelForm):
             'serialNumber': forms.TextInput(attrs={'class': 'form-control'}),
             'model': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+class MonitorUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Monitor
+        fields = ('status', 'person')
+
+        widgets = {
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'number': forms.TextInput(attrs={'class': 'form-control'}),
+            'person': autocomplete.ModelSelect2(
+                url="search-first-name-autocomplete",
+            )
+        }
+

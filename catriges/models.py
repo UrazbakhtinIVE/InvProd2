@@ -44,7 +44,7 @@ class Catrige(Product):
                               verbose_name='Статус')
     objects = CustomCartridgesManager()
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-    number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
+
 
     class Meta:
         verbose_name = 'Катридж'

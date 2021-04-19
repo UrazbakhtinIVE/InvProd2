@@ -1,10 +1,6 @@
 from django.db.models import Q
 from django.views.generic import *
-from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
-
-from dal import autocomplete
-
 from printers.forms import *
 from printers.models import *
 from catriges.models import Catrige
@@ -94,7 +90,7 @@ class PrinterCreateView(SuccessMessageMixin, CreateView):
     context_object_name = 'pc'
 
     def get_success_message(self, cleaned_data):
-        return f"Новый принтер был успешно создан."
+        return "Новый принтер был успешно создан."
 
 
 class PrinterUpdateView(SuccessMessageMixin, UpdateView):

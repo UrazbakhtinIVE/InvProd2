@@ -14,7 +14,7 @@ class PrinterTypeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Printer)
-class PrinterModelAdmin(admin.ModelAdmin):
+class PrinterAdmin(admin.ModelAdmin):
     list_display = ['serialNumber','printerModel','name','ip','status']
     search_fields = ['serialNumber']
 
@@ -26,7 +26,7 @@ class PrinterStatusAdmin(admin.ModelAdmin):
 
 
 @admin.register(PrinterScheduler)
-class PrinterStatusAdmin(admin.ModelAdmin):
+class PrinterSchedulerAdmin(admin.ModelAdmin):
     list_display = ['uuid','printer','printerStatus','date']
 
 

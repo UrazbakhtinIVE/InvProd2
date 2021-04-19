@@ -9,16 +9,6 @@
 {% block content %}
     <div class="container">
         <h3 class="List-title">Список устройств</h3>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
-                    {{ message|safe }}
-                    <button class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
-        {% endif %}
         <div class="row">
             <div class="col"></div>
             <div class="col">
@@ -31,21 +21,19 @@
                 </nav>
             </div>
         </div>
-
-
     </div>
+
     <div class="container">
         <a href="{% url 'outputsCreateTemplateView' %}">Добавить</a>
         <table class="table">
             <thead>
             <tr>
-                <th> Серийный номер</th>
-                <th> Тип устройства</th>
+                <th>Серийный номер</th>
+                <th>Тип устройства</th>
                 <th>Модель </th>
                 <th>Производитель</th>
-                <th scope="col">Действие</th>
+                <th>Действие</th>
             </tr>
-
             {% for output in monitors %}
             <tbody>
                 <tr>
@@ -53,6 +41,11 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
+                    <td>
+                        <a href="{% url 'updateMonitor' pk=output.pk  %}">Изменить</a>
+                        <a href="#">Удалить</a>
+                    </td>
+
                 </tr>
             </tbody>
             {% endfor %}
@@ -64,6 +57,11 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
+                    <td>
+                        <a href="#">Изменить</a>
+                        <a href="#">Удалить</a>
+                    </td>
+
                 </tr>
             </tbody>
             {% endfor %}
@@ -75,6 +73,11 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
+                     <td> <a href="#">Изменить</a></td>
+                    <td>
+                        <a href="#">Изменить</a>
+                        <a href="#">Удалить</a>
+                    </td>
                 </tr>
             </tbody>
             {% endfor %}
