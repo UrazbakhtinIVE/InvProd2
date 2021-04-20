@@ -71,6 +71,6 @@ class Scheduler(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name='Дата')
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-
+    description = models.TextField(verbose_name='Описание', blank=True)
     class Meta:
         abstract = True

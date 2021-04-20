@@ -7,6 +7,12 @@ from locations.models import Room
 class StatusOutputs(Status):
     pass
 
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
+    def __str__(self):
+        return self.name
 
 class MonitorModel(Model):
     diagonal = models.IntegerField(verbose_name='Диоганаль')
@@ -81,7 +87,7 @@ class MonitorScheduler(Scheduler):
     monitorStatus = models.ForeignKey(StatusOutputs, models.CASCADE, verbose_name='Статус принетра', blank=True,null=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Место расположение', blank=True, null=True)
-    description = models.TextField(verbose_name='Описание', blank=True)
+
 
     class Meta:
         verbose_name = 'Журнал мониторов'
@@ -91,5 +97,3 @@ class MonitorScheduler(Scheduler):
     def __str__(self):
         return str(self.monitor.serialNumber)
 
-    # def get_absolute_url(self):
-    #     return reverse('printer_scheduler_list')
