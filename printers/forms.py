@@ -1,7 +1,5 @@
 from django import forms
-
 from dal import autocomplete
-
 from printers.models import Printer, PrinterScheduler
 
 
@@ -51,7 +49,7 @@ class PrinterUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Printer
-        fields = ('status','location', 'black_cartridge',
+        fields = ('status', 'black_cartridge','location',
                   'blue_cartridge', 'yellow_cartridge', 'purple_cartridge')
         widgets = {
             'status': forms.Select(attrs={'class': 'form-control'}),

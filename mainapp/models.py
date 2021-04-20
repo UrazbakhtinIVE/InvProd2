@@ -1,4 +1,7 @@
-from locations.models import *
+from django.db import models
+from locations.models import Room
+from person.models import Person
+
 
 
 class Category(models.Model):
@@ -41,6 +44,10 @@ class Model(models.Model):
 
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True
+                               )
+    number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
+    location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -62,6 +69,8 @@ class Status(models.Model):
 
 class Scheduler(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name='Дата')
-
+    location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
+    description = models.TextField(verbose_name='Описание', blank=True)
     class Meta:
         abstract = True

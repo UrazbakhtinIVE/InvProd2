@@ -5,10 +5,10 @@
     {% include 'header.html' %}
 {% endblock %}
 
-{% block title %}Список устройств{% endblock %}
+{% block title %}Журнал устройств{% endblock %}
 {% block content %}
     <div class="container">
-        <h3 class="List-title">Список устройств</h3>
+        <h3 class="List-title">Журнал устройств</h3>
         <div class="row">
             <div class="col"></div>
             <div class="col">
@@ -37,15 +37,12 @@
             {% for output in monitors %}
             <tbody>
                 <tr>
-                    <td>{{ output.serialNumber }}</td>
-                    <td>{{ output.model.category }}</td>
-                    <td>{{ output.model }}</td>
-                    <td>{{ output.model.firm }}</td>
+                    <td>{{ output.monitor }}</td>
+                    <td>{{ output.monitorStatus.name }}</td>
+                    <td>{{ output.monitor.model }}</td>
+                    <td>{{ output.monitor.firm }}</td>
                     <td>
-                        <a href="{% url 'updateMonitor' pk=output.pk  %}">Изменить</a>
-                        <a href="#">Удалить</a>
                     </td>
-
                 </tr>
             </tbody>
             {% endfor %}
@@ -57,11 +54,6 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
-                    <td>
-                        <a href="#">Изменить</a>
-                        <a href="#">Удалить</a>
-                    </td>
-
                 </tr>
             </tbody>
             {% endfor %}
@@ -74,10 +66,6 @@
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
                      <td> <a href="#">Изменить</a></td>
-                    <td>
-                        <a href="#">Изменить</a>
-                        <a href="#">Удалить</a>
-                    </td>
                 </tr>
             </tbody>
             {% endfor %}
