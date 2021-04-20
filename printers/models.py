@@ -48,6 +48,9 @@ class Printer(Product):
     status = models.ForeignKey(PrinterStatus, models.CASCADE, verbose_name='Статус принтера', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Месторасположение', blank=True, null=True)
 
+    
+
+
     # Установленные картриджи
     black_cartridge = models.OneToOneField(
         Catrige, on_delete=models.SET_NULL,
