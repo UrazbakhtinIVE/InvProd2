@@ -42,12 +42,23 @@ class Model(models.Model):
         return self.name
 
 
+class PeriodOfDiagnostics(models.Model):
+    period = models.DurationField(verbose_name="период диагностики", blank=False)
+
+
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
-    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True
-                               )
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
     number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
+
+    date_of_planned_diagnostics = models.DateField(verbose_name="дата плановой диагности", 
+        blank=True, null=True)
+    date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики", 
+        blank=True, null=True)
+    period_of_product_diagnostics = models.ForeignKey(PeriodOfDiagnostics,
+        blank=True, null=True, on_delete=models.SET_NULL, verbose_name="период диагностики"
+    )
 
     class Meta:
         abstract = True

@@ -2,6 +2,8 @@ from django import forms
 from dal import autocomplete
 from printers.models import Printer, PrinterScheduler
 
+from mainapp.forms import DurationFieldFormMixin
+
 
 # Атрибуты для кастомизации Select2 плагина для поля картриджей.
 CARTRIDGE_ATTRS = {
@@ -89,3 +91,10 @@ class PrinterSchedulerCreateForm(forms.ModelForm):
 
 class PrinterSearchForm(forms.ModelForm):
     qwery = forms.CharField()
+
+
+class PrinterAdminForm(DurationFieldFormMixin):
+
+    class Meta:
+        model = Printer
+        fields = "__all__"

@@ -1,5 +1,6 @@
 from django.contrib import admin
 from printers.models import *
+from .forms import PrinterAdminForm
 
 
 @admin.register(PrinterModel)
