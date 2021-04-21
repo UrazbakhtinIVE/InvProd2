@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'person',
     'outputs',
     'debug_toolbar',
+    'durationwidget',
 ]
 
 MIDDLEWARE = [

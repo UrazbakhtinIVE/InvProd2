@@ -47,6 +47,9 @@ class Printer(Product):
     ip = models.CharField(max_length=15, verbose_name='Ip адрес')
     status = models.ForeignKey(PrinterStatus, models.CASCADE, verbose_name='Статус принтера', blank=True, null=True)
 
+    
+
+
     # Установленные картриджи
     black_cartridge = models.OneToOneField(
         Catrige, on_delete=models.SET_NULL,

@@ -1,6 +1,12 @@
 from django.contrib import admin
 from mainapp.models import *
+from .forms import AdminPeriodOfDiagnosticsForm
 
+
+@admin.register(PeriodOfDiagnostics)
+class PeriodOfDiagnosticsAdmin(admin.ModelAdmin):
+    list_display = ("period",)
+    form = AdminPeriodOfDiagnosticsForm
 
 @admin.register(Firm)
 class FirmAdmin(admin.ModelAdmin):
