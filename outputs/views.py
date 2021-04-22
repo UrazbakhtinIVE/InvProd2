@@ -8,26 +8,13 @@ from django.views.generic.base import View
 
 from outputs.models import Monitor, Headset, Speakers,MonitorScheduler
 from mainapp.models import Category
-from .forms import OutputsCategoriesForm, MonitorUpdateForm
+from .forms import OutputsCategoriesForm, MonitorUpdateForm, MonitorCreateForm
+from printers.models import Printer
 
 
 class OutputsView(TemplateView):
     template_name = 'outputs/outputs_info.html'
 
-
-#
-# class OutputsListView(LoginRequiredMixin, TemplateView):
-#
-#
-#     monitors = Monitor.objects.all()
-#     headsets = Headset.objects.all()
-#     speakers = Speakers.objects.all()
-#     template_name = 'outputs/outputsList.html'
-#     extra_context = {
-#         "monitors": monitors,
-#         "headsets": headsets,
-#         "speakers": speakers
-#     }
 
 
 class OutputsListView(LoginRequiredMixin, View):
@@ -37,16 +24,20 @@ class OutputsListView(LoginRequiredMixin, View):
         monitors = Monitor.objects.all()
         headsets = Headset.objects.all()
         speakers = Speakers.objects.all()
+        printers = Printer.objects.all()
 
         comntext = {
             "monitors": monitors,
             "headsets": headsets,
-            "speakers": speakers
+            "speakers": speakers,
+            "printers": printers
+
         }
         return render(request, 'outputs/outputsList.html', comntext)
 
 
 class AddOutputFromCategory(FormView):
+    queryset = Category.objects.all()
     template_name = 'outputs/outputsCreateTemplate.html'
     form_class = OutputsCategoriesForm
 
@@ -54,7 +45,7 @@ class AddOutputFromCategory(FormView):
 class AddMonitorView(CreateView):
     model = Monitor
     template_name = "outputs/createMonitor.html"
-    fields = "__all__"
+    form_class = MonitorCreateForm
     success_url = reverse_lazy("output_list")
 
 

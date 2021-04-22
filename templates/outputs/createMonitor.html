@@ -1,59 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block  header %}
-    {% include 'header.html' %}
-{% endblock %}
-
 {% block title %}Добавление монитора{% endblock %}
-
 
 {% block content %}
         <div class="container">
-            <br>
             <h5>Добавить монитор в список</h5>
             <div class="row">
-                 <form method="post">
-                        {% csrf_token %}
-                          <label>Модель монитора</label>
-                            {{ form.model }}
-                          <label>Серийный номер</label>
-                            {{ form.serialNumber }}
-                        <br>
-                        <button class="btn btn-outline-secondary">Сохранить</button>
-                 </form>
+              <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                    <br>
+                      <label>Модель монитора</label>
+                        {{ form.model}}
+                    <br>
+                      <label>Серийный номер</label>
+                        {{ form.serialNumber }}
+                    <br>
+                  <button class="btn btn-outline-secondary">Сохранить</button>
+                </form>
+              </div>
+                
             </div>
         </div>
     {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{#{% block content %}#}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col">#}
-{##}
-{#                {{ form }}#}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock %}#}
-
-
 {% block footer %}
 {% endblock %}

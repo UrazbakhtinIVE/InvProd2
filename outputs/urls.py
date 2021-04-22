@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from outputs.views import (
     OutputsView, OutputsListView, AddOutputFromCategory,
     AddMonitorView, AddHeadsetView, AddSpeakerView,UpdateMonitorView, OutputsShedulerListView,
 )
+from printers.views import PrinterCreateView
 
 
 urlpatterns = [

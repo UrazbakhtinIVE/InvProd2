@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const redirectToView = (value) => {
     if (!value) {
-      return;
+      // noinspection JSAnnotator
+        return;
     }
     if (value == "monitors") {
       window.location.replace("/outputs/create_monitor");
@@ -11,10 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.replace("/outputs/create_headset");
     } else if (value == "speakers") {
       window.location.replace("/outputs/create_speaker");
+    } else if(value == "printers"){
+      window.location.replace("/printer/create");
+    } else if(value == "catriges"){
+      window.location.replace("/catrige/create");
     }
   };
 
   categoriesSelect.addEventListener("change", (event) => {
     redirectToView(event.target.value);
-  });
+});
 });

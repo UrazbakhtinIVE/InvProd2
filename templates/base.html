@@ -2,22 +2,22 @@
 
 <html lang="en">
 <head>
+     {% block  header%} {% include 'header.html' %} {% endblock %}
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static "libs/bootstrap/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static 'CSS/main.css' %}">
 
     <script src="{% static "libs/jquery/jquery-3.6.0.min.js" %}"></script>
+    
+    <script src="{% static "libs/jquery/jquery-3.6.0.min.js" %}"></script>
+    
     <script src="{% static "libs/bootstrap/bootstrap.min.js" %}" defer></script>
-
-    {% block js %}
-    {% endblock js %}
-
 </head>
 <body>
 
-{% block header %}
-{% endblock %}
+
+
 
 
 {% block content %}
@@ -30,5 +30,6 @@
 {% block footer %}
 {% endblock %}
 </body>
-
+ {% block js %}
+ {% endblock js %}
 </html>
