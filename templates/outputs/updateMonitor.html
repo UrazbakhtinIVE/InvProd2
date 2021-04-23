@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                         <div class="col"> <h5>Обновить данные картриджа  <span class="serialNumber">{{ cu.serialNumber }}</span></h5></div>
+                         <div class="col"> <h5>Обновить данные монитора  <span class="serialNumber">{{ cu.serialNumber }}</span></h5></div>
                     </div>
                 </div>
             </div>
@@ -26,11 +26,13 @@
                         {% csrf_token %}
                      <label>Статус</label>
                             {{form.status}}
+                         <br>
                      <label>Пользователь</label>
                             {{ form.person }}
                      <label>Номер заявки в техническую поддержку</label>
                             {{ form.number }}
                         <br>
+
                         <button class="btn btn-outline-secondary">Сохранить</button>
                  </form>
                  </div>

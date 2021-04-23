@@ -10,6 +10,7 @@
             <div class="col">
                 {% csrf_token %}
                 <br>
+                <h3>Выберите устройство для добавление в список</h3>
                 <label>Категория</label>
                 {{ form.categories}}
             </div>
@@ -19,6 +20,7 @@
 
 {% block footer %}
 {% endblock %}
+
 {% block js %}
-    <script src="{% static "js/createOutputFromCategory.js" %}" defer></script>
+    <script src="{% static  "js/createOutputFromCategory.js" %}" defer> </script>
 {% endblock js %}

@@ -6,9 +6,9 @@ from django.views.generic import ListView, TemplateView, FormView, CreateView, U
 from django.urls import reverse_lazy
 from django.views.generic.base import View
 
-from outputs.models import Monitor, Headset, Speakers,MonitorScheduler
+from outputs.models import Monitor, Headset, Speakers, MonitorScheduler
 from mainapp.models import Category
-from .forms import OutputsCategoriesForm, MonitorUpdateForm, MonitorCreateForm
+from .forms import OutputsCategoriesForm, MonitorUpdateForm, MonitorCreateForm, HeadsetForm
 from printers.models import Printer
 
 
@@ -16,8 +16,7 @@ class OutputsView(TemplateView):
     template_name = 'outputs/outputs_info.html'
 
 
-
-class OutputsListView(LoginRequiredMixin, View):
+class OutputsListView(LoginRequiredMixin, ListView):
     """Представление, выводящие все устройства."""
 
     def get(self, request, *args, **kwargs):
@@ -31,7 +30,6 @@ class OutputsListView(LoginRequiredMixin, View):
             "headsets": headsets,
             "speakers": speakers,
             "printers": printers
-
         }
         return render(request, 'outputs/outputsList.html', comntext)
 
@@ -54,31 +52,29 @@ class UpdateMonitorView(UpdateView):
     form_class = MonitorUpdateForm
     template_name = 'outputs/updateMonitor.html'
     context_object_name = 'um'
-    # success_url = 'outputs/'
-
+    success_url = 'outputs/'
 
 
 class OutputsShedulerListView(ListView):
-    """Представление, выводящие все устройства."""
+    """Представление, выводящие все устройства в журнале."""
 
     def get(self, request, *args, **kwargs):
         monitors = MonitorScheduler.objects.all()
-        # headsets = Headset.objects.all()
-        # speakers = Speakers.objects.all()
+        headsets = Headset.objects.all()
+        speakers = Speakers.objects.all()
 
         comntext = {
             "monitors": monitors,
-            # "headsets": headsets,
-            # "speakers": speakers
+            "headsets": headsets,
+            "speakers": speakers
         }
         return render(request, 'outputs/outputsShedulerList.html', comntext)
-
 
 
 class AddHeadsetView(CreateView):
     model = Headset
     template_name = "outputs/createHeadset.html"
-    fields = "__all__"
+    form_class = HeadsetForm
     success_url = reverse_lazy("output_list")
 
 

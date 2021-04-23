@@ -32,6 +32,7 @@
                 <th>Тип устройства</th>
                 <th>Модель </th>
                 <th>Производитель</th>
+                <th>Статус</th>
                 <th>Действие</th>
             </tr>
             {% for output in monitors %}
@@ -41,6 +42,7 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
+                    <td>{{ output.status }}</td>
                     <td>
                         <a href="{% url 'updateMonitor' pk=output.pk  %}">Изменить</a>
                         <a href="#">Удалить</a>
@@ -57,11 +59,11 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
+                    <td>{{ output.status }}</td>
                     <td>
                         <a href="#">Изменить</a>
                         <a href="#">Удалить</a>
                     </td>
-
                 </tr>
             </tbody>
             {% endfor %}
@@ -73,7 +75,7 @@
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
-                     <td> <a href="#">Изменить</a></td>
+
                     <td>
                         <a href="#">Изменить</a>
                         <a href="#">Удалить</a>
@@ -81,6 +83,29 @@
                 </tr>
             </tbody>
             {% endfor %}
+
+              {% for output in printers %}
+            <tbody>
+                <tr>
+                    <td>{{ output.serialNumber }}</td>
+                    <td>{{ output.printerModel.category }}</td>
+                    <td>{{ output.printerModel }}</td>
+                    <td>{{ output.printerModel.firm }}</td>
+                     <td>{{ output.status }}</td>
+
+                    <td>
+                        <a href="#">Изменить</a>
+                        <a href="#">Удалить</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+
+
+
+
+
+
         </table>
     </div>
 
