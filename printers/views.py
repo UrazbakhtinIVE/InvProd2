@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.views.generic import *
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from printers.forms import *
 from printers.models import *
 from catriges.models import Catrige
@@ -121,8 +122,7 @@ class PrinterShedulerCreateView(CreateView):
     context_object_name = 'cp'
 
 
-
-
-
-
-
+class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
+    model = Printer
+    template_name = 'printers/printerAnalyticsList.html'
+    context_object_name = 'pl'

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mainapp_tags %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список аналитики принтеров{% endblock %}
+{% block content %}
+<div class="container">
+    <h3 class="List-title">Список принтеров</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
+                {{ message|safe }}
+                <button class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col">
+            <div class="col"><p class="count">Общее колличество: {{ pl.count }}</p></div>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+            <nav class="navbar navbar-light">
+                <form action="{% url 'printer_list' %}" method="get" class="form-inline">
+                    <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search"
+                            aria-label="Search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </div>
+
+
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Серийный номер</th>
+            <th>Дата последней диагностики</th>
+            <th>Дата плановой диагности</th>
+            <th>Период диагностикики</th>
+            <th>Осталось дней</th>
+            <th scope="col">Действие</th>
+        </tr>
+        {% for printer in pl %}
+            <tbody>
+            <tr>
+                <td><a href="{% url 'printer_detail' pk=printer.pk %}">
+                    {{ printer.serialNumber }}</a>
+                </td>
+                <td>{{ printer.date_of_last_diagnostics|date:"Y-m-d" }}</td>
+                <td>{{ printer.date_of_planned_diagnostics|date:"Y-m-d" }}</td>
+                <td>{{ printer.period_of_product_diagnostics.period.days }}</td>
+                <td>
+                    <span class="badge {% test_days_to_diagnostics_remain days=printer.days_remain_to_diagnostics.days period=printer.period_of_product_diagnostics.period.days %}">
+                        {{ printer.days_remain_to_diagnostics.days }}
+                    </span>
+                </td>
+                <td><a href="{% url 'printer_update' pk=printer.pk %}">Изменить</a></td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
