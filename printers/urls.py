@@ -13,6 +13,7 @@ urlpatterns = [
     path('detail/<int:pk>/', login_required(PrinterDetailView.as_view()),name='printer_detail'),
     path('scheduler_list/', login_required(PrinterSchedulerListView.as_view()), name='printer_scheduler_list'),
     path('create_scheduler/', login_required(PrinterShedulerCreateView.as_view()), name='create_printer_scheduler'),
+    path('diagnostics_list/', PrinterAnalyticsListView.as_view(), name="diagnostics_list"),
     path('black-cartridges-autocomplete/',
          BlackCartridgesAutocomplete.as_view(), name='black-cartridges-autocomplete'),
     path('blue-cartridges-autocomplete/',

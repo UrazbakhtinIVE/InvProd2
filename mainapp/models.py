@@ -45,14 +45,14 @@ class PeriodOfDiagnostics(models.Model):
     period = models.DurationField(verbose_name="период диагностики", blank=False)
 
 
+
+
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
     number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
 
-    date_of_planned_diagnostics = models.DateField(verbose_name="дата плановой диагности",
-                                                   blank=True, null=True)
     date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики",
                                                 blank=True, null=True)
     period_of_product_diagnostics = models.ForeignKey(PeriodOfDiagnostics,
@@ -61,6 +61,16 @@ class Product(models.Model):
                                                       )
 
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
+
+    @property
+    def date_of_planned_diagnostics(self):
+        """Возвращает дату следующей диагностики."""
+        return self.date_of_last_diagnostics + self.period_of_product_diagnostics.period
+
+    @property
+    def days_remain_to_diagnostics(self):
+        import datetime
+        return self.date_of_planned_diagnostics - datetime.date.today()
 
     class Meta:
         abstract = True
