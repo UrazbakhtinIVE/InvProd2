@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                         <div class="col"> <h5>Обновить данные монитора  <span class="serialNumber">{{ um.serialNumber }}</span></h5></div>
+                         <div class="col"> <h5>Обновить данные картриджа  <span class="serialNumber">{{ cu.serialNumber }}</span></h5></div>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
 
         <div class="container">
             <div class="row">
-                 <div class="col">
+                 <div class="col-5">
                      <form method="post">
                         {% csrf_token %}
                      <label>Статус</label>
@@ -31,9 +31,16 @@
                      <label>Номер заявки в техническую поддержку</label>
                             {{ form.number }}
                         <br>
+
                         <button class="btn btn-outline-secondary">Сохранить</button>
                  </form>
                  </div>
+                <div class="col-5">
+                    <div class="col-12">
+                        <label>Описание</label>
+                        {{ form.description }}
+                    </div>
+                </div>
             </div>
         </div>
     {% endblock %}

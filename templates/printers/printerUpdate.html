@@ -9,7 +9,7 @@
 {% block content %}
     <div class="container">
         <br>
-        <h5>Обновить данные принтера </h5>
+        <div class="col"> <h5>Обновить данные принтера <span class="serialNumber">{{  pu.serialNumber }}</span></h5></div>
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
@@ -29,6 +29,8 @@
                     {{ form.status }}
                     <label>Место расположение</label>
                     {{ form.location }}
+                        <label>Описание</label>
+                        {{ form.description }}
                 </div>
                 <div class="col">
                     <label>Картриджи</label>

@@ -1,6 +1,6 @@
-import random
 from django.db import models
 from django.urls import reverse
+
 from mainapp.models import Category, Firm, Product, Scheduler
 from person.models import *
 from .managers import CustomCartridgesManager
@@ -45,7 +45,6 @@ class Catrige(Product):
     objects = CustomCartridgesManager()
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
 
-
     class Meta:
         verbose_name = 'Катридж'
         verbose_name_plural = 'Катриджи'
@@ -70,7 +69,7 @@ class CatrigeScheduler(Scheduler):
     date = models.DateTimeField(auto_now_add=True, auto_created=True)
     description = models.TextField(verbose_name='Описание', blank=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-    number = models.CharField(max_length=150,verbose_name='Заявка в тех.поддержку', blank=True, unique=True)
+    number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True, unique=True)
 
     class Meta:
         verbose_name = 'Журнал картриджей'

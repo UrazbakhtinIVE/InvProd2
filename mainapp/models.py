@@ -60,6 +60,8 @@ class Product(models.Model):
                                                       verbose_name="период диагностики"
                                                       )
 
+    description = models.TextField(verbose_name='Описание', blank=True, null=True)
+
     class Meta:
         abstract = True
 

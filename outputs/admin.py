@@ -31,14 +31,14 @@ class SpeakersAdmin(admin.ModelAdmin):
     list_display = ['serialNumber']
 
 
-@admin.register(StatusOutputs)
-class  StatusOutputsAdmin(admin.ModelAdmin):
-    list_display = ['name']
+# @admin.register(StatusOutputs)
+# class  StatusOutputsAdmin(admin.ModelAdmin):
+#     list_display = ['name']
 
 
 @admin.register(MonitorScheduler)
 class MonitorSchedulerAdmin(admin.ModelAdmin):
-    list_display = ['monitor','monitorStatus','person', 'location','date']
+    list_display = ['monitor','person', 'location','date']
 
 
 

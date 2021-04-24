@@ -17,31 +17,37 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="container">
-            <div class="row">
-                 <div class="col">
                      <form method="post">
                         {% csrf_token %}
-                     <label>Статус</label>
-                            {{form.status}}
-                         <br>
-                     <label>Пользователь</label>
-                            {{ form.person }}
-                     <label>Номер заявки в техническую поддержку</label>
-                            {{ form.number }}
-                        <br>
-                     <label>Месторасположение</label>
-                            {{ form.location }}
-                        <br>
 
-                        <button class="btn btn-outline-secondary">Сохранить</button>
+                     <div class="container">
+                             <div class="row">
+                                    <div class="col-5">
+                                        <label>Статус</label>
+                                            {{form.status}}
+                                        <br>
+                                         <label>Пользователь</label>
+                                            {{ form.person }}
+                                        <label>Номер заявки в техническую поддержку</label>
+                                         {{ form.number }}
+                                        <br>
+                                         <label>Месторасположение</label>
+                                        {{ form.location }}
+                                         <br>
+                                    </div>
+                                        <br>
+                                             <div  class="col-6">
+                                                 <label>Описание</label>
+                                                 {{ form.description }}
+                                             </div>
+                                 <div class="col"> <button class="btn btn-outline-secondary">Сохранить</button></div>
+                             </div>
+
+                     </div>
+
                  </form>
-                 </div>
-            </div>
-        </div>
-    {% endblock %}
+
+{% endblock %}
 
 {% block js %}
     {{ form.media }}

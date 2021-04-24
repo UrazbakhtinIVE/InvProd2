@@ -48,12 +48,12 @@ class PrinterCreateForm(forms.ModelForm):
 
 class PrinterUpdateForm(forms.ModelForm):
 
-
     class Meta:
         model = Printer
-        fields = ('status', 'black_cartridge','location',
+        fields = ('status', 'black_cartridge','location', 'description',
                   'blue_cartridge', 'yellow_cartridge', 'purple_cartridge')
         widgets = {
+            'description' :forms.Textarea(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
             'black_cartridge': autocomplete.ModelSelect2(

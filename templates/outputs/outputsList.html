@@ -38,14 +38,14 @@
             {% for output in monitors %}
             <tbody>
                 <tr>
-                    <td>{{ output.serialNumber }}</td>
+                    <td><a href="{% url 'monitorDetile' pk=output.pk %}"> {{ output.serialNumber }}</a></td>
                     <td>{{ output.model.category }}</td>
                     <td>{{ output.model }}</td>
                     <td>{{ output.model.firm }}</td>
-                    <td>{{ output.status }}</td>
+                    <td>{{ output.get_status_display }}</td>
                     <td>
                         <a href="{% url 'updateMonitor' pk=output.pk  %}">Изменить</a>
-                        <a href="#">Удалить</a>
+                        <a href="{% url 'monitorDelete' pk=output.pk %}">Удалить</a>
                     </td>
 
                 </tr>

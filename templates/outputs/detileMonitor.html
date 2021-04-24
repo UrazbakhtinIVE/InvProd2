@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    {% block title %}Подробная информация о Мониторе{% endblock %}
+
+    {% block content %}
+         <br>
+        <div class="container">
+
+
+            <h5>Информация о мониторе с серийным номером: <strong class='serialNumber'>{{ md.serialNumber }}</strong> </h5>
+            <div class="row">
+
+                <div class="col">
+                        <p><strong>Производитель:</strong> {{ md.model.firm}}</p>
+                        <p><strong>Модель принтера:</strong> {{ md.model }}</p>
+                        <p><strong>Диоганаль:</strong> {{ md.model.diagonal }} дюймов</p>
+
+
+                        <p><strong>Титул:</strong> {{ pd.location.titul.name }} </p>
+                        <p><strong>Кабинет:</strong> {{ pd.location.number }} </p>
+                        <p><strong>Статус:</strong> {{ md.status}} </p>
+
+                </div>
+               <div class="col">
+                     {%  if md.model.photo %}
+                         <img class="printer_img" src="{{ md.model.photo.url }}"  alt="...">
+                     {% else %}
+                        <img  src="{% static 'img/print.png' %}" class="card-img" alt="...">
+                     {% endif %}
+                </div>
+                </div>
+        </div>
+    {% endblock %}

@@ -2,7 +2,7 @@ from itertools import chain
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
-from django.views.generic import ListView, TemplateView, FormView, CreateView, UpdateView
+from django.views.generic import ListView, TemplateView, FormView, CreateView, UpdateView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from django.views.generic.base import View
 
@@ -52,21 +52,36 @@ class UpdateMonitorView(UpdateView):
     form_class = MonitorUpdateForm
     template_name = 'outputs/updateMonitor.html'
     context_object_name = 'um'
-    success_url = 'outputs/'
 
 
-class OutputsShedulerListView(ListView):
+class MonitorDetailedView(DetailView):
+    model = Monitor
+    queryset = Monitor.objects.all()
+    template_name = 'outputs/detileMonitor.html'
+    context_object_name = 'md'
+
+
+class MonitorDelete(DeleteView):
+    model = Monitor
+    template_name = 'outputs/monitorDelete.html'
+    context_object_name = 'md'
+    success_url = reverse_lazy('output_list')
+
+
+
+
+class OutputsSchedulerListView(ListView):
     """Представление, выводящие все устройства в журнале."""
 
     def get(self, request, *args, **kwargs):
         monitors = MonitorScheduler.objects.all()
-        headsets = Headset.objects.all()
-        speakers = Speakers.objects.all()
+        # headsets = Headset.objects.all()
+        # speakers = Speakers.objects.all()
 
         comntext = {
             "monitors": monitors,
-            "headsets": headsets,
-            "speakers": speakers
+            # "headsets": headsets,
+            # "speakers": speakers
         }
         return render(request, 'outputs/outputsShedulerList.html', comntext)
 

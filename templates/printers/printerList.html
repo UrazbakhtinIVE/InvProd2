@@ -47,6 +47,7 @@
                 <th> Имя принтера</th>
                 <th>Модель принтера</th>
                 <th>Производитель</th>
+                <th>Статус</th>
                 <th scope="col">Действие</th>
 
             </tr>
@@ -57,6 +58,7 @@
                     <td>{{ prtinter.name }}</td>
                     <td>{{ prtinter.printerModel.name }}</td>
                     <td>{{ prtinter.printerModel.firm.name }}</td>
+                    <td>{{ prtinter.status}}</td>
 
                     <td><a href="{% url 'printer_update' pk=prtinter.pk %}">Изменить</a></td>
                 </tr>
