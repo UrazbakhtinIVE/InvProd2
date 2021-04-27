@@ -6,10 +6,9 @@ from printers.forms import *
 from printers.models import *
 from catriges.models import Catrige
 
-class PrinterInfo(TemplateView):
+
+class PrinterInfo(LoginRequiredMixin, TemplateView):
     template_name = 'printers/printer_info.html'
-
-
 
 
 class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
@@ -64,7 +63,7 @@ class PurpleCartridgesAutocomplete(autocomplete.Select2QuerySetView):
         return queryset
 
 
-class PrinterListView(ListView):
+class PrinterListView(LoginRequiredMixin, ListView):
     model = Printer
     template_name = 'printers/printerList.html'
     context_object_name = 'pl'
@@ -75,8 +74,7 @@ class PrinterListView(ListView):
         return object_list
 
 
-
-class PrinterDetailView(DetailView):
+class PrinterDetailView(LoginRequiredMixin, DetailView):
     model = Printer
     queryset = Printer.objects.all()
     template_name = 'printers/printerDetail.html'
@@ -102,8 +100,7 @@ class PrinterUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Информация о принтере была успешно обновлена."
 
 
-
-class PrinterSchedulerListView(ListView):
+class PrinterSchedulerListView(LoginRequiredMixin, ListView):
     model = PrinterScheduler
     queryset = PrinterScheduler.objects.all()
     template_name = 'printers/printerSchedulerList.html'
@@ -111,11 +108,11 @@ class PrinterSchedulerListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q', "")
-        object_list = PrinterScheduler.objects.filter(Q(printer__serialNumber__contains= query))
+        object_list = PrinterScheduler.objects.filter(Q(printer__serialNumber__contains=query))
         return object_list
 
 
-class PrinterShedulerCreateView(CreateView):
+class PrinterShedulerCreateView(LoginRequiredMixin, CreateView):
     model = PrinterScheduler
     form_class = PrinterSchedulerCreateForm
     template_name = 'printers/create_printer_scheduler.html'
