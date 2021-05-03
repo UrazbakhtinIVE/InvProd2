@@ -65,9 +65,9 @@ WSGI_APPLICATION = 'InvProd2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'invprod',
-        'USER': 'invprod_admin',
-        'PASSWORD': '545454322q',
+        'NAME': 'InvDB',
+        'USER': 'postgres',
+        'PASSWORD': 'masterkey',
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'OPTIONS': {
