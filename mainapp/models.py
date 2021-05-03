@@ -1,3 +1,5 @@
+import math
+
 from django.db import models
 from locations.models import Room
 from person.models import Person
@@ -71,6 +73,15 @@ class Product(models.Model):
     def days_remain_to_diagnostics(self):
         import datetime
         return self.date_of_planned_diagnostics - datetime.date.today()
+
+    @property
+    def is_need_in_diagnostics(self):
+        days = self.days_remain_to_diagnostics.days
+        period = self.period_of_product_diagnostics.period.days
+
+        K = math.floor((days / period) * 10)
+        if days <= 0 or K <= 2:
+            return True
 
     class Meta:
         abstract = True

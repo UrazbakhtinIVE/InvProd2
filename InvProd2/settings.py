@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'catriges.apps.CatrigesConfig',
     'locations',
     'person',
-    'outputs',
+    'outputs.apps.OutputsConfig',
+    'import_export',
     'debug_toolbar',
     'durationwidget',
 ]
@@ -64,9 +65,9 @@ WSGI_APPLICATION = 'InvProd2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'InvDB',
-        'USER': 'postgres',
-        'PASSWORD': 'masterkey',
+        'NAME': 'invprod',
+        'USER': 'invprod_admin',
+        'PASSWORD': '545454322q',
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'OPTIONS': {
