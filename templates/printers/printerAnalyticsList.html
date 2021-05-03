@@ -39,6 +39,11 @@
 
 </div>
 <div class="container">
+    <form action="{% url 'export_printers_analytics' %}" method="GET" class="form-inline">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+            Выгрузить аналитику
+        </button>
+    </form>
     <table class="table">
         <thead>
         <tr>

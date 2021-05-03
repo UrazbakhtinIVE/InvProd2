@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'catriges.apps.CatrigesConfig',
     'locations',
     'person',
-    'outputs',
+    'outputs.apps.OutputsConfig',
+    'import_export',
     'debug_toolbar',
     'durationwidget',
 ]

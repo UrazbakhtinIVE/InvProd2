@@ -2,9 +2,12 @@ from django.db.models import Q
 from django.views.generic import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
+
 from printers.forms import *
 from printers.models import *
 from catriges.models import Catrige
+from printers.utils import PrinterAnalyticsResource
 
 
 class PrinterInfo(LoginRequiredMixin, TemplateView):
@@ -123,3 +126,16 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
     model = Printer
     template_name = 'printers/printerAnalyticsList.html'
     context_object_name = 'pl'
+
+
+class ExportPrintersAnalytics(View):
+
+    def get(self, *args, **kwargs):
+        import datetime
+        now = datetime.datetime.now()
+        dataset = PrinterAnalyticsResource().export()
+        response = HttpResponse(
+            dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response['Content-Disposition'] = f'attachment; filename=PrintersAnalytics ({now}).xlsx'
+        return response

@@ -40,6 +40,13 @@ class SpeakersAdmin(admin.ModelAdmin):
 class MonitorSchedulerAdmin(admin.ModelAdmin):
     list_display = ['monitor','person', 'location','date']
 
+@admin.register(HeadsetScheduler)
+class HeadsetSchedulerAdmin(admin.ModelAdmin):
+    list_display = ['headset','person', 'location','date']
+
+@admin.register(SpeakerScheduler)
+class SpeakerSchedulerAdmin(admin.ModelAdmin):
+    list_display = ['speaker','person', 'location','date']
 
 
 
