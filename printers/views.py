@@ -128,6 +128,10 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
     context_object_name = 'pl'
 
 
+class PrinterAnalytics(LoginRequiredMixin, TemplateView):
+    template_name = 'printers/printerAnalytics.html'
+
+
 class ExportPrintersAnalytics(View):
 
     def get(self, *args, **kwargs):

@@ -31,6 +31,8 @@
                 <th>Тип устройства</th>
                 <th>Модель </th>
                 <th>Производитель</th>
+                <th>Дата</th>
+
                 <th>Действие</th>
             </tr>
             {% for output in monitors %}
@@ -40,6 +42,7 @@
                     <td>{{ output.monitorStatus.name }}</td>
                     <td>{{ output.monitor.model }}</td>
                     <td>{{ output.monitor.firm }}</td>
+                    <td>{{ output.date }}</td>
                     <td>
                     </td>
                 </tr>

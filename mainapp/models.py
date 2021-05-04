@@ -44,7 +44,16 @@ class Model(models.Model):
 
 
 class PeriodOfDiagnostics(models.Model):
-    period = models.DurationField(verbose_name="период диагностики", blank=False)
+    name = models.CharField(max_length=20, verbose_name='Название периода')
+    period = models.DurationField(verbose_name="Период диагностики", blank=False)
+
+    class Meta:
+        verbose_name = 'Диагостика устройства'
+        verbose_name_plural = 'Диагностика устройств'
+
+    def __str__(self):
+        return self.name
+
 
 
 
