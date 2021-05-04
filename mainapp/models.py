@@ -55,11 +55,6 @@ class PeriodOfDiagnostics(models.Model):
         return self.name
 
 
-    def __str__(self):
-        return str(self.period)
-
-
-
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)

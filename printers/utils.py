@@ -1,4 +1,4 @@
-from import_export import resources, fields, widgets
+from import_export import resources, fields
 from printers.models import Printer
 
 
