@@ -28,8 +28,6 @@
                       <th scope="col">Серийный номер</th>
                       <th scope="col">Модель</th>
                       <th scope="col">Статус</th>
-                      <th scope="col">Титул</th>
-                      <th scope="col">Кабинет</th>
                       <th scope="col">Дата</th>
                     </tr>
                   </thead>
@@ -40,8 +38,6 @@
                          <td>{{ p.printer.serialNumber }}</td>
                          <td>{{ p.printer.printerModel.name }}</td>
                          <td>{{ p.printerStatus.name}}</td>
-                         <td>{{ p.location.titul }}</td>
-                         <td>{{ p.location.number }}</td>
                          <td>{{ p.date}}</td>
                         </tr>
                       {% endfor %}

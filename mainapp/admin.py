@@ -5,7 +5,7 @@ from .forms import AdminPeriodOfDiagnosticsForm
 
 @admin.register(PeriodOfDiagnostics)
 class PeriodOfDiagnosticsAdmin(admin.ModelAdmin):
-    list_display = ("period",)
+    list_display = ("name","period",)
     form = AdminPeriodOfDiagnosticsForm
 
 @admin.register(Firm)

@@ -22,6 +22,8 @@ urlpatterns = [
          YellowCartridgesAutocomplete.as_view(), name='yellow-cartridges-autocomplete'),
     path('purple-cartridges-autocomplete/',
          PurpleCartridgesAutocomplete.as_view(), name='purple-cartridges-autocomplete'),
+    path('analytics/', PrinterAnalytics.as_view(), name='printerAnalytics'),
+
     path('export_printers_analytics',
          ExportPrintersAnalytics.as_view(), name='export_printers_analytics')
 ]
