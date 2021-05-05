@@ -55,9 +55,6 @@ class PeriodOfDiagnostics(models.Model):
         return self.name
 
 
-
-
-
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
@@ -76,21 +73,26 @@ class Product(models.Model):
     @property
     def date_of_planned_diagnostics(self):
         """Возвращает дату следующей диагностики."""
-        return self.date_of_last_diagnostics + self.period_of_product_diagnostics.period
+        if self.date_of_last_diagnostics and self.period_of_product_diagnostics.period:
+            return self.date_of_last_diagnostics + self.period_of_product_diagnostics.period
 
     @property
     def days_remain_to_diagnostics(self):
-        import datetime
-        return self.date_of_planned_diagnostics - datetime.date.today()
+        if self.date_of_planned_diagnostics:
+            import datetime
+            return self.date_of_planned_diagnostics - datetime.date.today()
 
     @property
     def is_need_in_diagnostics(self):
-        days = self.days_remain_to_diagnostics.days
-        period = self.period_of_product_diagnostics.period.days
+        if self.days_remain_to_diagnostics:
+            days = self.days_remain_to_diagnostics.days
+            period = self.period_of_product_diagnostics.period.days
 
-        K = math.floor((days / period) * 10)
-        if days <= 0 or K <= 2:
-            return True
+            K = math.floor((days / period) * 10)
+            if days <= 0 or K <= 2:
+                return True
+        else:
+            return False
 
     class Meta:
         abstract = True

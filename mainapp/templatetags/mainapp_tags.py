@@ -8,6 +8,9 @@ register = template.Library()
 
 @register.simple_tag
 def test_days_to_diagnostics_remain(days, period):
+    if not days and not period:
+        return ""
+
     if days <= 0:
         return "bg-danger text-light"
 

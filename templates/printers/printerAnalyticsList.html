@@ -60,13 +60,36 @@
                 <td><a href="{% url 'printer_detail' pk=printer.pk %}">
                     {{ printer.serialNumber }}</a>
                 </td>
-                <td>{{ printer.date_of_last_diagnostics|date:"Y-m-d" }}</td>
-                <td>{{ printer.date_of_planned_diagnostics|date:"Y-m-d" }}</td>
-                <td>{{ printer.period_of_product_diagnostics.period.days }}</td>
                 <td>
-                    <span class="badge {% test_days_to_diagnostics_remain days=printer.days_remain_to_diagnostics.days period=printer.period_of_product_diagnostics.period.days %}">
+                    {% if printer.date_of_last_diagnostics %}
+                        {{ printer.date_of_last_diagnostics|date:"Y-m-d" }}
+                    {% else %}
+                        -----
+                    {% endif %}
+                </td>
+                <td>
+                    {% if printer.date_of_planned_diagnostics %}
+                        {{ printer.date_of_planned_diagnostics|date:"Y-m-d" }}
+                    {% else %}
+                        -----
+                    {% endif %}
+                </td>
+                <td>
+                    {% if printer.period_of_product_diagnostics %}
+                        {{ printer.period_of_product_diagnostics.period.days }}
+                    {% else %}
+                        -----
+                    {% endif %}
+                </td>
+                <td>
+                    {% if printer.days_remain_to_diagnostics.days %}
+                        {% test_days_to_diagnostics_remain days=printer.days_remain_to_diagnostics.days period=printer.period_of_product_diagnostics.period.days as badge %}
+                        <span class="badge {{ badge }}">
                         {{ printer.days_remain_to_diagnostics.days }}
-                    </span>
+                        </span>
+                    {% else %}
+                        -----
+                    {% endif %}
                 </td>
                 <td><a href="{% url 'printer_update' pk=printer.pk %}">Изменить</a></td>
             </tr>
