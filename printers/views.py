@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.urls import reverse_lazy
 from django.views.generic import *
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -103,6 +104,14 @@ class PrinterUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Информация о принтере была успешно обновлена."
 
 
+class PrinterAnalyzUpdateView(SuccessMessageMixin, UpdateView):
+    model = Printer
+    template_name = 'printers/printAnalyzUpdate.html'
+    form_class = PrinterAnalyzUpdateForm
+    context_object_name = 'pau'
+    success_url = reverse_lazy("diagnostics_list")
+
+
 class PrinterSchedulerListView(LoginRequiredMixin, ListView):
     model = PrinterScheduler
     queryset = PrinterScheduler.objects.all()
@@ -126,6 +135,7 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
     model = Printer
     template_name = 'printers/printerAnalyticsList.html'
     context_object_name = 'pl'
+
 
 
 class PrinterAnalytics(LoginRequiredMixin, TemplateView):

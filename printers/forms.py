@@ -75,6 +75,24 @@ class PrinterUpdateForm(forms.ModelForm):
         }
 
 
+class PrinterAnalyzUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Printer
+        fields = ('date_of_last_diagnostics', 'period_of_product_diagnostics', 'description')
+
+        widgets = {
+            'date_of_last_diagnostics': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'period_of_product_diagnostics':forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+
+
+
+
+
+
 class PrinterSchedulerCreateForm(forms.ModelForm):
     class Meta:
         model = PrinterScheduler
