@@ -58,7 +58,6 @@ class PeriodOfDiagnostics(models.Model):
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-    number = models.CharField(max_length=150, verbose_name='Заявка в тех.поддержку', blank=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
 
     date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики",

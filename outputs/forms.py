@@ -26,11 +26,10 @@ class MonitorCreateForm(forms.ModelForm):
 class MonitorUpdateForm(forms.ModelForm):
     class Meta:
         model = Monitor
-        fields = ('status', 'person', 'number', 'location', 'description')
+        fields = ('status', 'person', 'location', 'description')
 
         widgets = {
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'number': forms.TextInput(attrs={'class': 'form-control'}),
             'location': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
 
