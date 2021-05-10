@@ -28,20 +28,19 @@
             <thead>
             <tr>
                 <th>Серийный номер</th>
-                <th>Тип устройства</th>
+                <th>Категория</th>
                 <th>Модель </th>
                 <th>Производитель</th>
                 <th>Дата</th>
 
-                <th>Действие</th>
             </tr>
             {% for output in monitors %}
             <tbody>
                 <tr>
                     <td>{{ output.monitor }}</td>
-                    <td>{{ output.monitorStatus.name }}</td>
+                    <td>{{ output.monitor.model.category }}</td>
                     <td>{{ output.monitor.model }}</td>
-                    <td>{{ output.monitor.firm }}</td>
+                    <td>{{ output.monitor.model.firm }}</td>
                     <td>{{ output.date }}</td>
                     <td>
                     </td>
