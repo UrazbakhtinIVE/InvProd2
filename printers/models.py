@@ -89,7 +89,7 @@ def random_number():
 
 
 class PrinterScheduler(Scheduler):
-    uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
+    # uuid = models.PositiveSmallIntegerField(verbose_name='Номер заявки', default=random_number)
     printer = models.ForeignKey(Printer, models.CASCADE, verbose_name='Принтер')
     printerStatus = models.ForeignKey(PrinterStatus, models.CASCADE, verbose_name='Статус принетра', blank=True,null=True)
     description = models.TextField(verbose_name='Описание', blank=True)
@@ -100,7 +100,7 @@ class PrinterScheduler(Scheduler):
         db_table = 'PrinterSheduler'
 
     def __str__(self):
-        return str(self.uuid)
+        return str(self.printer.name)
 
     def get_absolute_url(self):
         return reverse('printer_scheduler_list')

@@ -32,8 +32,8 @@
                 <th>Модель </th>
                 <th>Производитель</th>
                 <th>Дата</th>
-
             </tr>
+
             {% for output in monitors %}
             <tbody>
                 <tr>
@@ -47,6 +47,17 @@
                 </tr>
             </tbody>
             {% endfor %}
+
+             {% for output in printers %}
+                    <tbody>
+                        <tr>
+                            <td>{{ output.printer }} </td>
+
+                        </tr>
+                    </tbody>
+            {% endfor %}
+
+
 
             {% for output in headsets %}
             <tbody>

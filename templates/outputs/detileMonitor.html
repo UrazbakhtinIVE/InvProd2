@@ -18,12 +18,10 @@
                 <div class="col">
                         <p><strong>Производитель:</strong> {{ md.model.firm}}</p>
                         <p><strong>Модель принтера:</strong> {{ md.model }}</p>
-                        <p><strong>Диоганаль:</strong> {{ md.model.diagonal }} дюймов</p>
-
-
-                        <p><strong>Титул:</strong> {{ pd.location.titul.name }} </p>
-                        <p><strong>Кабинет:</strong> {{ pd.location.number }} </p>
-                        <p><strong>Статус:</strong> {{ md.status}} </p>
+                        <p><strong>Диоганаль:</strong> {{ md.model.diagonal }} дюйма</p>
+                        <p><strong>Титул:</strong> {{md.location.titul.name }} </p>
+                        <p><strong>Кабинет:</strong> {{ md.location.number }} </p>
+                        <p><strong>Статус:</strong> {{ md.get_status_display}} </p>
 
                 </div>
                <div class="col">

@@ -13,8 +13,13 @@
             <div class="col">
 
                 <form method="POST">
+                    <br>
                     {% csrf_token %}
-                    {{ form }}
+                    <label>Модель гарнитуры</label>
+                        {{ form.model}}
+                     <label>Серийный номер</label>
+                        {{ form.serialNumber }}
+                    <br>
                     <button class="btn btn-outline-secondary">Сохранить</button>
                 </form>
 

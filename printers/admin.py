@@ -28,7 +28,7 @@ class PrinterStatusAdmin(admin.ModelAdmin):
 
 @admin.register(PrinterScheduler)
 class PrinterSchedulerAdmin(admin.ModelAdmin):
-    list_display = ['uuid','printer','printerStatus','date']
+    list_display = ['printer','printerStatus','date']
 
 
 

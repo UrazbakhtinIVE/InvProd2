@@ -9,7 +9,7 @@ from django.views.generic.base import View
 from outputs.models import Monitor, Headset, Speakers, MonitorScheduler
 from mainapp.models import Category
 from .forms import OutputsCategoriesForm, MonitorUpdateForm, MonitorCreateForm, HeadsetForm
-from printers.models import Printer
+from printers.models import Printer, PrinterScheduler
 
 
 class OutputsView(TemplateView):
@@ -75,11 +75,13 @@ class OutputsSchedulerListView(ListView):
 
     def get(self, request, *args, **kwargs):
         monitors = MonitorScheduler.objects.all()
+        printers = PrinterScheduler.objects.all()
         # headsets = Headset.objects.all()
         # speakers = Speakers.objects.all()
 
         comntext = {
             "monitors": monitors,
+            'printers': printers,
             # "headsets": headsets,
             # "speakers": speakers
         }
