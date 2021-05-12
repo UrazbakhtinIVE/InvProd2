@@ -31,6 +31,7 @@
                 <th>Категория</th>
                 <th>Модель </th>
                 <th>Производитель</th>
+                <th>Статус</th>
                 <th>Дата</th>
             </tr>
 
@@ -41,6 +42,7 @@
                     <td>{{ output.monitor.model.category }}</td>
                     <td>{{ output.monitor.model }}</td>
                     <td>{{ output.monitor.model.firm }}</td>
+                     <td>{{ output.monitor.get_status_display }}</td>
                     <td>{{ output.date }}</td>
                     <td>
                     </td>
@@ -52,6 +54,11 @@
                     <tbody>
                         <tr>
                             <td>{{ output.printer }} </td>
+                            <td>{{ output.printer.printerModel.category }} </td>
+                            <td>{{ output.printer.printerModel }} </td>
+                            <td>{{ output.printer.printerModel.firm }} </td>
+                            <td>{{ output.printer.status }} </td>
+                            <td>{{ output.date }} </td>
 
                         </tr>
                     </tbody>
