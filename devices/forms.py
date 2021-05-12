@@ -1,15 +1,14 @@
 from dal import autocomplete
 from django import forms
-from mainapp.models import Category
-from outputs.models import Monitor, Headset
+from mainapp.models import Category, PeriodOfDiagnostics
+from devices.models import Monitor, Headset
 
 
-class OutputsCategoriesForm(forms.Form):
+class DevicesCategoriesForm(forms.Form):
     categories = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         to_field_name="slug", widget=forms.Select(attrs={'class': 'form-control'})
     )
-
 
 class MonitorCreateForm(forms.ModelForm):
     class Meta:

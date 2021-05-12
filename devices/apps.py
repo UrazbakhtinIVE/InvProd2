@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class OutputsConfig(AppConfig):
-    name = 'outputs'
+class DevicesConfig(AppConfig):
+    name = 'devices'
 
     def ready(self):
         from . import signals

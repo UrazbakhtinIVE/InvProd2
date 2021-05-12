@@ -1,17 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import path
-from outputs.views import (
-    OutputsView, OutputsListView, AddOutputFromCategory,
-    AddMonitorView, AddHeadsetView, AddSpeakerView, UpdateMonitorView, OutputsSchedulerListView, MonitorDetailedView, MonitorDelete
+from devices.views import (
+    DevicesView, DevicesListView, AddDeviceFromCategory,
+    AddMonitorView, AddHeadsetView, AddSpeakerView, UpdateMonitorView, DevicesSchedulerListView, MonitorDetailedView, MonitorDelete
 )
 from printers.views import PrinterCreateView
 
 
 urlpatterns = [
-    path('', OutputsView.as_view(), name='outputs_info'),
-    path('list/', OutputsListView.as_view(), name='output_list'),
-    path('sheduler_list', OutputsSchedulerListView.as_view(), name='outputs_sheduler_list'),
-    path('crate_template/', AddOutputFromCategory.as_view(), name='outputsCreateTemplateView'),
+    path('', DevicesView.as_view(), name='devices_info'),
+    path('list/', DevicesListView.as_view(), name='output_list'),
+    path('sheduler_list', DevicesSchedulerListView.as_view(), name='devices_sheduler_list'),
+    path('crate_template/', AddDeviceFromCategory.as_view(), name='devicesCreateTemplateView'),
     path('create_monitor/', AddMonitorView.as_view(), name="createMonitor"),
     path('update_monitor/<int:pk>/', UpdateMonitorView.as_view(), name='updateMonitor'),
     path('monitor_detile/<int:pk>/', MonitorDetailedView.as_view(), name='monitorDetile'),

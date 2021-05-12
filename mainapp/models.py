@@ -54,30 +54,17 @@ class PeriodOfDiagnostics(models.Model):
         return self.name
 
 
-class TypeProduct(models.Model):
-    name = models.CharField(max_length=45, verbose_name='Название')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Тип устройства'
-        verbose_name_plural = 'Типы устройств'
-
-
 class Product(models.Model):
     serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
-    typeProduct = models.ForeignKey(TypeProduct,models.CASCADE, verbose_name='Тип устройства'),
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
 
     date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики",
                                                 blank=True, null=True)
-    period_of_product_diagnostics = models.ForeignKey(PeriodOfDiagnostics,
-                                                      blank=True, null=True, on_delete=models.SET_NULL,
-                                                      verbose_name="период диагностики"
-                                                      )
-
+    period_of_product_diagnostics = models.ForeignKey(
+        PeriodOfDiagnostics,
+        blank=True, null=True, on_delete=models.SET_NULL,
+        verbose_name="период диагностики")
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
 
     @property
