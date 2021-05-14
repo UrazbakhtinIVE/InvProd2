@@ -3,26 +3,25 @@ import itertools
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, FormView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import (
+    ListView, TemplateView, FormView, CreateView,
+    UpdateView, DetailView, DeleteView
+)
 from django.urls import reverse_lazy
 from django.views.generic.base import View
-from django.db.models import Q, Sum
 
-from devices.models import Monitor, Headset, Speakers
 from mainapp.models import Category, PeriodOfDiagnostics
+from .models import Monitor, Headset, Speakers
 from .forms import (
     DevicesCategoriesForm, MonitorUpdateForm,
     MonitorCreateForm, HeadsetForm)
-from printers.models import Printer, PrinterScheduler
-
-
 
 class DevicesView(TemplateView):
     template_name = 'devices/devices_info.html'
 
 
-class DevicesListView(LoginRequiredMixin, View):
-    """Представление, выводящие все устройства."""
+class OutputDevicesListView(LoginRequiredMixin, View):
+    """Представление, выводящие все устройства вывода."""
 
     def get_queryset(self, params):
         _serial_number = params.get("serialNumber")
@@ -54,7 +53,6 @@ class DevicesListView(LoginRequiredMixin, View):
                 lambda instance: filter_instance(instance),
                 itertools.chain(monitors, headsets, speakers)
             )
-
         return itertools.chain(monitors, headsets, speakers)
 
     def get(self, request, *args, **kwargs):

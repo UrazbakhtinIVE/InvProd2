@@ -13,7 +13,7 @@
                 <div class="col"></div>
                 <div class="col">
                      <nav class="navbar navbar-light">
-                 <form action="{% url 'catrige_scheduler_list' %}" method="get" class="form-inline">
+                 <form action="{% url 'cartridge_scheduler_list' %}" method="get" class="form-inline">
                      <input  name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -34,9 +34,9 @@
                       {% for c in  csl %}
                        <tr>
                          <td>{{ c.number }}</td>
-                         <td>{{ c.catrige.serialNumber }}</td>
-                         <td>{{ c.catrige.catrigeModel.name }}</td>
-                         <td>{{ c.get_catrigeStatus_display }}</td>
+                         <td>{{ c.cartridge.serialNumber }}</td>
+                         <td>{{ c.cartridge.cartridgeModel.name }}</td>
+                         <td>{{ c.get_cartridgeStatus_display }}</td>
                          <td>{{ c.date }}</td>
                          <td>{{ c.person.firstName }}</td>
                        </tr>

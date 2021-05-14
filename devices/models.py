@@ -1,90 +1,66 @@
-from django.urls import reverse
-
-from mainapp.models import Product, Model
 from django.db import models
-from mainapp.models import Scheduler, Status
+
+from mainapp.models import Model, Product
 from person.models import Person
 from locations.models import Room
 
 
-OUTPUTS_STATUSES = (
-    ("reserved", "В резерве"),
-    ("working", "В работе"),
-    ("repair", "На ремонт"),
-)
-
-
 class MonitorModel(Model):
-    diagonal = models.IntegerField(verbose_name='Диоганаль')
     photo = models.ImageField(blank=True, null=True)
+    diagonal = models.IntegerField(verbose_name="диоганаль")
 
     class Meta:
-        verbose_name = 'Модель монитора'
-        verbose_name_plural = 'Модели мониторов'
-
-    def __str__(self):
-        return self.name
-
-
-class Monitor(Product):
-    model = models.ForeignKey(MonitorModel, models.CASCADE, verbose_name='Модель монитора')
-    status = models.CharField(choices=OUTPUTS_STATUSES, max_length=12, default="reserved", null=True,
-                              verbose_name='Статус')
-
-    class Meta:
-        verbose_name = 'Монитор'
-        verbose_name_plural = 'Мониторы'
-
-    def __str__(self):
-        return self.serialNumber
-
-    def get_absolute_url(self):
-        return reverse('output_list')
+        verbose_name = "модель монитора"
+        verbose_name_plural = "модели мониторов"
 
 
 class HeadsetModel(Model):
     photo = models.ImageField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Модель гарнитуры'
-        verbose_name_plural = 'Модели гарнитур'
-
-    def __str__(self):
-        return self.name
-
-
-class Headset(Product):
-    model = models.ForeignKey(HeadsetModel, models.CASCADE, verbose_name='Модель гарнитуры')
-    status = models.CharField(choices=OUTPUTS_STATUSES, max_length=12, default="reserved", null=True,
-                              verbose_name='Статус')
-
-    class Meta:
-        verbose_name = 'Гарнитура'
-        verbose_name_plural = 'Гарнитуры'
-
-    def __str__(self):
-        return self.serialNumber
+        verbose_name = "модель гарнитуры"
+        verbose_name_plural = "модели гарнитур"
 
 
 class SpeakersModel(Model):
     photo = models.ImageField(blank=True, null=True)
 
     class Meta:
-        verbose_name = 'Модель колонок'
-        verbose_name_plural = 'Модели колонок'
+        verbose_name = "модель колонок"
+        verbose_name_plural = "модели колонок"
 
-    def __str__(self):
-        return self.name
+
+class Monitor(Product):
+    model = models.ForeignKey(
+        MonitorModel,
+        on_delete=models.CASCADE,
+        verbose_name="модель монитора"
+    )
+
+    class Meta:
+        verbose_name = "монитор"
+        verbose_name_plural = "мониторы"
+
+
+class Headset(Product):
+    model = models.ForeignKey(
+        HeadsetModel,
+        on_delete=models.CASCADE,
+        verbose_name="модель гарнитуры"
+    )
+
+    class Meta:
+        verbose_name = "гарнитура"
+        verbose_name_plural = "гарнитуры"
 
 
 class Speakers(Product):
-    model = models.ForeignKey(SpeakersModel, models.CASCADE, verbose_name='Модель')
-    status = models.CharField(choices=OUTPUTS_STATUSES, max_length=12, default="reserved", null=True,
-                              verbose_name='Статус')
+    model = models.ForeignKey(
+        SpeakersModel,
+        on_delete=models.CASCADE,
+        verbose_name="модель колонок"
+    )
 
     class Meta:
-        verbose_name = 'Колонки'
-        verbose_name_plural = 'Колонки'
-
-    def __str__(self):
-        return self.serialNumber
+        verbose_name = "колонки"
+        verbose_name_plural = "колонки"

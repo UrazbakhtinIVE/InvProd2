@@ -1,14 +1,17 @@
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import *
+from django.views.generic import (
+    View, TemplateView, DetailView, ListView, CreateView, UpdateView
+)
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from dal import autocomplete
 
-from printers.forms import *
-from printers.models import *
-from catriges.models import Catrige
+from cartridges.models import Cartridge
 from printers.utils import PrinterAnalyticsResource
+from .forms import PrinterCreateForm, PrinterUpdateForm, PrinterAnalyzUpdateForm
+from .models import Printer
 
 
 class PrinterInfo(LoginRequiredMixin, TemplateView):
@@ -17,7 +20,7 @@ class PrinterInfo(LoginRequiredMixin, TemplateView):
 
 class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее черные картриджи по запросу."""
-    queryset = Catrige.objects.get_black_cartridges()
+    queryset = Cartridge.objects.get_black_cartridges()
 
     def get_queryset(self):
         queryset = self.queryset.filter(
@@ -30,7 +33,7 @@ class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
 
 class BlueCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее голубые картриджи по запросу."""
-    queryset = Catrige.objects.get_blue_cartridges()
+    queryset = Cartridge.objects.get_blue_cartridges()
 
     def get_queryset(self):
         queryset = self.queryset.filter(
@@ -43,7 +46,7 @@ class BlueCartridgesAutocomplete(autocomplete.Select2QuerySetView):
 
 class YellowCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее желтые картриджи по запросу."""
-    queryset = Catrige.objects.get_yellow_cartridges()
+    queryset = Cartridge.objects.get_yellow_cartridges()
 
     def get_queryset(self):
         queryset = self.queryset.filter(
@@ -56,7 +59,7 @@ class YellowCartridgesAutocomplete(autocomplete.Select2QuerySetView):
 
 class PurpleCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее пурпурные картриджи по запросу."""
-    queryset = Catrige.objects.get_purple_cartridges()
+    queryset = Cartridge.objects.get_purple_cartridges()
 
     def get_queryset(self):
         queryset = self.queryset.filter(
@@ -87,7 +90,6 @@ class PrinterDetailView(LoginRequiredMixin, DetailView):
 
 class PrinterCreateView(SuccessMessageMixin, CreateView):
     model = Printer
-    queryset = Printer.objects.filter(status__name=PrinterScheduler.printerStatus)
     form_class = PrinterCreateForm
     template_name = 'printers/printerCreate.html'
     context_object_name = 'pc'
@@ -112,30 +114,10 @@ class PrinterAnalyzUpdateView(SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy("diagnostics_list")
 
 
-class PrinterSchedulerListView(LoginRequiredMixin, ListView):
-    model = PrinterScheduler
-    queryset = PrinterScheduler.objects.all()
-    template_name = 'printers/printerSchedulerList.html'
-    context_object_name = 'psl'
-
-    def get_queryset(self):
-        query = self.request.GET.get('q', "")
-        object_list = PrinterScheduler.objects.filter(Q(printer__serialNumber__contains=query))
-        return object_list
-
-
-class PrinterShedulerCreateView(LoginRequiredMixin, CreateView):
-    model = PrinterScheduler
-    form_class = PrinterSchedulerCreateForm
-    template_name = 'printers/create_printer_scheduler.html'
-    context_object_name = 'cp'
-
-
 class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
     model = Printer
     template_name = 'printers/printerAnalyticsList.html'
     context_object_name = 'pl'
-
 
 
 class PrinterAnalytics(LoginRequiredMixin, TemplateView):

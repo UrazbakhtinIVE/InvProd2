@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class CatrigesConfig(AppConfig):
-    name = 'catriges'
+class CartridgesConfig(AppConfig):
+    name = 'cartridges'
 
     def ready(self):
         from . import signals

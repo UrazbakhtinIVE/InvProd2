@@ -1,7 +1,8 @@
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-from .models import Printer, PrinterScheduler
+from .models import Printer
+from schedulers.models import PrinterScheduler
 
 
 def get_cartridges_instances(instance):
@@ -44,8 +45,8 @@ def update_scheduler_status_from_printer(sender, instance, **kwargs):
     else:
         if obj.status != instance.status:
             PrinterScheduler.objects.create(
-                printer=instance,
-                printerStatus=instance.status,
+                device=instance,
+                status=instance.status,
                 location=instance.location
             )
 

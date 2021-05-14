@@ -1,30 +1,32 @@
 from django import forms
-from catriges.models import *
 from dal import autocomplete
+
+from cartridges.models import Cartridge
+
 
 # Атрибуты для кастомизации Select2 плагина для поля картриджей.
 PERSON_ATTRS = {
     'data-placeholder': 'Выберите картридж',
     'data-allow-clear': "true",
-    'cartridge-field': ""
+    'cartridges-field': ""
 }
 
 
-class CatrigeCreateForm(forms.ModelForm):
+class CartridgeCreateForm(forms.ModelForm):
     class Meta:
-        model = Catrige
+        model = Cartridge
         fields = '__all__'
 
         widgets = {
             'serialNumber': forms.TextInput(attrs={'class': 'form-control'}),
-            'catrigeModel': forms.Select(attrs={'class': 'form-control'}),
+            'cartridgeModel': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
 
 
-class CatrigeUpdateForm(forms.ModelForm):
+class CartridgeUpdateForm(forms.ModelForm):
     class Meta:
-        model = Catrige
+        model = Cartridge
         fields = ('status', 'person', 'description')
 
         widgets = {

@@ -23,7 +23,7 @@
         <div class="col">
 
             <nav class="navbar navbar-light">
-                 <form action="{% url 'catrige_list' %}" method="get" class="form-inline">
+                 <form action="{% url 'cartridge_list' %}" method="get" class="form-inline">
                      <input  name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
                 </form>
@@ -33,7 +33,7 @@
         </div>
         </div>
             <div class="container">
-                <a href="{% url 'create_catrige' %}">Добавить</a>
+                <a href="{% url 'create_cartridge' %}">Добавить</a>
                 <table class="table">
                       <thead>
                       <tr>
@@ -42,14 +42,14 @@
                             <th>Статус</th>
                             <th scope="col">Действие</th>
                       </tr>
-                    {% for catrige in cl %}
+                    {% for cartridge in cl %}
                               <tbody>
                                 <tr>
-                                    <td><a href="{% url 'catrige_detile' pk=catrige.pk %}">{{ catrige.serialNumber}}</a></td>
-                                    <td>{{ catrige.catrigeModel.name }}</td>
-                                    <td>{{ catrige.get_status_display }}</td>
-                                    <td><a href="{% url 'update_catrige' pk=catrige.pk %}">Изменить</a>
-                                        <a href="{% url 'delete_catrige' pk=catrige.pk %}">Удалить</a>
+                                    <td><a href="{% url 'cartridge_detile' pk=cartridge.pk %}">{{ cartridge.serialNumber}}</a></td>
+                                    <td>{{ cartridge.cartridgeModel.name }}</td>
+                                    <td>{{ cartridge.get_status_display }}</td>
+                                    <td><a href="{% url 'update_cartridge' pk=cartridge.pk %}">Изменить</a>
+                                        <a href="{% url 'delete_cartridge' pk=cartridge.pk %}">Удалить</a>
                                     </td>
                                 </tr>
                               </tbody>

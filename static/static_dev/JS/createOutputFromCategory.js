@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.replace("/devices/create_speaker");
     } else if(value == "printers"){
       window.location.replace("/printer/create");
-    } else if(value == "catriges"){
-      window.location.replace("/catrige/create");
+    } else if(value == "cartridges"){
+      window.location.replace("/cartridges/create");
     }
   };
 
