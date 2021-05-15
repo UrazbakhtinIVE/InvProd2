@@ -23,13 +23,15 @@ class Scheduler(models.Model):
         blank=True, null=True
     )
     description = models.TextField(verbose_name="Описание", blank=True)
+    date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики",
+                                                blank=True, null=True)
 
     class Meta:
         abstract = True
 
 
 class PrinterScheduler(Scheduler):
-    printer = models.ForeignKey(
+    device = models.ForeignKey(
         Printer,
         on_delete=models.CASCADE,
         verbose_name="принтер"
@@ -46,11 +48,11 @@ class PrinterScheduler(Scheduler):
         verbose_name_plural = "журналы принтеров"
 
     def __str__(self):
-        return self.printer.serialNumber
+        return self.device.serialNumber
 
 
 class CartridgeScheduler(Scheduler):
-    cartridge = models.ForeignKey(
+    device = models.ForeignKey(
         Cartridge,
         on_delete=models.CASCADE,
         verbose_name="картридж"
@@ -66,11 +68,11 @@ class CartridgeScheduler(Scheduler):
         verbose_name_plural = "журналы картриджей"
 
     def __str__(self):
-        return self.cartridge.serialNumber
+        return self.device.serialNumber
 
 
 class MonitorScheduler(Scheduler):
-    monitor = models.ForeignKey(
+    device = models.ForeignKey(
         Monitor,
         on_delete=models.CASCADE,
         verbose_name="монитор"
@@ -82,7 +84,7 @@ class MonitorScheduler(Scheduler):
     )
 
     def __str__(self):
-        return self.monitor.serialNumber
+        return self.device.serialNumber
 
     class Meta:
         verbose_name = "журнал монитора"
@@ -90,7 +92,7 @@ class MonitorScheduler(Scheduler):
 
 
 class SpeakersScheduler(Scheduler):
-    speakers = models.ForeignKey(
+    device = models.ForeignKey(
         Speakers,
         on_delete=models.CASCADE,
         verbose_name="колонки"
@@ -102,7 +104,7 @@ class SpeakersScheduler(Scheduler):
     )
 
     def __str__(self):
-        return self.speakers.serialNumber
+        return self.device.serialNumber
 
     class Meta:
         verbose_name = "журнал колонки"
@@ -110,7 +112,7 @@ class SpeakersScheduler(Scheduler):
 
 
 class HeadsetScheduler(Scheduler):
-    headset = models.ForeignKey(
+    device = models.ForeignKey(
         Headset,
         on_delete=models.CASCADE,
         verbose_name="гарнитура"
@@ -122,7 +124,7 @@ class HeadsetScheduler(Scheduler):
     )
 
     def __str__(self):
-        return self.headset.serialNumber
+        return self.device.serialNumber
 
     class Meta:
         verbose_name = "журнал гарнитуры"

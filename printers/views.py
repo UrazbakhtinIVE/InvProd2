@@ -76,8 +76,8 @@ class PrinterListView(LoginRequiredMixin, ListView):
     context_object_name = 'pl'
 
     def get_queryset(self):
-        query = self.request.GET.get('q', "")
-        object_list = Printer.objects.filter(Q(serialNumber__contains=query))
+        query = self.request.GET.get("q", "")
+        object_list = Printer.objects.filter(serialNumber__contains=query)
         return object_list
 
 

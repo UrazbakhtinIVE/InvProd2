@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 from mainapp.models import Model, Product
 from person.models import Person
@@ -37,6 +38,9 @@ class Monitor(Product):
         verbose_name="модель монитора"
     )
 
+    def get_absolute_url(self):
+        return reverse_lazy("output_list")
+
     class Meta:
         verbose_name = "монитор"
         verbose_name_plural = "мониторы"
@@ -49,6 +53,9 @@ class Headset(Product):
         verbose_name="модель гарнитуры"
     )
 
+    def get_absolute_url(self):
+        return reverse_lazy("output_list")
+
     class Meta:
         verbose_name = "гарнитура"
         verbose_name_plural = "гарнитуры"
@@ -60,6 +67,9 @@ class Speakers(Product):
         on_delete=models.CASCADE,
         verbose_name="модель колонок"
     )
+
+    def get_absolute_url(self):
+        return reverse_lazy("output_list")
 
     class Meta:
         verbose_name = "колонки"

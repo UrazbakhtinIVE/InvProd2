@@ -43,11 +43,13 @@ def update_scheduler_status_from_printer(sender, instance, **kwargs):
     except sender.DoesNotExist:
         pass
     else:
-        if obj.status != instance.status:
+        if obj.status != instance.status or obj.date_of_last_diagnostics != instance.date_of_last_diagnostics:
             PrinterScheduler.objects.create(
                 device=instance,
                 status=instance.status,
-                location=instance.location
+                location=instance.location,
+                person=instance.person,
+                date_of_last_diagnostics=instance.date_of_last_diagnostics
             )
 
         cartridges = get_cartridges_instances(instance=instance)

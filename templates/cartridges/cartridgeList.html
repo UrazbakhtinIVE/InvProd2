@@ -45,8 +45,8 @@
                     {% for cartridge in cl %}
                               <tbody>
                                 <tr>
-                                    <td><a href="{% url 'cartridge_detile' pk=cartridge.pk %}">{{ cartridge.serialNumber}}</a></td>
-                                    <td>{{ cartridge.cartridgeModel.name }}</td>
+                                    <td><a href="{% url 'cartridge_detail' pk=cartridge.pk %}">{{ cartridge.serialNumber}}</a></td>
+                                    <td>{{ cartridge.model.name }}</td>
                                     <td>{{ cartridge.get_status_display }}</td>
                                     <td><a href="{% url 'update_cartridge' pk=cartridge.pk %}">Изменить</a>
                                         <a href="{% url 'delete_cartridge' pk=cartridge.pk %}">Удалить</a>

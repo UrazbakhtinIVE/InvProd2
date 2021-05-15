@@ -56,8 +56,8 @@
                 <tr>
                     <td><a href="{% url 'printer_detail' pk=prtinter.pk %}">{{ prtinter.serialNumber }}</a></td>
                     <td>{{ prtinter.name }}</td>
-                    <td>{{ prtinter.printerModel.name }}</td>
-                    <td>{{ prtinter.printerModel.firm.name }}</td>
+                    <td>{{ prtinter.model.name }}</td>
+                    <td>{{ prtinter.model.firm.name }}</td>
                     <td>{{ prtinter.status}}</td>
 
                     <td><a href="{% url 'printer_update' pk=prtinter.pk %}">Изменить</a></td>
@@ -146,7 +146,7 @@
 {#                          #}
 {#                       <tr>#}
 {#                          <td> <a href="{% url 'printer_detail' pk=p.pk  %}" >{{ p.serialNumber }}</a></td>#}
-{#                          <td>{{ p.printerModel.name }}</td>#}
+{#                          <td>{{ p.model.name }}</td>#}
 {#                          <td>{{ p.name }}</td>#}
 {#                          <td>{{ p.status.name }}</td>#}
 {#                          <td><a href="{% url 'printer_update' pk=p.pk %}">Изменить</a></td>#}

@@ -17,7 +17,7 @@ class PrinterSchedulerListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q", "")
-        object_list = PrinterScheduler.objects.filter(printer__serialNumber__contains=query)
+        object_list = PrinterScheduler.objects.filter(device__serialNumber__contains=query)
         return object_list
 
 
@@ -27,17 +27,31 @@ class CartridgeSchedulerListView(LoginRequiredMixin, ListView):
     context_object_name = 'csl'
 
     def get_queryset(self):
-        query = self.request.GET.get('q', "")
-        object_list = CartridgeScheduler.objects.filter(cartridge__serialNumber__contains=query)
+        query = self.request.GET.get("q", "")
+        object_list = CartridgeScheduler.objects.filter(device__serialNumber__contains=query)
         return object_list
 
 
 class DevicesSchedulerListView(View):
 
-    def get(self, request, *args, **kwargs):
-        monitors = MonitorScheduler.objects.all()
-        headsets = HeadsetScheduler.objects.all()
-        speakers = SpeakersScheduler.objects.all()
+    def get_queryset(self, params):
+        _serial_number = params.get("serialNumber", "")
 
-        context = {"dsl": itertools.chain(monitors, headsets, speakers)}
+        monitors_scheduler = MonitorScheduler.objects \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
+        headsets_scheduler = HeadsetScheduler.objects \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
+        speakers_scheduler = SpeakersScheduler.objects \
+            .filter(device__serialNumber__icontains=_serial_number)\
+            .select_related("device")
+
+
+        return itertools.chain(monitors_scheduler, headsets_scheduler, speakers_scheduler)
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset(request.GET)
+
+        context = {"dsl": queryset}
         return render(request, 'schedulers/devices_scheduler_list.html', context)

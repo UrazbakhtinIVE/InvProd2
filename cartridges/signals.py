@@ -15,9 +15,10 @@ def update_scheduler_status_from_cartridge(sender, instance, **kwargs):
     except sender.DoesNotExist:
         pass
     else:
-        if obj.status != instance.status:
+        if obj.status != instance.status or obj.date_of_last_diagnostics != instance.date_of_last_diagnostics:
             CartridgeScheduler.objects.create(
                 device=instance,
                 status=instance.status,
-                person=instance.person
+                person=instance.person,
+                date_of_last_diagnostics=instance.date_of_last_diagnostics
             )

@@ -5,9 +5,16 @@ from devices.models import Monitor, Headset
 
 
 class DevicesCategoriesForm(forms.Form):
-    categories = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        to_field_name="slug", widget=forms.Select(attrs={'class': 'form-control'})
+    categories = forms.ChoiceField(
+        choices=(
+            (None, "-----"),
+            ("monitors", "Мониторы"),
+            ("headsets", "Гарнитуры"),
+            ("speakers", "Колонки"),
+            ("printers", "Принтеры"),
+            ("cartridges", "Картриджи")
+        ),
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
 class MonitorCreateForm(forms.ModelForm):

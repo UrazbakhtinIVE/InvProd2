@@ -62,14 +62,14 @@
                 </td>
                 <td>
                     {% if printer.date_of_last_diagnostics %}
-                        {{ printer.date_of_last_diagnostics|date:"Y-m-d" }}
+                        {{ printer.date_of_last_diagnostics|date:"d.m.Y" }}
                     {% else %}
                         -----
                     {% endif %}
                 </td>
                 <td>
                     {% if printer.date_of_planned_diagnostics %}
-                        {{ printer.date_of_planned_diagnostics|date:"Y-m-d" }}
+                        {{ printer.date_of_planned_diagnostics|date:"d.m.Y" }}
                     {% else %}
                         -----
                     {% endif %}

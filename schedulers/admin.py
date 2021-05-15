@@ -11,20 +11,20 @@ from .models import (
 
 @admin.register(PrinterScheduler)
 class PrinterScheduler(admin.ModelAdmin):
-    list_display = ("printer", "date", "status")
+    list_display = ("device", "date", "status")
 
 @admin.register(CartridgeScheduler)
 class CartridgeScheduler(admin.ModelAdmin):
-    list_display = ("cartridge", "date", "status")
+    list_display = ("device", "date", "status")
 
 @admin.register(MonitorScheduler)
 class MonitorScheduler(admin.ModelAdmin):
-    list_display = ("monitor", "date", "status")
+    list_display = ("device", "date", "status")
 
 @admin.register(SpeakersScheduler)
 class SpeakersScheduler(admin.ModelAdmin):
-    list_display = ("speakers", "date", "status")
+    list_display = ("device", "date", "status")
 
 @admin.register(HeadsetScheduler)
 class HeadsetScheduler(admin.ModelAdmin):
-    list_display = ("headset", "date", "status")
+    list_display = ("device", "date", "status")
