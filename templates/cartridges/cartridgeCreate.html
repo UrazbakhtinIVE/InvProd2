@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+     {% block title %}Добавить картридж{% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <br>
+            <h5>Добавить картридж в список</h5>
+            <div class="row">
+                 <form method="post">
+                        {% csrf_token %}
+                          <label>Модель картриджа</label>
+                            {{ form.cartridgeModel }}
+                          <label>Серийный номер</label>
+                            {{ form.serialNumber }}
+                          <label>Статус</label>
+                            {{ form.status }}
+                        <br>
+                        <button class="btn btn-outline-secondary">Сохранить</button>
+                 </form>
+            </div>
+        </div>
+    {% endblock %}

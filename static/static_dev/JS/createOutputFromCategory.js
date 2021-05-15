@@ -7,15 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     if (value == "monitors") {
-      window.location.replace("/outputs/create_monitor");
+      window.location.replace("/devices/create_monitor");
     } else if (value == "headsets") {
-      window.location.replace("/outputs/create_headset");
+      window.location.replace("/devices/create_headset");
     } else if (value == "speakers") {
-      window.location.replace("/outputs/create_speaker");
+      window.location.replace("/devices/create_speaker");
     } else if(value == "printers"){
       window.location.replace("/printer/create");
-    } else if(value == "catriges"){
-      window.location.replace("/catrige/create");
+    } else if(value == "cartridges"){
+      window.location.replace("/cartridges/create");
     }
   };
 

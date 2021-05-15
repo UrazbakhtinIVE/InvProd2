@@ -54,31 +54,33 @@ class PeriodOfDiagnostics(models.Model):
         return self.name
 
 
-class TypeProduct(models.Model):
-    name = models.CharField(max_length=45, verbose_name='Название')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Тип устройства'
-        verbose_name_plural = 'Типы устройств'
-
-
 class Product(models.Model):
-    serialNumber = models.CharField(max_length=30, verbose_name='Серийный номер', unique=True)
-    typeProduct = models.ForeignKey(TypeProduct,models.CASCADE, verbose_name='Тип устройства'),
-    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-    location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
+    name = models.CharField(max_length=20, verbose_name='имя устройства')
+    serialNumber = models.CharField(max_length=30, verbose_name='серийный номер', unique=True)
+    person = models.ForeignKey(Person, models.CASCADE, verbose_name='пользователь', blank=True, null=True)
+    location = models.ForeignKey(Room, models.CASCADE, verbose_name='кабинет', blank=True, null=True)
 
     date_of_last_diagnostics = models.DateField(verbose_name="дата последней диагностики",
                                                 blank=True, null=True)
-    period_of_product_diagnostics = models.ForeignKey(PeriodOfDiagnostics,
-                                                      blank=True, null=True, on_delete=models.SET_NULL,
-                                                      verbose_name="период диагностики"
-                                                      )
-
+    period_of_product_diagnostics = models.ForeignKey(
+        PeriodOfDiagnostics,
+        blank=True, null=True, on_delete=models.SET_NULL,
+        verbose_name="период диагностики")
     description = models.TextField(verbose_name='Описание', blank=True, null=True)
+
+    RESERVED = "reserved"
+    WORKING = "working"
+    REPAIR = "repair"
+
+    STATUSES = (
+        (RESERVED, "В резерве"),
+        (WORKING, "В работе"),
+        (REPAIR, "На ремонт"),
+    )
+
+    status = models.CharField(
+        choices=STATUSES, max_length=12, default=RESERVED, blank=True,
+        verbose_name="cтатус устройства")
 
     @property
     def date_of_planned_diagnostics(self):
@@ -104,11 +106,11 @@ class Product(models.Model):
         else:
             return False
 
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return self.serialNumber
+
+    class Meta:
+        abstract = True
 
 
 class Status(models.Model):
@@ -120,13 +122,3 @@ class Status(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Scheduler(models.Model):
-    date = models.DateField(auto_now_add=True, verbose_name='Дата')
-    location = models.ForeignKey(Room, models.CASCADE, verbose_name='Кабинет', blank=True, null=True)
-    person = models.ForeignKey(Person, models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
-    description = models.TextField(verbose_name='Описание', blank=True)
-
-    class Meta:
-        abstract = True
