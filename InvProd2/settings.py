@@ -12,21 +12,26 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
-    'printers.apps.PrintersConfig',
-    'catriges.apps.CatrigesConfig',
-    'locations',
-    'person',
-    'outputs.apps.OutputsConfig',
+
     'import_export',
     'debug_toolbar',
     'durationwidget',
+
+    'mainapp',
+    'printers.apps.PrintersConfig',
+    'cartridges.apps.CartridgesConfig',
+    'locations',
+    'person',
+    'devices.apps.DevicesConfig',
+    'schedulers'
+
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mainapp_tags %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список устройств вывода{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 class="List-title">Список устройств вывода</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="count">Общее колличество: {{ total_count }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <form action="" method="GET" class="form-inline my-4">
+
+                    <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
+                           aria-label="Search">
+
+
+                    <select name="control_period" class="custom-select mr-2" style="width: auto !important;">
+                        <option value="" selected="">Контрольный период диагностики</option>
+                        {% for control_period in control_periods %}
+                            <option value="{{ control_period.pk }}">{{ control_period.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+
+
+        <a href="{% url 'devicesCreateTemplateView' %}">Добавить</a>
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+                <thead>
+                <tr>
+                    <th>Серийный номер</th>
+                    <th>Категория</th>
+                    <th>Модель</th>
+                    <th>Производитель</th>
+                    <th>Статус</th>
+                    <th>Дата последней диагностики</th>
+                    <th>Период диагностики</th>
+                    <th>Действие</th>
+                </tr>
+                {% for monitor in monitors %}
+                    <tbody>
+                    <tr>
+                        <td>{{ monitor.serialNumber }}</td>
+                        <td>{{ monitor.model.category }}</td>
+                        <td>{{ monitor.model }}</td>
+                        <td>{{ monitor.model.firm }}</td>
+                        <td>{{ monitor.get_status_display }}</td>
+                        <td>{{ monitor.date_of_last_diagnostics|date:"d.m.Y" }}</td>
+                        <td>{{ monitor.period_of_product_diagnostics }}</td>
+                        <td>
+                            <a href="{% url 'updateMonitor' pk=monitor.pk %}">Изменить</a>
+                            <a href="{% url 'monitorDelete' pk=monitor.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+                {% for headset in headsets %}
+                    <tbody>
+                    <tr>
+                        <td>{{ headset.serialNumber }}</td>
+                        <td>{{ headset.model.category }}</td>
+                        <td>{{ headset.model }}</td>
+                        <td>{{ headset.model.firm }}</td>
+                        <td>{{ headset.get_status_display }}</td>
+                        <td>{{ headset.date_of_last_diagnostics|date:"d.m.Y" }}</td>
+                        <td>{{ headset.period_of_product_diagnostics }}</td>
+                        <td>
+                            <a href="#">Изменить</a>
+                            <a href="#">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+                {% for speaker in speakers %}
+                    <tbody>
+                    <tr>
+                        <td>{{ speaker.serialNumber }}</td>
+                        <td>{{ speaker.model.category }}</td>
+                        <td>{{ speaker.model }}</td>
+                        <td>{{ speaker.model.firm }}</td>
+                        <td>{{ speaker.get_status_display }}</td>
+                        <td>{{ speaker.date_of_last_diagnostics|date:"d.m.Y" }}</td>
+                        <td>{{ speaker.period_of_product_diagnostics }}</td>
+                        <td>
+                            <a href="#">Изменить</a>
+                            <a href="#">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

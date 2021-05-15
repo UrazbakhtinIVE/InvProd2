@@ -19,7 +19,7 @@ def test_days_to_diagnostics_remain(days, period):
         return "bg-danger text-light"
     elif K <= 3:
         return "bg-warning text-dark"
-    elif K <= 5:
+    elif K <= 5 or K >= 5:
         return "bg-success text-light"
 
 

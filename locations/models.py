@@ -22,7 +22,6 @@ class Room(models.Model):
     class Meta:
         verbose_name = 'Помещение'
         verbose_name_plural = 'Помещения'
-        db_table = 'Room'
 
     def __str__(self):
         return self.number

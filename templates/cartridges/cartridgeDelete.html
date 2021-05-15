@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+    {% block title %}Удаление принтера{% endblock %}
+
+    {% block content %}
+
+         <div class="container">
+            <div class="row">
+                <div class="col">
+                 <a href="{% url 'cartridge_list' %}" >Назад</a>
+                     <form method="POST">
+                    <div class="form-group">
+                        {% csrf_token %}
+                    </div>
+                    <p class="message">Вы действительно хотите удалить принтера <strong class='serialNumber'> {{ cd.serialNumber }}</strong></p>
+                     <button  type="submit" class="btn btn-outline-secondary">Удалить</button>
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

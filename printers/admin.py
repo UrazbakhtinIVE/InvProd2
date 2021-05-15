@@ -1,11 +1,10 @@
 from django.contrib import admin
-from printers.models import *
-from .forms import PrinterAdminForm
+from printers.models import PrinterModel, PrinterType, PrinterStatus, Printer
 
 
 @admin.register(PrinterModel)
 class PrinterModelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'printerType', 'category']
+    list_display = ['name', 'type', 'category']
 
 
 @admin.register(PrinterType)
@@ -16,7 +15,7 @@ class PrinterTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Printer)
 class PrinterAdmin(admin.ModelAdmin):
-    list_display = ['serialNumber','printerModel','name','ip','status']
+    list_display = ['serialNumber', 'model', 'name', 'ip', 'status']
     search_fields = ['serialNumber']
 
 
@@ -24,11 +23,6 @@ class PrinterAdmin(admin.ModelAdmin):
 class PrinterStatusAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
-
-
-@admin.register(PrinterScheduler)
-class PrinterSchedulerAdmin(admin.ModelAdmin):
-    list_display = ['printer','printerStatus','date']
 
 
 
