@@ -18,6 +18,7 @@ class CartridgeCreateForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
+            'model':  forms.Select(attrs={'class': 'form-control'}),
             'serialNumber': forms.TextInput(attrs={'class': 'form-control'}),
             'cartridgeModel': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),

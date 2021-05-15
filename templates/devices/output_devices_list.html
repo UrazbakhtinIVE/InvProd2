@@ -54,8 +54,6 @@
                     <th>Модель</th>
                     <th>Производитель</th>
                     <th>Статус</th>
-                    <th>Дата последней диагностики</th>
-                    <th>Период диагностики</th>
                     <th>Действие</th>
                 </tr>
                 {% for monitor in monitors %}
@@ -66,8 +64,6 @@
                         <td>{{ monitor.model }}</td>
                         <td>{{ monitor.model.firm }}</td>
                         <td>{{ monitor.get_status_display }}</td>
-                        <td>{{ monitor.date_of_last_diagnostics|date:"d.m.Y" }}</td>
-                        <td>{{ monitor.period_of_product_diagnostics }}</td>
                         <td>
                             <a href="{% url 'updateMonitor' pk=monitor.pk %}">Изменить</a>
                             <a href="{% url 'monitorDelete' pk=monitor.pk %}">Удалить</a>
@@ -84,8 +80,6 @@
                         <td>{{ headset.model }}</td>
                         <td>{{ headset.model.firm }}</td>
                         <td>{{ headset.get_status_display }}</td>
-                        <td>{{ headset.date_of_last_diagnostics|date:"d.m.Y" }}</td>
-                        <td>{{ headset.period_of_product_diagnostics }}</td>
                         <td>
                             <a href="#">Изменить</a>
                             <a href="#">Удалить</a>
@@ -102,8 +96,6 @@
                         <td>{{ speaker.model }}</td>
                         <td>{{ speaker.model.firm }}</td>
                         <td>{{ speaker.get_status_display }}</td>
-                        <td>{{ speaker.date_of_last_diagnostics|date:"d.m.Y" }}</td>
-                        <td>{{ speaker.period_of_product_diagnostics }}</td>
                         <td>
                             <a href="#">Изменить</a>
                             <a href="#">Удалить</a>
