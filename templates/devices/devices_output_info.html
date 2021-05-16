@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %} Устройства вывода {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col"><h3>Информация о всех устройствах вывода</h3></div>
+        <div class="row">
+            <div class="col">
+                <a class="link_wrap" href="{% url 'output_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="#">Список всех устройств</a>
+            </div>
+
+
+            <div class="col">
+                <a class="link_wrap" href="{% url 'devices_scheduler_list' %}">
+                    <img src="{% static 'img/jurnal.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="#">Журнал всех устройств</a>
+            </div>
+
+            <div class="col">
+                <a class="link_wrap" href="{% url 'output_analytics' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'output_analytics' %}">Анализ обслуживания всех устройств</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

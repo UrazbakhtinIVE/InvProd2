@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %} Устройства вывода {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col"><h3>Информация об перифирийных устройствах</h3></div>
+        <div class="row">
+            <div class="col">
+                <a class="link_wrap" href="{% url 'devices_outputs_info' %}">
+                    <img src="{% static 'img/devices.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'devices_outputs_info' %}">Устройства вывода</a>
+            </div>
+
+            <div class="col">
+                <a class="link_wrap" href="{% url 'devices_inputs_info' %}">
+                    <img src="{% static 'img/keyboard.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'devices_inputs_info' %}">Устройства ввода</a>
+            </div>
+
+            <div class="col">
+                <a class="link_wrap" href="{% url 'devices_others_info' %}">
+                    <img src="{% static 'img/coplect.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'devices_others_info' %}">Другие устройства</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

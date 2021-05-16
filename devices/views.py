@@ -11,6 +11,7 @@ from django.views.generic.base import View
 
 from mainapp.models import Category, PeriodOfDiagnostics
 from .models import Monitor, Headset, Speakers
+from printers.models import Printer
 from .forms import (
     DevicesCategoriesForm, MonitorUpdateForm,
     MonitorCreateForm, HeadsetForm)
@@ -19,13 +20,19 @@ class DevicesView(TemplateView):
     template_name = "devices/devices_info.html"
 
 
+class OutputDevicesInfoView(TemplateView):
+    template_name = "devices/devices_output_info.html"
+
+
 class OutputDevicesListView(LoginRequiredMixin, View):
     """Представление, выводящие все устройства вывода."""
 
     def get_queryset(self, params):
         _serial_number = params.get("serialNumber", "")
-        _control_period_pk = params.get("control_period")
 
+        printers = Printer.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model")
         monitors = Monitor.objects \
             .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
@@ -35,6 +42,49 @@ class OutputDevicesListView(LoginRequiredMixin, View):
         speakers = Speakers.objects \
             .filter(serialNumber__icontains=_serial_number)\
             .select_related("model")
+
+        return {
+            "printers": printers.iterator(),
+            "monitors": monitors.iterator(),
+            "headsets": headsets.iterator(),
+            "speakers": speakers.iterator()
+        }
+
+    def get(self, request, *args, **kwargs):
+        devices = self.get_queryset(params=request.GET)
+        total_count = Printer.objects.count() \
+                      + Monitor.objects.count() \
+                      + Headset.objects.count() \
+                      + Speakers.objects.count()
+
+        context = {
+            **devices,
+            "total_count": total_count
+        }
+        return render(request, "devices/devices_output_list.html", context)
+
+
+class OutputDevicesAnalyticsListView(LoginRequiredMixin, View):
+    def get_queryset(self, params):
+        _serial_number = params.get("serialNumber", "")
+        _control_period_pk = params.get("control_period")
+
+        printers = Printer.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
+        monitors = Monitor.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
+        headsets = Headset.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
+        speakers = Speakers.objects \
+            .filter(serialNumber__icontains=_serial_number)\
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
 
         if _control_period_pk:
             control_period = PeriodOfDiagnostics.objects.get(pk=_control_period_pk)
@@ -51,6 +101,10 @@ class OutputDevicesListView(LoginRequiredMixin, View):
                         < now + control_period.period):
                     return instance
             return {
+                "printers": filter(
+                    lambda instance: filter_instance(instance),
+                    printers.iterator()
+                ),
                 "monitors": filter(
                     lambda instance: filter_instance(instance),
                     monitors.iterator()
@@ -65,6 +119,7 @@ class OutputDevicesListView(LoginRequiredMixin, View):
                 )
             }
         return {
+            "printers": printers.iterator(),
             "monitors": monitors.iterator(),
             "headsets": headsets.iterator(),
             "speakers": speakers.iterator()
@@ -72,7 +127,8 @@ class OutputDevicesListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         devices = self.get_queryset(params=request.GET)
-        total_count = Monitor.objects.count() \
+        total_count = Printer.objects.count() \
+                      + Monitor.objects.count() \
                       + Headset.objects.count() \
                       + Speakers.objects.count()
 
@@ -81,7 +137,8 @@ class OutputDevicesListView(LoginRequiredMixin, View):
             "total_count": total_count,
             "control_periods": PeriodOfDiagnostics.objects.all()
         }
-        return render(request, "devices/output_devices_list.html", context)
+        return render(request, "devices/devices_output_diagnostics_list.html", context)
+
 
 
 class AddDeviceFromCategory(FormView):

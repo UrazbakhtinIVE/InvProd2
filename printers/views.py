@@ -1,15 +1,13 @@
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import (
-    View, TemplateView, DetailView, ListView, CreateView, UpdateView
+    TemplateView, DetailView, ListView, CreateView, UpdateView
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from dal import autocomplete
 
 from cartridges.models import Cartridge
-from printers.utils import PrinterAnalyticsResource
 from .forms import PrinterCreateForm, PrinterUpdateForm, PrinterAnalyzUpdateForm
 from .models import Printer
 
@@ -122,16 +120,3 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
 
 class PrinterAnalytics(LoginRequiredMixin, TemplateView):
     template_name = 'printers/printerAnalytics.html'
-
-
-class ExportPrintersAnalytics(View):
-
-    def get(self, *args, **kwargs):
-        import datetime
-        now = datetime.datetime.now()
-        dataset = PrinterAnalyticsResource().export()
-        response = HttpResponse(
-            dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-        response['Content-Disposition'] = f'attachment; filename=PrintersAnalytics ({now}).xlsx'
-        return response

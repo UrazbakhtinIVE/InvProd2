@@ -30,14 +30,6 @@
                     <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
                            aria-label="Search">
 
-
-                    <select name="control_period" class="custom-select mr-2" style="width: auto !important;">
-                        <option value="" selected="">Контрольный период диагностики</option>
-                        {% for control_period in control_periods %}
-                            <option value="{{ control_period.pk }}">{{ control_period.name }}</option>
-                        {% endfor %}
-                    </select>
-
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
                 </form>
             </div>
@@ -56,6 +48,22 @@
                     <th>Статус</th>
                     <th>Действие</th>
                 </tr>
+                {% for printer in printers %}
+                    <tbody>
+                    <tr>
+                        <td>{{ printer.serialNumber }}</td>
+                        <td>{{ printer.model.category }}</td>
+                        <td>{{ printer.model }}</td>
+                        <td>{{ printer.model.firm }}</td>
+                        <td>{{ printer.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'printer_update' pk=printer.pk %}">Изменить</a>
+                            <a href="{% url 'monitorDelete' pk=printer.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
                 {% for monitor in monitors %}
                     <tbody>
                     <tr>
