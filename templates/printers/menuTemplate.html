@@ -7,7 +7,7 @@
     {% block content %}
         <div class="container">
         <div class="col">
-            <h3> <a href="#"><img src="{% static 'img/scrollarrowtoleft.png' %}"></a>     Информация о печатных устройствах</h3></div>
+            <h3> <a href="#"><img src="{% static 'img/scrollarrowtoleft.png' %}"></a>Информация о печатных устройствах</h3></div>
 
          <div class="row">
 
@@ -17,10 +17,10 @@
                 <a class="link_wrap_for_img" href="{% url 'printer_info' %}">Принтеры</a>
             </div>
 
-            <div class="col">
-                <a class="link_wrap" href="{% url 'cartridge_info' %}"><img src="{% static 'img/cart.png' %}"></a>
-                <a class="link_wrap_for_img" href="{% url 'cartridge_info' %}">Катриджи</a>
-            </div>
+<!--            <div class="col">-->
+<!--                <a class="link_wrap" href="{% url 'cartridge_info' %}"><img src="{% static 'img/cart.png' %}"></a>-->
+<!--                <a class="link_wrap_for_img" href="{% url 'cartridge_info' %}">Катриджи</a>-->
+<!--            </div>-->
         </div>
         </div>
     {% endblock %}

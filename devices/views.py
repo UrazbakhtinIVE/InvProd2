@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import (
     TemplateView, FormView, CreateView,
-    UpdateView, DetailView, DeleteView
+    UpdateView, DetailView, DeleteView, ListView
 )
 from django.urls import reverse_lazy
 from django.views.generic.base import View
@@ -16,12 +16,25 @@ from .forms import (
     DevicesCategoriesForm, MonitorUpdateForm,
     MonitorCreateForm, HeadsetForm)
 
+
 class DevicesView(TemplateView):
     template_name = "devices/devices_info.html"
 
 
+class MonitorTemplateView(TemplateView):
+    template_name = "devices/monitor_info.html"
+
+
+class HeaderSetTemplateView(TemplateView):
+    template_name = "devices/headerset_info.html"
+
+
+class SpeakersTemplateView(TemplateView):
+    template_name = "devices/speakers_info.html"
+
+
 class OutputDevicesInfoView(TemplateView):
-    template_name = "devices/devices_output_info.html"
+    template_name = "devices/speakers_info.html"
 
 
 class OutputDevicesListView(LoginRequiredMixin, View):
@@ -40,7 +53,7 @@ class OutputDevicesListView(LoginRequiredMixin, View):
             .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
         speakers = Speakers.objects \
-            .filter(serialNumber__icontains=_serial_number)\
+            .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
 
         return {
@@ -82,7 +95,7 @@ class OutputDevicesAnalyticsListView(LoginRequiredMixin, View):
             .select_related("model") \
             .order_by("date_of_last_diagnostics")
         speakers = Speakers.objects \
-            .filter(serialNumber__icontains=_serial_number)\
+            .filter(serialNumber__icontains=_serial_number) \
             .select_related("model") \
             .order_by("date_of_last_diagnostics")
 
@@ -100,6 +113,7 @@ class OutputDevicesAnalyticsListView(LoginRequiredMixin, View):
                         + instance.date_of_last_diagnostics
                         < now + control_period.period):
                     return instance
+
             return {
                 "printers": filter(
                     lambda instance: filter_instance(instance),
@@ -138,7 +152,6 @@ class OutputDevicesAnalyticsListView(LoginRequiredMixin, View):
             "control_periods": PeriodOfDiagnostics.objects.all()
         }
         return render(request, "devices/devices_output_diagnostics_list.html", context)
-
 
 
 class AddDeviceFromCategory(FormView):
@@ -187,3 +200,16 @@ class AddSpeakerView(CreateView):
     template_name = "devices/speakers_create.html"
     fields = "__all__"
     success_url = reverse_lazy("output_list")
+
+
+class ListMonitorView(LoginRequiredMixin, ListView):
+    model = Monitor
+    context_object_name = 'monitors'
+    template_name = 'devices/monitor_list.html'
+
+
+class DetailMonitorView(LoginRequiredMixin, DetailView):
+    model = Printer
+    queryset = Printer.objects.all()
+    template_name = 'printers/printerDetail.html'
+    context_object_name = 'monitors'

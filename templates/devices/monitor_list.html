@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mainapp_tags %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список устройств вывода{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 class="List-title">Список мониторов</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="count">Общее колличество: {{ total_count }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <form action="" method="GET" class="form-inline my-4">
+
+                    <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+
+        <a href="{% url 'devicesCreateTemplateView' %}">Добавить</a>
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+                <thead>
+                <tr>
+                    <th>Серийный номер</th>
+                    <th>Категория</th>
+                    <th>Модель</th>
+                    <th>Производитель</th>
+                    <th>Статус</th>
+                    <th>Действие</th>
+                </tr>
+                {% for monitor in monitors %}
+                    <tbody>
+                    <tr>
+                        <td><a href="#">{{ monitor.serialNumber }}</a></td>
+                        <td>{{ monitor.model.category }}</td>
+                        <td>{{ monitor.model }}</td>
+                        <td>{{ monitor.model.firm }}</td>
+                        <td>{{ monitor.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'updateMonitor' pk=monitor.pk %}">Изменить</a>
+                            <a href="{% url 'monitorDelete' pk=monitor.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

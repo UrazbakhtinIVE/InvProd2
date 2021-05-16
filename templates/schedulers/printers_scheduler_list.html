@@ -25,22 +25,18 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Номер</th>
                     <th scope="col">Серийный номер</th>
                     <th scope="col">Модель</th>
                     <th scope="col">Статус</th>
-                    <th scope="col">Дата последней диагностики</th>
                     <th scope="col">Дата</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for printer_scheduler in psl %}
                     <tr>
-                        <td>{{ printer_scheduler.uuid }}</td>
                         <td>{{ printer_scheduler.device.serialNumber }}</td>
                         <td>{{ printer_scheduler.device.model.name }}</td>
                         <td>{{ printer_scheduler.status.name }}</td>
-                        <td>{{ printer_scheduler.date_of_last_diagnostics|date:"d.m.Y" }}</td>
                         <td>{{ printer_scheduler.date|date:"d.m.Y" }}</td>
                     </tr>
                 {% endfor %}
