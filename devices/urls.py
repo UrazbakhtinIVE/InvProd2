@@ -2,12 +2,14 @@ from django.urls import path
 from devices.views import (
     DevicesView, OutputDevicesListView, AddDeviceFromCategory,
     AddMonitorView, AddHeadsetView, AddSpeakerView, UpdateMonitorView,
-    MonitorDetailedView, MonitorDelete
+    MonitorDetailedView, MonitorDelete, OutputDevicesInfoView, OutputDevicesAnalyticsListView
 )
 
 urlpatterns = [
     path('', DevicesView.as_view(), name='devices_info'),
+    path('output/info/', OutputDevicesInfoView.as_view(), name='output_info'),
     path('output/list/', OutputDevicesListView.as_view(), name='output_list'),
+    path('output/analytics/', OutputDevicesAnalyticsListView.as_view(), name='output_analytics'),
     path('create_device/', AddDeviceFromCategory.as_view(), name='devicesCreateTemplateView'),
     path('create_monitor/', AddMonitorView.as_view(), name="createMonitor"),
     path('update_monitor/<int:pk>/', UpdateMonitorView.as_view(), name='updateMonitor'),
