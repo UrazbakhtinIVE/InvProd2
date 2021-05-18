@@ -12,25 +12,60 @@ from .models import (
 
 class PrinterSchedulerListView(LoginRequiredMixin, ListView):
     model = PrinterScheduler
-    template_name = "schedulers/printers_scheduler_list.html"
-    context_object_name = 'psl'
+    template_name = "schedulers/printer_scheduler_list.html"
 
     def get_queryset(self):
-        query = self.request.GET.get("q", "")
-        object_list = PrinterScheduler.objects.filter(device__serialNumber__contains=query)
-        return object_list
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
 
 
 class CartridgeSchedulerListView(LoginRequiredMixin, ListView):
     model = CartridgeScheduler
-    template_name = 'schedulers/cartridges_scheduler_list.html'
-    context_object_name = 'csl'
+    template_name = 'schedulers/cartridge_scheduler_list.html'
 
     def get_queryset(self):
-        query = self.request.GET.get("q", "")
-        object_list = CartridgeScheduler.objects.filter(device__serialNumber__contains=query)
-        return object_list
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
 
+
+class MonitorSchedulerListView(LoginRequiredMixin, ListView):
+    model = MonitorScheduler
+    template_name = "schedulers/monitor_scheduler_list.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
+
+class HeadsetSchedulerListView(LoginRequiredMixin, ListView):
+    model = HeadsetScheduler
+    template_name = "schedulers/headset_scheduler_list.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
+
+class SpeakersSchedulerListView(LoginRequiredMixin, ListView):
+    model = SpeakersScheduler
+    template_name = "schedulers/speakers_scheduler_list.html"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(device__serialNumber__icontains=_serial_number) \
+            .select_related("device")
 
 class DevicesSchedulerListView(View):
 

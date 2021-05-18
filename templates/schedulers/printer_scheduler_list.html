@@ -4,7 +4,7 @@
     {% include 'header.html' %}
 {% endblock %}
 
-{% block title %}Журнал принтеров {% endblock %}
+{% block title %}Журнал принтеров{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -14,8 +14,9 @@
             <div class="col"></div>
             <div class="col">
                 <nav class="navbar navbar-light">
-                    <form action="{% url 'printer_scheduler_list' %}" method="get" class="form-inline">
-                        <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search"
+                    <form action="{% url 'printer_scheduler_list' %}" class="form-inline">
+                        <input name="serialNumber" class="form-control mr-sm-2"
+                               type="search" placeholder="Серийный номер"
                                aria-label="Search">
                         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -25,19 +26,23 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th scope="col">Номер заявки</th>
                     <th scope="col">Серийный номер</th>
                     <th scope="col">Модель</th>
                     <th scope="col">Статус</th>
                     <th scope="col">Дата</th>
+                    <th scope="col">Пользователь</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for printer_scheduler in psl %}
+                {% for scheduler in object_list %}
                     <tr>
-                        <td>{{ printer_scheduler.device.serialNumber }}</td>
-                        <td>{{ printer_scheduler.device.model.name }}</td>
-                        <td>{{ printer_scheduler.status.name }}</td>
-                        <td>{{ printer_scheduler.date|date:"d.m.Y" }}</td>
+                        <td>{{ scheduler.number }}</td>
+                        <td>{{ scheduler.device.serialNumber }}</td>
+                        <td>{{ scheduler.device.model.name }}</td>
+                        <td>{{ scheduler.status.name }}</td>
+                        <td>{{ scheduler.date|date:"d.m.Y" }}</td>
+                        <td>{{ scheduler.person.firstName }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

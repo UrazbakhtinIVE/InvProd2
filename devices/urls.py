@@ -1,30 +1,43 @@
 from django.urls import path
-from devices.views import (
-    DevicesView, OutputDevicesListView, AddDeviceFromCategory,
-    AddMonitorView, AddHeadsetView, AddSpeakerView, UpdateMonitorView,
-    MonitorDetailedView, MonitorDelete, OutputDevicesInfoView, OutputDevicesAnalyticsListView, MonitorTemplateView,
-    ListMonitorView, DetailMonitorView, HeaderSetTemplateView, SpeakersTemplateView
-)
+
+from . import views
 
 urlpatterns = [
-    path('', DevicesView.as_view(), name='devices_info'),
-    path('output/info/', OutputDevicesInfoView.as_view(), name='output_info'),
-    path('output/list/', OutputDevicesListView.as_view(), name='output_list'),
-    path('output/analytics/', OutputDevicesAnalyticsListView.as_view(), name='output_analytics'),
-    path('create_device/', AddDeviceFromCategory.as_view(), name='devicesCreateTemplateView'),
-    path('monitor_info/', MonitorTemplateView.as_view(), name='monitor_info'),
-    path('monitor_list/', ListMonitorView.as_view(), name='monitor_list'),
+    path("", views.OutputDevicesInfoView.as_view(), name="devices_info"),
+    path("create/", views.DeviceCreateView.as_view(), name="devices_create"),
 
-    # path('monitor_detail/<pk:int>/', DetailMonitorView.as_view(), name='monitor_detail'),
+    # все устроства вывода
+    path("output/info/", views.OutputDevicesInfoView.as_view(), name="output_info"),
+    path("output/list/", views.OutputDevicesListView.as_view(), name="output_list"),
+    path("output/analytics/", views.OutputDevicesAnalyticsListView.as_view(), name="output_analytics"),
 
-    path('create_monitor/', AddMonitorView.as_view(), name="createMonitor"),
-    path('update_monitor/<int:pk>/', UpdateMonitorView.as_view(), name='updateMonitor'),
-    path('monitor_detail/<int:pk>/', MonitorDetailedView.as_view(), name='monitorDetail'),
-    path('monitor_delete/<int:pk>/', MonitorDelete.as_view(), name='monitorDelete'),
-    path('create_headset/', AddHeadsetView.as_view(), name="createHeadset"),
-    path('headrest_info/', HeaderSetTemplateView.as_view(), name='headrest_info'),
-    path('speakers_info/', SpeakersTemplateView.as_view(), name='speakers_info'),
+    # мониторы
+    path("monitor/info", views.MonitorInfoView.as_view(), name="monitor_info"),
+    path("monitor/create", views.MonitorCreateView.as_view(), name="monitor_create"),
+    path("monitor/list", views.MonitorListView.as_view(), name="monitor_list"),
+    path("monitor/<int:pk>/", views.MonitorDetailView.as_view(), name="monitor_detail"),
+    path("monitor/update/<int:pk>/", views.MonitorUpdateView.as_view(),  name="monitor_update"),
+    path("monitor/delete/<int:pk>/", views.MonitorDeleteView.as_view(), name="monitor_delete"),
+    path("monitor/analytics/", views.MonitorAnalyticsListView.as_view(), name="monitor_analytics"),
+    path("monitor/analytics/update/<int:pk>/", views.MonitorAnalyticsUpdateView.as_view(), name="monitor_analytics_update"),
 
+    # гарнитуры
+    path("headset/info", views.HeadsetInfoView.as_view(), name="headset_info"),
+    path("headset/create", views.HeadsetCreateView.as_view(), name="headset_create"),
+    path("headset/list", views.HeadsetListView.as_view(), name="headset_list"),
+    path("headset/<int:pk>/", views.HeadsetDetailView.as_view(), name="headset_detail"),
+    path("headset/update/<int:pk>/", views.HeadsetUpdateView.as_view(), name="headset_update"),
+    path("headset/delete/<int:pk>/", views.HeadsetDeleteView.as_view(), name="headset_delete"),
+    path("headset/analytics/", views.HeadsetAnalyticsListView.as_view(), name="headset_analytics"),
+    path("headset/analytics/update/<int:pk>/", views.HeadsetAnalyticsUpdateView, name="headset_analytics_update"),
 
-    path('create_speaker/', AddSpeakerView.as_view(), name="createSpeaker"),
+    # колонки
+    path("speakers/info", views.SpeakersInfoView.as_view(), name="speakers_info"),
+    path("speakers/create", views.SpeakersCreateView.as_view(), name="speakers_create"),
+    path("speakers/list", views.SpeakersListView.as_view(), name="speakers_list"),
+    path("speakers/<int:pk>/", views.SpeakersDetailView.as_view(), name="speakers_detail"),
+    path("speakers/update/<int:pk>/", views.SpeakersUpdateView.as_view(), name="speakers_update"),
+    path("speakers/delete/<int:pk>/", views.SpeakersDeleteView.as_view(), name="speakers_delete"),
+    path("speakers/analytics/", views.SpeakersAnalyticsListView.as_view(), name="speakers_analytics"),
+    path("speakers/analytics/update/<int:pk>/", views.SpeakersAnalyticsUpdateView.as_view(), name="speakers_analytics_update"),
 ]

@@ -1,27 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    {% block  header%} {% include 'header.html' %} {% endblock %}
-     {% block title %}Информация о колонках{% endblock %}
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %}Информация о колонках{% endblock %}
 
-    {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col"><h4>Информация о колонках</h4></div>
-            </div>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"><h4>Информация о колонках</h4></div>
         </div>
-        <div class="container">
-         <div class="row">
-
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col">
-                <a class="link_wrap" href="#"><img src="{% static 'img/checklist.png' %}"></a>
-                <a class="link_wrap_for_img" href="#">Список калонок</a>
+                <a class="link_wrap" href="{% url 'speakers_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'speakers_list' %}">Список колонок</a>
             </div>
-              <div class="col">
-                <a class="link_wrap" href="{% url 'devices_scheduler_list' %}"><img src="{% static 'img/jurnal.png' %}"></a>
-                <a class="link_wrap_for_img" href="#">Журнал калонок</a>
-              </div>
-
+            <div class="col">
+                <a class="link_wrap" href="{% url 'speakers_scheduler_list' %}">
+                    <img src="{% static 'img/jurnal.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'speakers_scheduler_list' %}">Журнал колонок</a>
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'speakers_analytics' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'speakers_analytics' %}">Анализ обслуживания</a>
             </div>
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}

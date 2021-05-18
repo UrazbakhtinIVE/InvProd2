@@ -10,7 +10,7 @@ from printers.views import (
     YellowCartridgesAutocomplete,
     PurpleCartridgesAutocomplete,
     PrinterAnalytics,
-    PrinterAnalyzUpdateView
+    PrinterAnalyzUpdateView, PrinterDeleteView
 )
 
 
@@ -19,7 +19,8 @@ urlpatterns = [
     path('printer_info/', PrinterInfo.as_view(), name='printer_info'),
     path('list/', PrinterListView.as_view(), name='printer_list'),
     path('create/', PrinterCreateView.as_view(), name='printer_create'),
-    path('update/<int:pk>', PrinterUpdateView.as_view(), name='printer_update'),
+    path('update/<int:pk>/', PrinterUpdateView.as_view(), name='printer_update'),
+    path('delete/<int:pk>/', PrinterDeleteView.as_view(), name='printer_delete'),
     path('detail/<int:pk>/', PrinterDetailView.as_view(),name='printer_detail'),
     path('diagnostics_list/', PrinterAnalyticsListView.as_view(), name="diagnostics_list"),
     path('black-cartridges-autocomplete/',

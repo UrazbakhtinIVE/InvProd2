@@ -70,9 +70,9 @@ WSGI_APPLICATION = 'InvProd2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'invdb',
-        'USER': 'postgres',
-        'PASSWORD': 'masterkey',
+        'NAME': 'invprod',
+        'USER': 'invprod_admin',
+        'PASSWORD': '545454322q',
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'OPTIONS': {
@@ -118,7 +118,7 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'login'
 
 INTERNAL_IPS = [
     '127.0.0.1'

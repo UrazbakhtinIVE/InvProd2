@@ -6,12 +6,12 @@
     {% include 'header.html' %}
 {% endblock %}
 
-{% block title %}Список устройств вывода{% endblock %}
+{% block title %}Список колонок{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3 class="List-title">Список мониторов</h3>
+                <h3 class="List-title">Список колонок</h3>
             </div>
         </div>
 
@@ -24,18 +24,18 @@
 
         <div class="row">
             <div class="col">
-
-                <form action="" method="GET" class="form-inline my-4">
-
-                    <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
+                <form action="{% url 'headset_list' %}" method="GET" class="form-inline my-4">
+                    <input class="form-control mr-2"
+                           name="serialNumber"
+                           type="search"
+                           placeholder="По серийному номеру"
                            aria-label="Search">
-
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
                 </form>
             </div>
         </div>
 
-        <a href="{% url 'devicesCreateTemplateView' %}">Добавить</a>
+        <a href="{% url 'speakers_list' %}">Добавить</a>
         <div class="table-responsive">
             <table class="table text-nowrap">
                 <thead>
@@ -47,22 +47,23 @@
                     <th>Статус</th>
                     <th>Действие</th>
                 </tr>
-                {% for monitor in monitors %}
+                {% for object in object_list %}
                     <tbody>
                     <tr>
-                        <td><a href="#">{{ monitor.serialNumber }}</a></td>
-                        <td>{{ monitor.model.category }}</td>
-                        <td>{{ monitor.model }}</td>
-                        <td>{{ monitor.model.firm }}</td>
-                        <td>{{ monitor.get_status_display }}</td>
                         <td>
-                            <a href="{% url 'updateMonitor' pk=monitor.pk %}">Изменить</a>
-                            <a href="{% url 'monitorDelete' pk=monitor.pk %}">Удалить</a>
+                            <a href="{% url 'speakers_detail' pk=object.pk %}">{{ object.serialNumber }}</a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'speakers_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'speakers_delete' pk=object.pk %}">Удалить</a>
                         </td>
                     </tr>
                     </tbody>
                 {% endfor %}
-
             </table>
         </div>
     </div>

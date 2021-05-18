@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+{% block title %}Информация о гарнитурах{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"><h4>Информация о гарнитурах</h4></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="link_wrap" href="{% url 'headset_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'headset_list' %}">Список гарнитур</a>
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'headset_scheduler_list' %}"><img src="{% static 'img/jurnal.png' %}"></a>
+                <a class="link_wrap_for_img" href="{% url 'headset_scheduler_list' %}">Журнал гарнитур</a>
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'headset_analytics' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'headset_analytics' %}">Анализ обслуживания</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
