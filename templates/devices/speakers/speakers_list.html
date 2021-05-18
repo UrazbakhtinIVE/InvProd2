@@ -14,7 +14,16 @@
                 <h3 class="List-title">Список колонок</h3>
             </div>
         </div>
-
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
+                    {{ message|safe }}
+                    <button class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class="row">
             <div class="col">
                 <p class="count">Общее колличество: {{ total_count }}
@@ -24,7 +33,7 @@
 
         <div class="row">
             <div class="col">
-                <form action="{% url 'headset_list' %}" method="GET" class="form-inline my-4">
+                <form action="{% url 'speakers_list' %}" method="GET" class="form-inline my-4">
                     <input class="form-control mr-2"
                            name="serialNumber"
                            type="search"
@@ -35,7 +44,7 @@
             </div>
         </div>
 
-        <a href="{% url 'speakers_list' %}">Добавить</a>
+        <a href="{% url 'speakers_create' %}">Добавить</a>
         <div class="table-responsive">
             <table class="table text-nowrap">
                 <thead>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Изменить{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="wrap_zag">
+            <div class="row">
+                <div class="col">
+                    <div class="col">
+                        <h5>Обновить данные картриджа
+                            <span class="serialNumber">{{ object.serialNumber }}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <label>Статус</label>
+                        {{ form.status }}
+                        <br>
+                        <label>Пользователь</label>
+                        {{ form.person }}
+                        <br>
+                        <label>Месторасположение</label>
+                        {{ form.location }}
+                        <br>
+                    </div>
+                    <br>
+                    <div class="col">
+                        <label>Описание</label>
+                        {{ form.description }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-outline-secondary" type="submit">Сохранить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    {{ form.media }}
+{% endblock js %}

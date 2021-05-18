@@ -10,19 +10,19 @@
     <div class="container">
         <h3 class="List-title">Журнал принтеров</h3>
         <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
             <div class="col">
-                <nav class="navbar navbar-light">
-                    <form action="{% url 'printer_scheduler_list' %}" class="form-inline">
-                        <input name="serialNumber" class="form-control mr-sm-2"
-                               type="search" placeholder="Серийный номер"
-                               aria-label="Search">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </nav>
+                <form action="{% url 'printer_scheduler_list' %}"class="form-inline my-4">
+                    <input class="form-control mr-2"
+                           name="serialNumber"
+                           type="search"
+                           placeholder="По серийному номеру"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
             </div>
+        </div>
 
+        <div class="row">
             <table class="table">
                 <thead>
                 <tr>

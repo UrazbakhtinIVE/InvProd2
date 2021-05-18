@@ -8,5 +8,5 @@ urlpatterns = [
     path("monitor_scheduler_list/", views.MonitorSchedulerListView.as_view(), name="monitor_scheduler_list"),
     path("headset_scheduler_list/", views.HeadsetSchedulerListView.as_view(), name="headset_scheduler_list"),
     path("speakers_scheduler_list/", views.SpeakersSchedulerListView.as_view(), name="speakers_scheduler_list"),
-    path("devices_scheduler_list/", views.DevicesSchedulerListView.as_view(), name="devices_scheduler_list"),
+    path("output_scheduler_list/", views.OutputDevicesSchedulerListView.as_view(), name="output_scheduler_list"),
 ]

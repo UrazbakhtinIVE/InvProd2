@@ -38,7 +38,7 @@
                         <td>{{ scheduler.number }}</td>
                         <td>{{ scheduler.device.serialNumber }}</td>
                         <td>{{ scheduler.device.model.name }}</td>
-                        <td>{{ scheduler.status.name }}</td>
+                        <td>{{ scheduler.get_status_display }}</td>
                         <td>{{ scheduler.date|date:"d.m.Y" }}</td>
                         <td>{{ scheduler.person.firstName }}</td>
                     </tr>

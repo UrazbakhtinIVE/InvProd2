@@ -56,6 +56,23 @@ class CartridgeAnalyticsResource(BaseAnalyticsResource):
         exclude = ("id", "person", "description",
                    "model", "ip", "status")
 
+class MonitorAnalyticsResource(BaseAnalyticsResource):
+    class Meta:
+        model = Monitor
+        exclude = ("id", "person", "description",
+                   "model", "ip", "status")
+
+class HeadsetAnalyticsResource(BaseAnalyticsResource):
+    class Meta:
+        model = Headset
+        exclude = ("id", "person", "description",
+                   "model", "ip", "status")
+
+class SpeakersAnalyticsResource(BaseAnalyticsResource):
+    class Meta:
+        model = Speakers
+        exclude = ("id", "person", "description",
+                   "model", "ip", "status")
 
 class OutputDevicesAnalyticsResource(BaseAnalyticsResource):
 
@@ -66,7 +83,6 @@ class OutputDevicesAnalyticsResource(BaseAnalyticsResource):
             Speakers.objects.all(),
             Printer.objects.all()
         )
-
         return (obj for obj in queryset if obj.is_need_in_diagnostics)
 
     class Meta:

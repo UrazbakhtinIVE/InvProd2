@@ -24,7 +24,7 @@ class PrinterSchedulerListView(LoginRequiredMixin, ListView):
 
 class CartridgeSchedulerListView(LoginRequiredMixin, ListView):
     model = CartridgeScheduler
-    template_name = 'schedulers/cartridge_scheduler_list.html'
+    template_name = "schedulers/cartridge_scheduler_list.html"
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -67,7 +67,7 @@ class SpeakersSchedulerListView(LoginRequiredMixin, ListView):
             .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
 
-class DevicesSchedulerListView(View):
+class OutputDevicesSchedulerListView(View):
 
     def get_queryset(self, params):
         _serial_number = params.get("serialNumber", "")
@@ -88,5 +88,5 @@ class DevicesSchedulerListView(View):
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset(request.GET)
 
-        context = {"dsl": queryset}
-        return render(request, 'schedulers/devices_scheduler_list.html', context)
+        context = {"object_list": queryset}
+        return render(request, "schedulers/output_scheduler_list.html", context)
