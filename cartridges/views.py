@@ -1,56 +1,88 @@
-from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import (
-    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+    TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView, View
 )
 from dal import autocomplete
 
-from .forms import CartridgeCreateForm, CartridgeUpdateForm
+from . import forms
 from .models import Cartridge
 from person.models import Person
+from mainapp.models import PeriodOfDiagnostics
+from mainapp.utils import filter_by_control_period
 
 
-class CartridgeInfo(LoginRequiredMixin, TemplateView):
-    template_name = 'cartridges/cartridge_info.html'
-
+class CartridgeInfoView(LoginRequiredMixin, TemplateView):
+    template_name = "cartridges/cartridge_info.html"
 
 class CartridgeListView(LoginRequiredMixin, ListView):
     model = Cartridge
-    queryset = Cartridge.objects.all()
-    context_object_name = 'cl'
-    template_name = 'cartridges/cartridgeList.html'
+    template_name = "cartridges/cartridge_list.html"
 
     def get_queryset(self):
-        query = self.request.GET.get('q', "")
-        object_list = Cartridge.objects.filter(Q(serialNumber__contains=query))
-        return object_list
-
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model")
 
 class CartridgeDetailView(LoginRequiredMixin, DetailView):
     model = Cartridge
-    queryset = Cartridge.objects.all()
-    template_name = 'cartridges/cartridgeDetail.html'
-    context_object_name = 'cd'
+    template_name = "cartridges/cartridge_detail.html"
+    context_object_name = "cd"
 
-
-class CartridgeCreateView(LoginRequiredMixin, CreateView):
+class CartridgeCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Cartridge
-    form_class = CartridgeCreateForm
-    template_name = 'cartridges/cartridgeCreate.html'
+    form_class = forms.CartridgeCreateForm
+    success_message = "Новый картридж был успешно создан."
+    template_name = "cartridges/cartridge_сreate.html"
 
-
-class CartridgeUpdateView(LoginRequiredMixin, UpdateView):
+class CartridgeUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Cartridge
-    form_class = CartridgeUpdateForm
-    template_name = 'cartridges/cartridgeUpdate.html'
-    context_object_name = 'cu'
+    form_class = forms.CartridgeUpdateForm
+    success_message = "Информация о картридже была успешно обновлена."
+    template_name = "cartridges/cartridge_update.html"
 
-class CartridgeDelete(LoginRequiredMixin, DeleteView):
+class CartridgeDelete(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Cartridge
-    template_name = 'cartridges/cartridgeDelete.html'
-    context_object_name = 'cd'
-    success_url = reverse_lazy('cartridge_list')
+    template_name = "cartridges/cartridge_delete.html"
+    success_message = "Картридж был успешно удален."
+    success_url = reverse_lazy("cartridge_list")
+
+class CartridgeAnalyticsListView(LoginRequiredMixin, View):
+    def get_queryset(self, params):
+        _serial_number = params.get("serialNumber", "")
+        _control_period_pk = params.get("control_period")
+
+        queryset = Cartridge.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
+
+        if _control_period_pk:
+            return filter_by_control_period(period_pk=_control_period_pk, queryset=queryset)
+        return queryset.iterator()
+
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset(params=request.GET)
+        total_count = Cartridge.objects.count()
+
+        context = {
+            "object_list": queryset,
+            "total_count": total_count,
+            "control_periods": PeriodOfDiagnostics.objects.all()
+        }
+        return render(request, "cartridges/cartridge_analytics_list.html", context)
+
+class CartridgeAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Cartridge
+    template_name = "cartridges/cartridge_analytics_update.html"
+    form_class = forms.CartridgeAnalyticsUpdateForm
+    success_message = "Информация об обслуживании была успешно обновлена."
+    success_url = reverse_lazy("cartridge_analytics_list")
 
 
 class SearchFirstNameAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):

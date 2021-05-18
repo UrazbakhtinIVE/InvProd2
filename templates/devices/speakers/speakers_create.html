@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Добавление колонок{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h5>Добавить колонки в список</h5>
+        {{ form.errors }}
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    {% csrf_token %}
+                    <br>
+                    <label>Модель</label>
+                    {{ form.model }}
+                    <br>
+                    <label>Серийный номер</label>
+                    {{ form.serialNumber }}
+                    <br>
+                    <label>Статус</label>
+                    {{ form.status }}
+                    <br>
+                    <button class="btn btn-outline-secondary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,19 @@
+1. Сделать views для Printer, Cartridge, Monitor, Headset, Output
+    - Create
+    - Detail
+    - List
+    - Update
+    - Delete
+    - Analytics List
+    - Update Analytics
+
+2. Сделать templates для Printer, Cartridge, Monitor, Headset, Output
+    - Create
+    - Detail
+    - List
+    - Update
+    - Delete
+    - Analytics List
+    - Update Analytics
+
+3. Сделать выгрузку аналитики для Printer, Cartridge, Monitor, Headset, Output

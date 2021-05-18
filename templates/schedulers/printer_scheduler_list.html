@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Журнал принтеров{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3 class="List-title">Журнал принтеров</h3>
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'printer_scheduler_list' %}"class="form-inline my-4">
+                    <input class="form-control mr-2"
+                           name="serialNumber"
+                           type="search"
+                           placeholder="По серийному номеру"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Номер заявки</th>
+                    <th scope="col">Серийный номер</th>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Пользователь</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for scheduler in object_list %}
+                    <tr>
+                        <td>{{ scheduler.number }}</td>
+                        <td>{{ scheduler.device.serialNumber }}</td>
+                        <td>{{ scheduler.device.model.name }}</td>
+                        <td>{{ scheduler.status.name }}</td>
+                        <td>{{ scheduler.date|date:"d.m.Y" }}</td>
+                        <td>{{ scheduler.person.firstName }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mainapp_tags %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список гарнитур{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 class="List-title">Список гарнитур</h3>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade in show" role="alert">
+                    {{ message|safe }}
+                    <button class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="col">
+                <p class="count">Общее колличество: {{ total_count }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'headset_list' %}" method="GET" class="form-inline my-4">
+                    <input class="form-control mr-2"
+                           name="serialNumber"
+                           type="search"
+                           placeholder="По серийному номеру"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+
+        <a href="{% url 'headset_create' %}">Добавить</a>
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+                <thead>
+                <tr>
+                    <th>Серийный номер</th>
+                    <th>Категория</th>
+                    <th>Модель</th>
+                    <th>Производитель</th>
+                    <th>Статус</th>
+                    <th>Действие</th>
+                </tr>
+                {% for object in object_list %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'headset_detail' pk=object.pk %}">{{ object.serialNumber }}</a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'headset_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'headset_delete' pk=object.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

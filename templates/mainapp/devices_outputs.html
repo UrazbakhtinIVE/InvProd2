@@ -16,31 +16,35 @@
             </div>
 
             <div class="col">
-                <a class="link_wrap" href="{% url 'printer_template' %}">
+                <a class="link_wrap" href="{% url 'printer_info' %}">
                     <img src="{% static 'img/printer_.png' %}">
                 </a>
-                <a class="link_wrap_for_img" href="{% url 'printer_template' %}">Принтеры</a>
+                <a class="link_wrap_for_img" href="{% url 'printer_info' %}">Принтеры</a>
             </div>
 
             <div class="col">
                 <a class="link_wrap" href="">
-                    <img src="{% static 'img/monitor.png' %}">
+                    <a href="{% url 'monitor_info' %}">
+                        <img src="{% static 'img/monitor.png' %}">
+                    </a>
                 </a>
-                <a class="link_wrap_for_img" href="">Мониторы</a>
+                <a class="link_wrap_for_img" href="{% url 'monitor_info' %}">Мониторы</a>
             </div>
 
             <div class="col">
                 <a class="link_wrap" href="">
-                    <img src="{% static 'img/devices.png' %}">
+                    <a href="{% url 'headset_info' %}">
+                        <img src="{% static 'img/devices.png' %}">
+                    </a>
                 </a>
-                <a class="link_wrap_for_img" href="">Гарнитуры</a>
+                <a class="link_wrap_for_img" href="{% url 'headset_info' %}">Гарнитуры</a>
             </div>
-
             <div class="col">
                 <a class="link_wrap" href="">
-                    <img src="{% static 'img/devices.png' %}">
-                </a>
-                <a class="link_wrap_for_img" href="">Колонки</a>
+                    <a href="{% url 'speakers_info' %}">
+                        <img src="{% static 'img/devices.png' %}">
+                    </a>
+                    <a class="link_wrap_for_img" href="{% url 'speakers_info' %}">Колонки</a>
             </div>
         </div>
     </div>

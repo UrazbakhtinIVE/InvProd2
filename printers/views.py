@@ -1,19 +1,18 @@
 from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
-    TemplateView, DetailView, ListView, CreateView, UpdateView
+    TemplateView, DetailView, ListView, CreateView, UpdateView, DeleteView
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dal import autocomplete
 
 from cartridges.models import Cartridge
+from mainapp.models import PeriodOfDiagnostics
+from mainapp.utils import filter_by_control_period
 from .forms import PrinterCreateForm, PrinterUpdateForm, PrinterAnalyzUpdateForm
 from .models import Printer
-
-
-class PrinterInfo(LoginRequiredMixin, TemplateView):
-    template_name = 'printers/printer_info.html'
 
 
 class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
@@ -28,7 +27,6 @@ class BlackCartridgesAutocomplete(autocomplete.Select2QuerySetView):
         )
         return queryset
 
-
 class BlueCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее голубые картриджи по запросу."""
     queryset = Cartridge.objects.get_blue_cartridges()
@@ -41,7 +39,6 @@ class BlueCartridgesAutocomplete(autocomplete.Select2QuerySetView):
         )
         return queryset
 
-
 class YellowCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее желтые картриджи по запросу."""
     queryset = Cartridge.objects.get_yellow_cartridges()
@@ -53,7 +50,6 @@ class YellowCartridgesAutocomplete(autocomplete.Select2QuerySetView):
             & Q(serialNumber__icontains=self.q)
         )
         return queryset
-
 
 class PurpleCartridgesAutocomplete(autocomplete.Select2QuerySetView):
     """API-представление, возращающее пурпурные картриджи по запросу."""
@@ -68,55 +64,73 @@ class PurpleCartridgesAutocomplete(autocomplete.Select2QuerySetView):
         return queryset
 
 
+class PrinterInfoView(LoginRequiredMixin, TemplateView):
+    template_name = "printers/printer_info.html"
+
 class PrinterListView(LoginRequiredMixin, ListView):
     model = Printer
-    template_name = 'printers/printerList.html'
-    context_object_name = 'pl'
+    extra_context = {"total_count": Printer.objects.count()}
+    template_name = "printers/printer_list.html"
 
     def get_queryset(self):
-        query = self.request.GET.get("q", "")
-        object_list = Printer.objects.filter(serialNumber__contains=query)
-        return object_list
-
+        queryset = super().get_queryset()
+        _serial_number = self.request.GET.get("serialNumber", "")
+        return queryset \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model")
 
 class PrinterDetailView(LoginRequiredMixin, DetailView):
     model = Printer
-    queryset = Printer.objects.all()
-    template_name = 'printers/printerDetail.html'
-    context_object_name = 'pd'
+    template_name = "printers/printer_detail.html"
 
-
-class PrinterCreateView(SuccessMessageMixin, CreateView):
+class PrinterCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Printer
     form_class = PrinterCreateForm
-    template_name = 'printers/printerCreate.html'
-    context_object_name = 'pc'
+    template_name = "printers/printer_create.html"
+    success_message = "Новый принтер был успешно создан."
+    success_url = reverse_lazy("printer_list")
 
-    def get_success_message(self, cleaned_data):
-        return "Новый принтер был успешно создан."
-
-
-class PrinterUpdateView(SuccessMessageMixin, UpdateView):
+class PrinterUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Printer
-    template_name = 'printers/printerUpdate.html'
+    template_name = "printers/printer_update.html"
     form_class = PrinterUpdateForm
-    context_object_name = 'pu'
     success_message = "Информация о принтере была успешно обновлена."
+    success_url = reverse_lazy("printer_list")
 
-
-class PrinterAnalyzUpdateView(SuccessMessageMixin, UpdateView):
+class PrinterDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Printer
-    template_name = 'printers/printAnalyzUpdate.html'
-    form_class = PrinterAnalyzUpdateForm
-    context_object_name = 'pau'
-    success_url = reverse_lazy("diagnostics_list")
-
+    template_name = "printers/printer_delete.html"
+    success_message = "Принтер был успешно удален."
+    success_url = reverse_lazy("printer_list")
 
 class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
+    def get_queryset(self, params):
+        _serial_number = params.get("serialNumber", "")
+        _control_period_pk = params.get("control_period")
+
+        queryset = Printer.objects \
+            .filter(serialNumber__icontains=_serial_number) \
+            .select_related("model") \
+            .order_by("date_of_last_diagnostics")
+
+        if _control_period_pk:
+            return filter_by_control_period(period_pk=_control_period_pk, queryset=queryset)
+        return queryset.iterator()
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset(params=request.GET)
+        total_count = Printer.objects.count()
+
+        context = {
+            "object_list": queryset,
+            "total_count": total_count,
+            "control_periods": PeriodOfDiagnostics.objects.all()
+        }
+        return render(request, "printers/printer_analytics_list.html", context)
+
+class PrinterAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Printer
-    template_name = 'printers/printerAnalyticsList.html'
-    context_object_name = 'pl'
-
-
-class PrinterAnalytics(LoginRequiredMixin, TemplateView):
-    template_name = 'printers/printerAnalytics.html'
+    template_name = "printers/printer_analytics_update.html"
+    form_class = PrinterAnalyzUpdateForm
+    success_message = "Информация об обслуживании была успешно обновлена."
+    success_url = reverse_lazy("printer_analytics_list")

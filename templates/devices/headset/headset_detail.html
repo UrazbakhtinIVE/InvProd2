@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Подробная информация о гарнитуре{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <h5>Информация о гарнитуре с серийным номером:
+            <strong class='serialNumber'>{{ object.serialNumber }}</strong>
+        </h5>
+        <div class="row">
+
+            <div class="col">
+                <p><strong>Производитель:</strong> {{ object.model.firm }}</p>
+                <p><strong>Модель:</strong> {{ object.model }}</p>
+                <p><strong>Титул:</strong> {{ object.location.titul.name }} </p>
+                <p><strong>Кабинет:</strong> {{ object.location.number }} </p>
+                <p><strong>Статус:</strong> {{ object.get_status_display }} </p>
+            </div>
+            <div class="col">
+                {% if object.model.photo %}
+                    <img class="printer_img" src="{{ object.model.photo.url }}" alt="...">
+                {% else %}
+                    <img src="{% static 'img/devices.png' %}" class="card-img" alt="...">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %}Информация о мониторах{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"><h4>Информация о мониторах</h4></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a class="link_wrap" href="{% url 'monitor_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'monitor_list' %}">Список мониторов</a>
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'monitor_scheduler_list' %}">
+                    <img src="{% static 'img/jurnal.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'monitor_scheduler_list' %}">Журнал мониторов</a>
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'monitor_analytics_list' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'monitor_analytics_list' %}">Анализ обслуживания</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

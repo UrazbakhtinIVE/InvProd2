@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Подробная информация о картридже{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <h5>Информация о картридже с серийным номером:
+            <strong class='serialNumber'>{{ object.serialNumber }}</strong>
+        </h5>
+        <div class="row">
+            <div class="col">
+                <p><strong>Категория:</strong> {{ object.model.category.name }}</p>
+                <p><strong>Модель картриджа:</strong> {{ object.model.name }}</p>
+                <p><strong>Цвет:</strong> {{ object.model.get_color_display }}</p>
+                <p><strong>Производитель:</strong> {{ object.model.firm.name }}</p>
+                <p><strong>Пользователь:</strong> {{ object.person.firstName }}
+                    {{ object.person.lastName }}
+                    {{ object.person.fatherName }}
+                </p>
+            </div>
+            <div class="col">
+                {% if object.model.img %}
+                    <img class="img-printer_detile" src="{{ object.model.image.url }}" alt="...">
+                {% else %}
+                    <img src="{% static 'img/print.png' %}" class="card-img" alt="...">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
