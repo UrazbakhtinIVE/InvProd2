@@ -1,38 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    {% block  header%} {% include 'header.html' %} {% endblock %}
-     {% block title %}Информация о принтерах{% endblock %}
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %}Информация о принтерах{% endblock %}
 
-    {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col"><h4>Информация о принтерах</h4></div>
-            </div>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col"><h4>Информация о принтерах</h4></div>
         </div>
-        <div class="container">
-         <div class="row">
-
+    </div>
+    <div class="container">
+        <div class="row">
             <div class="col">
-                <a class="link_wrap" href="{% url 'printer_list' %}"><img src="{% static 'img/checklist.png' %}"></a>
+                <a class="link_wrap" href="{% url 'printer_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
                 <a class="link_wrap_for_img" href="{% url 'printer_list' %}">Список принтеров</a>
             </div>
-
-
-
-              <div class="col">
-                <a class="link_wrap" href="{% url 'printer_scheduler_list' %}"><img src="{% static 'img/jurnal.png' %}"></a>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'printer_scheduler_list' %}">
+                    <img src="{% static 'img/jurnal.png' %}">
+                </a>
                 <a class="link_wrap_for_img" href="{% url 'printer_scheduler_list' %}">Журнал принтеров</a>
-              </div>
-
-
-              <div class="col">
-                <a class="link_wrap" href="{% url 'printerAnalytics' %}"><img src="{% static 'img/data_analysis.png' %}"></a>
-                <a class="link_wrap_for_img" href="{% url 'printerAnalytics' %}">Анализ обслуживания</a>
-              </div>
-
-
-
+            </div>
+            <div class="col">
+                <a class="link_wrap" href="{% url 'printer_analytics_list' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'printer_analytics_list' %}">Анализ обслуживания</a>
             </div>
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}

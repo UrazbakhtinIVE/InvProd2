@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mainapp_tags %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список устройств вывода{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3 class="List-title">Список устройств вывода</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="count">Общее колличество: {{ total_count }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <form action="{% url 'output_list' %}" method="GET" class="form-inline my-4">
+
+                    <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+
+
+        <a href="{% url 'devices_create' %}">Добавить</a>
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+                <thead>
+                <tr>
+                    <th>Серийный номер</th>
+                    <th>Категория</th>
+                    <th>Модель</th>
+                    <th>Производитель</th>
+                    <th>Статус</th>
+                    <th>Действие</th>
+                </tr>
+                {% for object in printers %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'printer_detail' pk=object.pk %}">
+                                {{ object.serialNumber }}
+                            </a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'printer_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'printer_delete' pk=object.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+                {% for object in monitors %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'monitor_detail' pk=object.pk %}">
+                                {{ object.serialNumber }}
+                            </a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'monitor_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'monitor_delete' pk=object.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+                {% for object in headsets %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'headset_detail' pk=object.pk %}">
+                                {{ object.serialNumber }}
+                            </a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'headset_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'headset_delete' pk=object.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+                {% for object in speakers %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <a href="{% url 'speakers_detail' pk=object.pk %}">
+                                {{ object.serialNumber }}
+                            </a>
+                        </td>
+                        <td>{{ object.model.category }}</td>
+                        <td>{{ object.model }}</td>
+                        <td>{{ object.model.firm }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                        <td>
+                            <a href="{% url 'speakers_update' pk=object.pk %}">Изменить</a>
+                            <a href="{% url 'speakers_update' pk=object.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

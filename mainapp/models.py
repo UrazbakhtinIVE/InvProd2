@@ -55,7 +55,7 @@ class PeriodOfDiagnostics(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=20, verbose_name='имя устройства')
+    name = models.CharField(max_length=20, verbose_name='имя устройства', blank=True)
     serialNumber = models.CharField(max_length=30, verbose_name='серийный номер', unique=True)
     person = models.ForeignKey(Person, models.CASCADE, verbose_name='пользователь', blank=True, null=True)
     location = models.ForeignKey(Room, models.CASCADE, verbose_name='кабинет', blank=True, null=True)

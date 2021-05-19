@@ -1,30 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    {% block  header%} {% include 'header.html' %} {% endblock %}
-     {% block title %} Информация о картриджах {% endblock %}
+{% block  header %} {% include 'header.html' %} {% endblock %}
+{% block title %} Информация о картриджах {% endblock %}
 
-    {% block content %}
-        <div class="container">
+{% block content %}
+    <div class="container">
         <h3>Информация о картриджах</h3>
-         <div class="row">
-
+        <div class="row">
             <div class="col">
-                <a class="link_wrap" href="{% url 'cartridge_list' %}"><img src="{% static 'img/checklist.png' %}"></a>
+                <a class="link_wrap" href="{% url 'cartridge_list' %}">
+                    <img src="{% static 'img/checklist.png' %}">
+                </a>
                 <a class="link_wrap_for_img" href="{% url 'cartridge_list' %}">Список картриджей</a>
             </div>
-
-
             <div class="col">
-                <a class="link_wrap" href="{% url 'cartridge_scheduler_list' %}"><img src="{% static 'img/jurnal.png' %}"></a>
+                <a class="link_wrap" href="{% url 'cartridge_scheduler_list' %}">
+                    <img src="{% static 'img/jurnal.png' %}"></a>
                 <a class="link_wrap_for_img" href="{% url 'cartridge_scheduler_list' %}">Журнал картриджей</a>
             </div>
-
-
-
-
-
-         </div>
-
+            <div class="col">
+                <a class="link_wrap" href="{% url 'cartridge_analytics_list' %}">
+                    <img src="{% static 'img/data_analysis.png' %}">
+                </a>
+                <a class="link_wrap_for_img" href="{% url 'cartridge_analytics_list' %}">Анализ обслуживания</a>
+            </div>
         </div>
-    {% endblock %}
+
+    </div>
+{% endblock %}

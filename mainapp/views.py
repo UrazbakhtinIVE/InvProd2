@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.views.generic import View, TemplateView
 
 from .devices_analytics import (
-    PrinterAnalyticsResource, CartridgeAnalyticsResource, OutputDevicesAnalyticsResource
+    PrinterAnalyticsResource, CartridgeAnalyticsResource, OutputDevicesAnalyticsResource,
+    MonitorAnalyticsResource, HeadsetAnalyticsResource, SpeakersAnalyticsResource
 )
 
 class Wellcome(TemplateView):
@@ -29,12 +30,7 @@ class OthersDevicesInfoView(LoginRequiredMixin, TemplateView):
     template_name = "mainapp/devices_others.html"
 
 
-class PrintView(LoginRequiredMixin,TemplateView):
-    template_name = 'printers/menuTemplate.html'
-
-
-class ExportPrintersAnalytics(View):
-
+class ExportPrinterAnalytics(View):
     def get(self, *args, **kwargs):
         import datetime
         now = datetime.datetime.now()
@@ -47,7 +43,6 @@ class ExportPrintersAnalytics(View):
 
 
 class ExportCartridgeAnalytics(View):
-
     def get(self, *args, **kwargs):
         import datetime
         now = datetime.datetime.now()
@@ -58,9 +53,40 @@ class ExportCartridgeAnalytics(View):
         response['Content-Disposition'] = f'attachment; filename=CartridgeAnalytics ({now}).xlsx'
         return response
 
+class ExportMonitorAnalytics(View):
+    def get(self, *args, **kwargs):
+        import datetime
+        now = datetime.datetime.now()
+        dataset = MonitorAnalyticsResource().export()
+        response = HttpResponse(
+            dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response['Content-Disposition'] = f'attachment; filename=MonitorAnalytics ({now}).xlsx'
+        return response
+
+class ExportHeadsetAnalytics(View):
+    def get(self, *args, **kwargs):
+        import datetime
+        now = datetime.datetime.now()
+        dataset = HeadsetAnalyticsResource().export()
+        response = HttpResponse(
+            dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response['Content-Disposition'] = f'attachment; filename=HeadsetAnalytics ({now}).xlsx'
+        return response
+
+class ExportSpeakersAnalytics(View):
+    def get(self, *args, **kwargs):
+        import datetime
+        now = datetime.datetime.now()
+        dataset = SpeakersAnalyticsResource().export()
+        response = HttpResponse(
+            dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response['Content-Disposition'] = f'attachment; filename=SpeakersAnalytics ({now}).xlsx'
+        return response
 
 class ExportOutputDevicesAnalytics(View):
-
     def get(self, *args, **kwargs):
         import datetime
         now = datetime.datetime.now()
@@ -68,5 +94,5 @@ class ExportOutputDevicesAnalytics(View):
         response = HttpResponse(
             dataset.xlsx, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-        response['Content-Disposition'] = f'attachment; filename=DevicesAnalytics ({now}).xlsx'
+        response['Content-Disposition'] = f'attachment; filename=OutputDevicesAnalytics ({now}).xlsx'
         return response
