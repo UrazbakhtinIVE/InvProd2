@@ -2,7 +2,7 @@ import itertools
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DetailView
 
 from .models import (
     PrinterScheduler, CartridgeScheduler, MonitorScheduler,
@@ -13,6 +13,7 @@ from .models import (
 class PrinterSchedulerListView(LoginRequiredMixin, ListView):
     model = PrinterScheduler
     template_name = "schedulers/printer_scheduler_list.html"
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -45,6 +46,7 @@ class MonitorSchedulerListView(LoginRequiredMixin, ListView):
             .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
 
+
 class HeadsetSchedulerListView(LoginRequiredMixin, ListView):
     model = HeadsetScheduler
     template_name = "schedulers/headset_scheduler_list.html"
@@ -56,6 +58,7 @@ class HeadsetSchedulerListView(LoginRequiredMixin, ListView):
             .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
 
+
 class SpeakersSchedulerListView(LoginRequiredMixin, ListView):
     model = SpeakersScheduler
     template_name = "schedulers/speakers_scheduler_list.html"
@@ -66,6 +69,7 @@ class SpeakersSchedulerListView(LoginRequiredMixin, ListView):
         return queryset \
             .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
+
 
 class OutputDevicesSchedulerListView(View):
 
@@ -79,9 +83,8 @@ class OutputDevicesSchedulerListView(View):
             .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
         speakers_scheduler = SpeakersScheduler.objects \
-            .filter(device__serialNumber__icontains=_serial_number)\
+            .filter(device__serialNumber__icontains=_serial_number) \
             .select_related("device")
-
 
         return itertools.chain(monitors_scheduler, headsets_scheduler, speakers_scheduler)
 
@@ -90,3 +93,8 @@ class OutputDevicesSchedulerListView(View):
 
         context = {"object_list": queryset}
         return render(request, "schedulers/output_scheduler_list.html", context)
+
+
+class PrinterSchedulerDetailView(DetailView):
+    model = PrinterScheduler
+    template_name = "printers/printer_scheduler_detail.html"

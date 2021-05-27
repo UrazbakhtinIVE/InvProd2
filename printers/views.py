@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -71,6 +72,7 @@ class PrinterListView(LoginRequiredMixin, ListView):
     model = Printer
     extra_context = {"total_count": Printer.objects.count()}
     template_name = "printers/printer_list.html"
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -104,6 +106,8 @@ class PrinterDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy("printer_list")
 
 class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
+    paginate_by = 3
+
     def get_queryset(self, params):
         _serial_number = params.get("serialNumber", "")
         _control_period_pk = params.get("control_period")
@@ -121,6 +125,9 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
         queryset = self.get_queryset(params=request.GET)
         total_count = Printer.objects.count()
 
+
+
+
         context = {
             "object_list": queryset,
             "total_count": total_count,
@@ -128,9 +135,11 @@ class PrinterAnalyticsListView(LoginRequiredMixin, ListView):
         }
         return render(request, "printers/printer_analytics_list.html", context)
 
+
 class PrinterAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Printer
     template_name = "printers/printer_analytics_update.html"
     form_class = PrinterAnalyzUpdateForm
     success_message = "Информация об обслуживании была успешно обновлена."
     success_url = reverse_lazy("printer_analytics_list")
+

@@ -13,8 +13,8 @@
                 <a href="{% url 'printer_list' %}">назад</a>
                 <form method="POST">
                     {% csrf_token %}
-                    <p class="message">Вы действительно хотите удалить принтер?
-                        <strong class='serialNumber'> {{ object.serialNumber }}</strong>
+                    <p class="message">Вы действительно хотите удалить принтер  <strong class='serialNumber'> {{ object.serialNumber }}</strong>?
+
                     </p>
                     <button type="submit" class="btn btn-outline-danger">Удалить</button>
                 </form>

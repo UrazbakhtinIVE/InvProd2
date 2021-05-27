@@ -17,7 +17,7 @@ class PrinterCreateForm(forms.ModelForm):
 
     class Meta:
         model = Printer
-        fields = ('serialNumber', 'model', 'status', 'name', 'ip',
+        fields = ('serialNumber', 'model', 'status', 'name', 'ip', 'location',
                   'black_cartridge', 'blue_cartridge',
                   'yellow_cartridge', 'purple_cartridge')
 
@@ -27,6 +27,7 @@ class PrinterCreateForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'ip': forms.TextInput(attrs={'class':'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
+            'location': forms.Select(attrs={'class': 'form-control'}),
             'black_cartridge': autocomplete.ModelSelect2(
                 url="black-cartridges-autocomplete",
                 attrs=CARTRIDGE_ATTRS

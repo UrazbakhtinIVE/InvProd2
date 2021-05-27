@@ -1,11 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView
 
+from locations.models import Room, Tituls
 from .devices_analytics import (
     PrinterAnalyticsResource, CartridgeAnalyticsResource, OutputDevicesAnalyticsResource,
     MonitorAnalyticsResource, HeadsetAnalyticsResource, SpeakersAnalyticsResource
 )
+
+
+class HelpView(TemplateView):
+    template_name = 'mainapp/help.html'
 
 class Wellcome(TemplateView):
    template_name = 'mainapp/wellcome.html'
@@ -96,3 +101,9 @@ class ExportOutputDevicesAnalytics(View):
         )
         response['Content-Disposition'] = f'attachment; filename=OutputDevicesAnalytics ({now}).xlsx'
         return response
+
+
+class LocationList(LoginRequiredMixin, ListView):
+    model = Room
+
+    template_name = 'mainapp/location_list.html'

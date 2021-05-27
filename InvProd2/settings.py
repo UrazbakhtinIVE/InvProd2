@@ -7,12 +7,13 @@ SECRET_KEY = 'w@07o1pm&uwtzdgl575#ysq&-#a0$^762_mb%$g0xfr3jf@a0r'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+]
 
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,8 +119,9 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
 
-LOGIN_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
 
 INTERNAL_IPS = [
-    '127.0.0.1'
+    '127.0.0.1',
+    # '0.0.0.0'
 ]

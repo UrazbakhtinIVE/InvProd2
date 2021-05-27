@@ -29,7 +29,7 @@ urlpatterns = [
     path("headset/update/<int:pk>/", views.HeadsetUpdateView.as_view(), name="headset_update"),
     path("headset/delete/<int:pk>/", views.HeadsetDeleteView.as_view(), name="headset_delete"),
     path("headset/analytics/", views.HeadsetAnalyticsListView.as_view(), name="headset_analytics_list"),
-    path("headset/analytics/update/<int:pk>/", views.HeadsetAnalyticsUpdateView, name="headset_analytics_update"),
+    path("headset/analytics/update/<int:pk>/", views.HeadsetAnalyticsUpdateView.as_view(), name="headset_analytics_update"),
 
     # колонки
     path("speakers/info/", views.SpeakersInfoView.as_view(), name="speakers_info"),

@@ -16,7 +16,7 @@ class Tituls(models.Model):
 
 
 class Room(models.Model):
-    number = models.CharField(max_length=100, verbose_name='Номер')
+    number = models.CharField(max_length=100, verbose_name='Помещение')
     titul = models.ForeignKey(Tituls,models.CASCADE, verbose_name='Титул')
 
     class Meta:

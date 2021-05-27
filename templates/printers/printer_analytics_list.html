@@ -20,16 +20,9 @@
                 </div>
             {% endfor %}
         {% endif %}
-
         <div class="row">
             <div class="col">
-                <p class="count">Общее колличество: {{ total_count }}
-                </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
+                  <a href="{% url 'printer_info' %}"> Назад</a>
                 <form action="{% url 'printer_analytics_list' %}" method="GET" class="form-inline my-4">
                     <input class="form-control mr-2" name="serialNumber" type="search" placeholder="По серийному номеру"
                            aria-label="Search">
@@ -103,8 +96,5 @@
                 </tbody>
             {% endfor %}
         </table>
+{% endblock %}
     </div>
-{% endblock %}
-
-{% block footer %}
-{% endblock %}

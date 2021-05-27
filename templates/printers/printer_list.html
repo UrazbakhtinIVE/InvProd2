@@ -19,15 +19,11 @@
                 </div>
             {% endfor %}
         {% endif %}
-        <div class="row">
-            <div class="col">
-                <p class="count">Общее колличество: {{ total_count }}
-                </p>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col">
+                 <a href="{% url 'printer_info' %}"> Назад</a>
                 <form action="{% url 'printer_list' %}" method="GET" class="form-inline my-4">
                     <input class="form-control mr-2"
                            name="serialNumber"
@@ -75,10 +71,38 @@
                     </tbody>
                 {% endfor %}
             </table>
+
+            {% if is_paginated %}
+          <nav aria-label="Page navigation conatiner"></nav>
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Предыдущая страница</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> Следующая страница &raquo;</a></li>
+
+            {% endif %}
+          </ul>
+          </nav>
+
+        {% endif %}
+
+
+
+
+
+
         </div>
     </div>
+
+
 {% endblock %}
+
+
+
+
 {% block footer %}
+
 {% endblock %}
 
 
@@ -108,64 +132,3 @@
 
 
 
-{#{% extends 'base.html' %}#}
-{#{% load static %}#}
-{#    {% block  header%}#}
-{#        {% include 'header.html' %}#}
-{#    {% endblock %}#}
-{##}
-{#     {% block title %}Список принтеров {% endblock %}#}
-{##}
-{#    {% block content %}#}
-{##}
-{#        <div class="container">#}
-{##}
-{#            <div class="row">#}
-{##}
-{#                <div class="col"><div class="col"><h4 class="list_tutle">Список принтеров</h4></div></div>#}
-{#                <div class="col"></div>#}
-{#                <div class="col">#}
-{#                   <form>#}
-{#                        <div class="col"><input class="search" id="changelist-search" type="text"></div>#}
-{##}
-{#                   </form>#}
-{#                </div>#}
-{##}
-{#            <div class="container">#}
-{#                <div class="row">#}
-{#                    <div class="col">#}
-{#                        <a class="add" href="{% url 'printer_create' %}">Добавить</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#           <table class="table">#}
-{##}
-{#                  <thead>#}
-{#                    <tr>#}
-{#                        <th scope="col">Серийный номер</th>#}
-{#                      <th scope="col">Модель</th>#}
-{#                        <th scope="col">Имя</th>#}
-{#                      <th scope="col">Статус</th>#}
-{#                      <th scope="col">Действие</th>#}
-{#                    </tr>#}
-{#                  </thead>#}
-{#                      <tbody>#}
-{#                      {% for p in  pl %}#}
-{#                          #}
-{#                       <tr>#}
-{#                          <td> <a href="{% url 'printer_detail' pk=p.pk  %}" >{{ p.serialNumber }}</a></td>#}
-{#                          <td>{{ p.model.name }}</td>#}
-{#                          <td>{{ p.name }}</td>#}
-{#                          <td>{{ p.status.name }}</td>#}
-{#                          <td><a href="{% url 'printer_update' pk=p.pk %}">Изменить</a></td>#}
-{#                        </tr>#}
-{#                      {% endfor %}#}
-{#                      </tbody>#}
-{#</table>#}
-{##}
-{##}
-{##}
-{#            </div>#}
-{#        </div>#}
-{#    {% endblock %}#}

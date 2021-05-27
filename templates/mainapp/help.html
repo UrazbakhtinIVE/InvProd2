@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block  header%}
+        {% include 'header.html' %}
+    {% endblock %}
+
+     {% block title %}Справочник{% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <div class="row">
+
+                 <div class="col">
+
+                     <a class="link_wrap" href="{% url 'help_location' %}"><img src="{% static 'img/loc.png' %}"></a>
+                     <a class="link_wrap_for_img" href="{% url 'help_location' %}">Информация о локациях</a>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

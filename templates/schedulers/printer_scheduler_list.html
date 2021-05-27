@@ -11,6 +11,7 @@
         <h3 class="List-title">Журнал принтеров</h3>
         <div class="row">
             <div class="col">
+                <a href="{% url 'printer_info' %}"> Назад</a>
                 <form action="{% url 'printer_scheduler_list' %}"class="form-inline my-4">
                     <input class="form-control mr-2"
                            name="serialNumber"
@@ -26,27 +27,43 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Номер заявки</th>
                     <th scope="col">Серийный номер</th>
                     <th scope="col">Модель</th>
                     <th scope="col">Статус</th>
                     <th scope="col">Дата</th>
-                    <th scope="col">Пользователь</th>
+<!--                    <th scope="col">Пользователь</th>-->
                 </tr>
                 </thead>
                 <tbody>
                 {% for scheduler in object_list %}
                     <tr>
-                        <td>{{ scheduler.number }}</td>
-                        <td>{{ scheduler.device.serialNumber }}</td>
+                        <td>{{ scheduler.device.serialNumber }} </td>
                         <td>{{ scheduler.device.model.name }}</td>
                         <td>{{ scheduler.status.name }}</td>
                         <td>{{ scheduler.date|date:"d.m.Y" }}</td>
-                        <td>{{ scheduler.person.firstName }}</td>
+<!--                        <td>{{ scheduler.person.firstName }}</td>-->
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
+            {% if is_paginated %}
+          <nav aria-label="Page navigation conatiner"></nav>
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Предыдущая страница</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> Следующая страница &raquo;</a></li>
+
+            {% endif %}
+          </ul>
+          </nav>
+
+    {% endif %}
+
+
+
         </div>
     </div>
 {% endblock %}

@@ -25,7 +25,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Номер заявки</th>
                 <th scope="col">Серийный номер</th>
                 <th scope="col">Модель</th>
                 <th scope="col">Статус</th>
@@ -36,7 +35,6 @@
             <tbody>
             {% for scheduler in object_list %}
                 <tr>
-                    <td>{{ scheduler.number }}</td>
                     <td>{{ scheduler.device.serialNumber }}</td>
                     <td>{{ scheduler.device.model.name }}</td>
                     <td>{{ scheduler.get_status_display }}</td>

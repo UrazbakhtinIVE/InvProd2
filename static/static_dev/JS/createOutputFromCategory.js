@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     if (value == "monitors") {
-      window.location.replace("/devices/create_monitor");
+      window.location.replace("/devices/monitor/create");
     } else if (value == "headsets") {
-      window.location.replace("/devices/create_headset");
+      window.location.replace("/devices/headset/create");
     } else if (value == "speakers") {
-      window.location.replace("/devices/create_speaker");
+      window.location.replace("/devices/speakers/create");
     } else if(value == "printers"){
       window.location.replace("/printer/create");
     } else if(value == "cartridges"){

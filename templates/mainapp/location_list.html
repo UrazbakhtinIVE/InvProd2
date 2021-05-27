@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block  header %}
+    {% include 'header.html' %}
+{% endblock %}
+
+{% block title %}Список локаций{% endblock %}
+{% block content %}
+    <div class="container">
+        <h3 class="List-title">Список локаций</h3>
+        <div class="row">
+            <div class="col">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-nowrap">
+                <thead>
+                <tr>
+                     <th>Номер помещения титула</th>
+                    <th>Номер титула</th>
+                    <th>Название титула</th>
+
+
+                </tr>
+                {% for object in object_list %}
+                    <tbody>
+                    <tr>
+                        <td>{{ object.number }}</td>
+                        <td>{{ object.titul.number}}</td>
+                        <td>{{ object.titul.name}}</td>
+
+
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+
+            {% if is_paginated %}
+          <nav aria-label="Page navigation conatiner"></nav>
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Предыдущая страница</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> Следующая страница &raquo;</a></li>
+
+            {% endif %}
+          </ul>
+          </nav>
+        {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block footer %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

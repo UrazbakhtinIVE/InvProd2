@@ -1,9 +1,11 @@
 from django.urls import path
 
 from . import views
+from .views import PrinterSchedulerDetailView
 
 urlpatterns = [
     path("printer_scheduler_list/", views.PrinterSchedulerListView.as_view(), name="printer_scheduler_list"),
+    path("printer_scheduler_detail/<int:pk>/", PrinterSchedulerDetailView, name="printer_scheduler_detail"),
     path("cartridge_scheduler_list/", views.CartridgeSchedulerListView.as_view(), name="cartridge_scheduler_list"),
     path("monitor_scheduler_list/", views.MonitorSchedulerListView.as_view(), name="monitor_scheduler_list"),
     path("headset_scheduler_list/", views.HeadsetSchedulerListView.as_view(), name="headset_scheduler_list"),

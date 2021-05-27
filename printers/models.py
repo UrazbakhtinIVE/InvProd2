@@ -48,6 +48,7 @@ class Printer(Product):
         verbose_name="cтатус принтера",
         blank=True, null=True
     )
+    paginate_by = 2
 
     # Установленные картриджи
     black_cartridge = models.OneToOneField(

@@ -26,6 +26,7 @@ class DeviceCreateView(LoginRequiredMixin, FormView):
 class MonitorInfoView(LoginRequiredMixin, TemplateView):
     template_name = "devices/monitor_info.html"
 
+
 class MonitorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Monitor
     template_name = "devices/monitor/monitor_create.html"
@@ -33,9 +34,11 @@ class MonitorCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = forms.MonitorCreateForm
     success_url = reverse_lazy("monitor_list")
 
+
 class MonitorDetailView(LoginRequiredMixin, DetailView):
     model = Monitor
     template_name = "devices/monitor/monitor_detail.html"
+
 
 class MonitorListView(LoginRequiredMixin, ListView):
     model = Monitor
@@ -49,6 +52,7 @@ class MonitorListView(LoginRequiredMixin, ListView):
             .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
 
+
 class MonitorUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Monitor
     form_class = forms.MonitorUpdateForm
@@ -56,11 +60,13 @@ class MonitorUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Информация о мониторе была успешно обновлена."
     success_url = reverse_lazy("monitor_list")
 
+
 class MonitorDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Monitor
     template_name = "devices/monitor/monitor_delete.html"
     success_message = "Монитор был успешно удален."
     success_url = reverse_lazy("monitor_list")
+
 
 class MonitorAnalyticsListView(LoginRequiredMixin, View):
     def get_queryset(self, params):
@@ -76,7 +82,6 @@ class MonitorAnalyticsListView(LoginRequiredMixin, View):
             return filter_by_control_period(period_pk=_control_period_pk, queryset=queryset)
         return queryset.iterator()
 
-
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset(params=request.GET)
         total_count = Headset.objects.count()
@@ -87,6 +92,7 @@ class MonitorAnalyticsListView(LoginRequiredMixin, View):
             "control_periods": PeriodOfDiagnostics.objects.all()
         }
         return render(request, "devices/monitor/monitor_analytics_list.html", context)
+
 
 class MonitorAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Monitor
@@ -99,6 +105,7 @@ class MonitorAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
 class HeadsetInfoView(LoginRequiredMixin, TemplateView):
     template_name = "devices/headset_info.html"
 
+
 class HeadsetCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Headset
     template_name = "devices/headset/headset_create.html"
@@ -106,9 +113,11 @@ class HeadsetCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Новая гарнитура была успешно создана."
     success_url = reverse_lazy("headset_list")
 
+
 class HeadsetDetailView(LoginRequiredMixin, DetailView):
     model = Headset
     template_name = "devices/headset/headset_detail.html"
+
 
 class HeadsetListView(LoginRequiredMixin, ListView):
     model = Headset
@@ -122,6 +131,7 @@ class HeadsetListView(LoginRequiredMixin, ListView):
             .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
 
+
 class HeadsetUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Headset
     form_class = forms.HeadsetUpdateForm
@@ -129,11 +139,13 @@ class HeadsetUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Информация о гарнитуре была успешно обновлена."
     success_url = reverse_lazy("headset_list")
 
+
 class HeadsetDeleteView(LoginRequiredMixin, DeleteView):
     model = Headset
     template_name = "devices/headset/headset_delete.html"
     success_message = "Гарнитура была успешно удалена."
     success_url = reverse_lazy("headset_list")
+
 
 class HeadsetAnalyticsListView(LoginRequiredMixin, View):
     def get_queryset(self, params):
@@ -160,6 +172,7 @@ class HeadsetAnalyticsListView(LoginRequiredMixin, View):
         }
         return render(request, "devices/headset/headset_analytics_list.html", context)
 
+
 class HeadsetAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Headset
     template_name = "devices/headset/headset_analytics_update.html"
@@ -170,6 +183,7 @@ class HeadsetAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
 class SpeakersInfoView(LoginRequiredMixin, TemplateView):
     template_name = "devices/speakers_info.html"
 
+
 class SpeakersCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Speakers
     template_name = "devices/speakers/speakers_create.html"
@@ -177,9 +191,11 @@ class SpeakersCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Новые колонки были успешно созданы."
     success_url = reverse_lazy("speakers_list")
 
+
 class SpeakersDetailView(LoginRequiredMixin, DetailView):
     model = Speakers
     template_name = "devices/speakers/speakers_detail.html"
+
 
 class SpeakersListView(LoginRequiredMixin, ListView):
     model = Speakers
@@ -193,6 +209,7 @@ class SpeakersListView(LoginRequiredMixin, ListView):
             .filter(serialNumber__icontains=_serial_number) \
             .select_related("model")
 
+
 class SpeakersUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Speakers
     form_class = forms.SpeakersUpdateForm
@@ -200,11 +217,13 @@ class SpeakersUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "Информация о колонках была успешно обновлена."
     success_url = reverse_lazy("speakers_list")
 
+
 class SpeakersDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Speakers
     template_name = "devices/speakers/speakers_delete.html"
     success_message = "Колонки были успешно удалены."
     success_url = reverse_lazy("speakers_list")
+
 
 class SpeakersAnalyticsListView(LoginRequiredMixin, View):
     def get_queryset(self, params):
@@ -231,20 +250,26 @@ class SpeakersAnalyticsListView(LoginRequiredMixin, View):
         }
         return render(request, "devices/speakers/speakers_analytics_list.html", context)
 
+
 class SpeakersAnalyticsUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Speakers
     template_name = "devices/speakers/speakers_analytics_update.html"
     form_class = forms.SpeakersAnalyticsUpdateForm
+    success_message = "Информация об обслуживании была успешно обновлена."
     success_url = reverse_lazy("headset_analytics_list")
 
 
 class OutputDevicesInfoView(LoginRequiredMixin, TemplateView):
     template_name = "devices/output_info.html"
 
+
 class OutputDevicesListView(LoginRequiredMixin, View):
     """Представление, выводящие все устройства вывода."""
+    paginate_by = 4
+
     def get_queryset(self, params):
         _serial_number = params.get("serialNumber", "")
+
 
         printers = Printer.objects \
             .filter(serialNumber__icontains=_serial_number) \
@@ -278,6 +303,7 @@ class OutputDevicesListView(LoginRequiredMixin, View):
             "total_count": total_count
         }
         return render(request, "devices/output/output_list.html", context)
+
 
 class OutputDevicesAnalyticsListView(LoginRequiredMixin, View):
     def get_queryset(self, params):
